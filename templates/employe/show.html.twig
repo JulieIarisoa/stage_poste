@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ employe.matricule }}</h1>
+    <p>nom: {{ employe.nom }}</p>
+    <p>prenom: {{ employe.prenom }}</p>
+    <p>titre: {{ employe.titre }}</p>
+    <a href="{{ path('employe_edit', {id: employe.id}) }}">Edit</a>
+    <a href="{{ path('employe_index') }}">Back to list</a>
+{% endblock %}

@@ -3,3 +3,14 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+#route employes
+employe_new:
+    path: /employe/new
+    controller: App\Controller\EmployeController::new
+employe_show:
+    path: /employe/{id}
+    controller: App\Controller\EmployeController::show
+employe_edit:
+    path: /employe/{id}/edit
+    controller: App\Controller\EmployeController::edit
