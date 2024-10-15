@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ bureau.matricule }}</h1>
+    <p>nom: {{ bureau.nom }}</p>
+    <p>prenom: {{ bureau.prenom }}</p>
+    <p>titre: {{ bureau.titre }}</p>
+    <a href="{{ path('bureau_edit', {id: bureau.id}) }}">Edit</a>
+    <a href="{{ path('bureau_index') }}">Back to list</a>
+{% endblock %}

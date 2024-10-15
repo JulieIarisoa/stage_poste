@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bureau</h1>
+    <a href="{{ path('bureau_new') }}">Create new bureau</a>
+    <ul>
+        {% for bureau in bureau %}
+            <li>
+                <a href="{{ path('bureau_show', {id: bureau.id}) }}">{{ bureau.adresse }}</a>
+                <a href="{{ path('bureau_edit', {id: bureau.id}) }}">Edit</a>
+                <a href="{{ path('bureau_delete', {id: bureau.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
