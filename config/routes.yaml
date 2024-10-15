@@ -25,3 +25,14 @@ bureau_show:
 bureau_edit:
     path: /bureau/{id}/edit
     controller: App\Controller\BureauController::edit
+
+#route bse
+bse_new:
+    path: /bse/new
+    controller: App\Controller\BseController::new
+bse_show:
+    path: /bse/{id}
+    controller: App\Controller\BseController::show
+bse_edit:
+    path: /bse/{id}/edit
+    controller: App\Controller\BseController::edit

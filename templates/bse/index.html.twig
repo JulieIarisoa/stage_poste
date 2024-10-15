@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bureau</h1>
+    <a href="{{ path('bse_new') }}">Create new bse</a>
+    <ul>
+        {% for bse in bse %}
+            <li>
+                <a href="{{ path('bse_show', {id: bse.id}) }}">{{ bse.motif }}</a>
+                <a href="{{ path('bse_edit', {id: bse.id}) }}">Edit</a>
+                <a href="{{ path('bse_delete', {id: bse.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
