@@ -26,7 +26,7 @@ bureau_edit:
     path: /bureau/{id}/edit
     controller: App\Controller\BureauController::edit
 
-#route bse
+#route bse:bon de saisie des engagements
 bse_new:
     path: /bse/new
     controller: App\Controller\BseController::new
@@ -36,3 +36,14 @@ bse_show:
 bse_edit:
     path: /bse/{id}/edit
     controller: App\Controller\BseController::edit
+
+#route bst:bon spécial de transport
+bst_new:
+    path: /bst/new
+    controller: App\Controller\BstController::new
+bst_show:
+    path: /bst/{id}
+    controller: App\Controller\BstController::show
+bst_edit:
+    path: /bst/{id}/edit
+    controller: App\Controller\BstController::edit

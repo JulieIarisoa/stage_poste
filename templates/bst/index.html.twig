@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>BST</h1>
+    <a href="{{ path('bst_new') }}">Create new bst</a>
+    <ul>
+        {% for bst in bst %}
+            <li>
+                <a href="{{ path('bst_show', {id: bst.id}) }}">mbola misy tsy mety eto</a>
+                <a href="{{ path('bst_edit', {id: bst.id}) }}">Edit</a>
+                <a href="{{ path('bst_delete', {id: bst.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

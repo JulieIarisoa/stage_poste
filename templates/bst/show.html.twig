@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ bst.num_bst }}</h1>
+    <p>numero: {{ bst.num_bst }}</p>
+    <a href="{{ path('bst_edit', {id: bst.id}) }}">Edit</a>
+    <a href="{{ path('bst_index') }}">Back to list</a>
+{% endblock %}
