@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>OrdreRoute</h1>
+    <a href="{{ path('ordreRoute_new') }}">Create new OrdreRoute</a>
+    <ul>
+        {% for ordreRoute in ordreRoute %}
+            <li>
+                <a href="{{ path('ordreRoute_show', {id: ordreRoute.id}) }}">misy tsy mety</a>
+                <a href="{{ path('ordreRoute_edit', {id: ordreRoute.id}) }}">Edit</a>
+                <a href="{{ path('ordreRoute_delete', {id: ordreRoute.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

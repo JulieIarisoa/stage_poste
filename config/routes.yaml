@@ -47,3 +47,17 @@ bst_show:
 bst_edit:
     path: /bst/{id}/edit
     controller: App\Controller\BstController::edit
+
+
+#route vers OR:Ordre de route
+ordreRoute_new:
+    path: /ordreRoute/new
+    controller: App\Controller\OrdreRouteController::new
+ordreRoute_show:
+    path: /ordreRoute/{id}
+    controller: App\Controller\OrdreRouteController::show
+ordreRoute_edit:
+    path: /ordreRoute/{id}/edit
+    controller: App\Controller\OrdreRouteController::edit
+
+    
