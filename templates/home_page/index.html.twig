@@ -15,10 +15,10 @@
     <a href="{{path('bse_index')}}"><button>Bon de saisie des engagements</button></a>
     <a href="{{path('bureau_index')}}"><button>Agence</button></a>
     <a href="{{path('employe_index')}}"><button>Missionnaire</button></a>
-    <button>Payement</button>
+    <a href="{{path('payment_index')}}"><button>Payement</button></a>
     <button>Mission</button>
     <button>Crédit</button>
     <button>Statistique</button>
-    <button>Se deconnecter</button>
+    <a href="{{ path('app_logout') }}"><button>Se deconnecter</button></a>
 </div>
 {% endblock %}

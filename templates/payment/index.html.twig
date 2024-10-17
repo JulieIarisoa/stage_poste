@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Payment</h1>
+    <a href="{{ path('payment_new') }}">Create new Payment</a>
+    <ul>
+        {% for payment in payment %}
+            <li>
+                <a href="{{ path('payment_show', {id: payment.id}) }}">Mbola misy tsy mety eto</a>
+                <a href="{{ path('payment_edit', {id: payment.id}) }}">Edit</a>
+                <a href="{{ path('payment_delete', {id: payment.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

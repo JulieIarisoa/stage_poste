@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ payment.nom_bp }}</h1>
+    <a href="{{ path('payment_edit', {id: payment.id}) }}">Edit</a>
+    <a href="{{ path('payment_index') }}">Back to list</a>
+{% endblock %}
