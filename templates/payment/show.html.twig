@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ payment.nom_bp }}</h1>
+    <h1>{{ payment.NomBp }}</h1>
+    <p>{{ payment.TauxPayer }}</p>
+    <p>{{ payment.NomChefAgence }}</p>
     <a href="{{ path('payment_edit', {id: payment.id}) }}">Edit</a>
     <a href="{{ path('payment_index') }}">Back to list</a>
 {% endblock %}

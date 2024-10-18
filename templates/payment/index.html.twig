@@ -6,7 +6,9 @@
     <ul>
         {% for payment in payment %}
             <li>
-                <a href="{{ path('payment_show', {id: payment.id}) }}">Mbola misy tsy mety eto</a>
+                <a href="{{ path('payment_show', {id: payment.id}) }}">{{payment.TauxPayer}}</a>
+                <span>{{ payment.NomBp }}</span>
+                <span>{{ payment.NomChefAgence }}</span>
                 <a href="{{ path('payment_edit', {id: payment.id}) }}">Edit</a>
                 <a href="{{ path('payment_delete', {id: payment.id}) }}">Delete</a>
             </li>

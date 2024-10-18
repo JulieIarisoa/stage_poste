@@ -63,10 +63,10 @@ ordreRoute_edit:
 #route vers payement
 payment_new:
     path: /payment/new
-    controller: App\Controller\paymentController::new
+    controller: App\Controller\PaymentController::new
 payment_show:
     path: /payment/{id}
-    controller: App\Controller\paymentController::show
+    controller: App\Controller\PaymentController::show
 payment_edit:
     path: /payment/{id}/edit
-    controller: App\Controller\paymentController::edit
+    controller: App\Controller\PaymentController::edit
