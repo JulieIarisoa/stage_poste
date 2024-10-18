@@ -6,7 +6,12 @@
     <ul>
         {% for bst in bst %}
             <li>
-                <a href="{{ path('bst_show', {id: bst.id}) }}">mbola misy tsy mety eto</a>
+                <a href="{{ path('bst_show', {id: bst.id}) }}">{{ bst.NumBst }}</a>
+                <span>numero: {{ bst.NumBst }}</span>
+                <span>numero: {{ bst.IdTransport }}</span>
+                <span>numero: {{ bst.LieuBst }}</span>
+                <span>numero: {{ bst.NomTransporteur }}</span>
+                <span>numero: {{ bst.TelephoneTransport }}</span>
                 <a href="{{ path('bst_edit', {id: bst.id}) }}">Edit</a>
                 <a href="{{ path('bst_delete', {id: bst.id}) }}">Delete</a>
             </li>
