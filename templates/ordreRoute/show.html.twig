@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ ordreRoute.num_or }}</h1>
-    <p>nom: {{ ordreRoute.nom_detenteur }}</p>
+    <h1>{{ ordreRoute.NumOr }}</h1>
+    <p>nom: {{ ordreRoute.NomDetenteur }}</p>
+    <p>nom: {{ ordreRoute.FonctionDetenteur }}</p>
+    <p>nom: {{ ordreRoute.LieuDepart }}</p>
     <a href="{{ path('ordreRoute_edit', {id: ordreRoute.id}) }}">Edit</a>
     <a href="{{ path('ordreRoute_index') }}">Back to list</a>
 {% endblock %}
