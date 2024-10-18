@@ -7,6 +7,8 @@
         {% for bureau in bureau %}
             <li>
                 <a href="{{ path('bureau_show', {id: bureau.id}) }}">{{ bureau.adresse }}</a>
+                <span>nom: {{ bureau.CodePoste }}</span>
+                <span>nom: {{ bureau.telephone }}</span>
                 <a href="{{ path('bureau_edit', {id: bureau.id}) }}">Edit</a>
                 <a href="{{ path('bureau_delete', {id: bureau.id}) }}">Delete</a>
             </li>
