@@ -7,6 +7,8 @@
         {% for bse in bse %}
             <li>
                 <a href="{{ path('bse_show', {id: bse.id}) }}">{{ bse.motif }}</a>
+    <span>numero: {{ bse.Destination }}</span>
+    <span>numero: {{ bse.DepenseEngage }}</span>
                 <a href="{{ path('bse_edit', {id: bse.id}) }}">Edit</a>
                 <a href="{{ path('bse_delete', {id: bse.id}) }}">Delete</a>
             </li>

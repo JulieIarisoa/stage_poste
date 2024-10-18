@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ bse.num_bse }}</h1>
-    <p>numero: {{ bse.num_bse }}</p>
-    <a href="{{ path('bureau_edit', {id: bureau.id}) }}">Edit</a>
-    <a href="{{ path('bureau_index') }}">Back to list</a>
+    <h1>{{ bse.NumBse }}</h1>
+    <p>numero: {{ bse.NumBse }}</p>
+    <p>numero: {{ bse.Destination }}</p>
+    <p>numero: {{ bse.Motif }}</p>
+    <p>numero: {{ bse.DepenseEngage }}</p>
+    <a href="{{ path('bse_edit', {id: bse.id}) }}">Edit</a>
+    <a href="{{ path('bse_index') }}">Back to list</a>
 {% endblock %}
