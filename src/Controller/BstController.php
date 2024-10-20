@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bst;
+use App\Entity\Employe;
 use App\Form\BstType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,9 +24,11 @@ class BstController extends AbstractController
     public function index(): Response
     {
         $bst = $this->entityManager->getRepository(Bst::class)->findAll();
+        $employe = $this->entityManager->getRepository(Employe::class)->findAll();
 
         return $this->render('bst/index.html.twig', [
             'bst' => $bst,
+            'employe' => $employe,
         ]);
     }
 

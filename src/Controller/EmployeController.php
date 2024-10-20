@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Employe;
 use App\Form\EmployeType;
+use App\Form\EmployeSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -85,5 +87,26 @@ class EmployeController extends AbstractController
         $this->addFlash('success', 'Employe deleted successfully.');
 
         return $this->redirectToRoute('employe_index');
+    }
+
+    #[Route('/employe/search', name: 'employe_search')]
+    public function search(Request $request, EmployeRepository $employeRepository): JsonResponse
+    {
+        $query = $request->query->get('q');
+
+        if ($query) {
+            // Rechercher les employés par nom ou prénom
+            $employes = $employeRepository->findBySearchTerm($query);
+        } else {
+            $employes = [];
+        }
+
+        // Retourner les résultats sous forme de JSON
+        return new JsonResponse(array_map(function($employe) {
+            return [
+                'nom' => $employe->getNom() ?: 'Inconnu',
+                'prenom' => $employe->getPrenom() ?: 'Inconnu',
+            ];
+        }, $employes));
     }
 }

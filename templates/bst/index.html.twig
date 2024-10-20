@@ -2,7 +2,6 @@
 
 {% block body %}
     <h1>BST</h1>
-    <a href="{{ path('bst_new') }}">Create new bst</a>
     <ul>
         {% for bst in bst %}
             <li>
@@ -14,6 +13,15 @@
                 <span>numero: {{ bst.TelephoneTransport }}</span>
                 <a href="{{ path('bst_edit', {id: bst.id}) }}">Edit</a>
                 <a href="{{ path('bst_delete', {id: bst.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+
+        {% for employe in employe %}
+            <li>
+                <a href="{{ path('employe_show', {id: employe.id}) }}">{{ employe.nom }}</a>
+                <a href="{{ path('employe_edit', {id: employe.id}) }}">Edit</a>
+                <a href="{{ path('employe_delete', {id: employe.id}) }}">Delete</a>
+                <a href="{{ path('bst_new', {id: employe.id}) }}">Create new bst</a>
             </li>
         {% endfor %}
     </ul>

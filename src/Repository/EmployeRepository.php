@@ -40,4 +40,15 @@ class EmployeRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    /**
+     * Rechercher des employés par nom ou prénom
+     */
+    public function findBySearchTerm(string $term)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.nom LIKE :term OR e.prenom LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -14,6 +14,10 @@ employe_show:
 employe_edit:
     path: /employe/{id}/edit
     controller: App\Controller\EmployeController::edit
+employe_search:
+    path: /employe/search
+    controller: App\Controller\EmployeController::search
+
 
 #route bureau
 bureau_new:
