@@ -23,12 +23,12 @@ class BstController extends AbstractController
     #[Route('/bst', name: 'bst_index')]
     public function index(): Response
     {
-        $bst = $this->entityManager->getRepository(Bst::class)->findAll();
-        $employe = $this->entityManager->getRepository(Employe::class)->findAll();
+        $bst0 = $this->entityManager->getRepository(Bst::class)->findBy(['valide' => '0']);
+        $bst1 = $this->entityManager->getRepository(Bst::class)->findBy(['valide' => '1']);
 
         return $this->render('bst/index.html.twig', [
-            'bst' => $bst,
-            'employe' => $employe,
+            'bst0' => $bst0,
+            'bst1' => $bst1,
         ]);
     }
 
@@ -89,4 +89,5 @@ class BstController extends AbstractController
 
         return $this->redirectToRoute('bst_index');
     }
+
 }

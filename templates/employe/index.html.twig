@@ -13,33 +13,10 @@
         {% endfor %}
     </ul>
 
-
-    
-    <input type="text" id="search" placeholder="Recherche par nom ou prénom" />
-    <h2>Résultats :</h2>
-    <ul id="results"></ul>
-
     <script>
-        document.getElementById('search').addEventListener('input', function() {
-            const query = this.value;
+        const Searchs = {{ employeSearch|raw }}; // Données des employés en JSON depuis Symfony
 
-            fetch(`/employe/search?q=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(data => {
-                    const results = document.getElementById('results');
-                    results.innerHTML = '';
-
-                    if (data.length === 0) {
-                        results.innerHTML = '<li>Aucun résultat trouvé</li>';
-                    } else {
-                        data.forEach(employe => {
-                            const li = document.createElement('li');
-                            li.textContent = `${employe.nom} ${employe.prenom}`;
-                            results.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
+        const filtreSearch = Searchs.filter(obj => obj.matricule > 2);
+        console.log(filtreSearch);
     </script>
 {% endblock %}

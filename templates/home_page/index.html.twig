@@ -3,22 +3,60 @@
 {% block title %}Hello HomePageController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-<div class="example-wrapper">
-    <h1>Acceill</h1>
-    <a href="{{path('ordreRoute_index')}}"><button>Ordre de route</button></a>
-    <a href="{{path('bst_index')}}"><button>Bon Spécial de Transport</button></a>
-    <a href="{{path('bse_index')}}"><button>Bon de saisie des engagements</button></a>
-    <a href="{{path('bureau_index')}}"><button>Agence</button></a>
-    <a href="{{path('employe_index')}}"><button>Missionnaire</button></a>
-    <a href="{{path('payment_index')}}"><button>Payement</button></a>
-    <button>Mission</button>
-    <button>Crédit</button>
-    <button>Statistique</button>
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="example-wrapper">
+            <h1>Admin</h1>
+            <a href=""><button>Approuver information</button></a>
+            <a href="{{path('ordreRoute_index')}}"><button>Ordre de route</button></a>
+            <a href="{{path('bst_index')}}"><button>Bon Spécial de Transport</button></a>
+            <a href="{{path('bse_index')}}"><button>Bon de saisie des engagements</button></a>
+            <a href="{{path('bureau_index')}}"><button>Agence</button></a>
+            <a href="{{path('employe_index')}}"><button>Missionnaire</button></a>
+            <a href="{{path('payment_index')}}"><button>Payement</button></a>
+            <a href="{{path('app_output_pdf')}}"><button>pdf</button></a>
+            <a href=""><button>Deduire facture du bst</button></a>
+            <a href=""><button>Générer rapport</button></a>
+            <a href=""><button>Générer un OR</button></a>
+            <a href=""><button>Générer un BST</button></a>
+            <a href="{{path('app_register')}}"><button>Créer un compte pour un utilisateur</button></a>
+            <button>Mission</button>
+            <button>Crédit</button>
+            <button>Statistique</button>
+        </div>
+
+
+    {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
+    {% elseif is_granted('ROLE_MISSIONNAIRE') %}
+        <div class="example-wrapper">
+            <h1>Missionnaire</h1>
+            <p>Liste des missionnaires</p>
+            <a href=""><button>Générer mon OR</button></a>
+            <a href=""><button>Générer mon BST</button></a>
+        </div>
+
+
+    {# Vérifiez si l'utilisateur a le rôle USER #}
+    {% elseif is_granted('ROLE_USER') %}
+        <div class="example-wrapper">
+            <h1>Utilisateur pour Payement et création </h1>
+            <a href="{{path('bst_index')}}"><button>Bon Spécial de Transport</button></a>
+            <a href="{{path('bse_index')}}"><button>Bon de saisie des engagements</button></a>
+            <a href="{{path('ordreRoute_index')}}"><button>Ordre de route</button></a>
+            <a href="{{path('payment_index')}}"><button>Payement</button></a>
+            <a href="{{path('payment_index')}}"><button>Deduire facture du bst</button></a>
+            <a href=""><button>Générer rapport</button></a>
+            <a href=""><button>Générer un OR</button></a>
+            <a href=""><button>Générer un BST</button></a>
+        </div>
+    {% endif %}
+
+    {# Contenu accessible à tous #}
+    <p>Ce contenu est visible par tous les visiteurs.</p>
     <a href="{{ path('app_logout') }}"><button>Se deconnecter</button></a>
-</div>
 {% endblock %}

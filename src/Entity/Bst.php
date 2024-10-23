@@ -32,6 +32,9 @@ class Bst
     #[ORM\Column(length: 12)]
     private ?string $telephone_transport = null;
 
+    #[ORM\Column]
+    private ?bool $valide = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Bst
     public function setTelephoneTransport(string $telephone_transport): static
     {
         $this->telephone_transport = $telephone_transport;
+
+        return $this;
+    }
+
+    public function isValide(): ?bool
+    {
+        return $this->valide;
+    }
+
+    public function setValide(bool $valide): static
+    {
+        $this->valide = $valide;
 
         return $this;
     }
