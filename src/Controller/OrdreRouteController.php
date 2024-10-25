@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use \Twig\Environment;
+use App\Service\PdfGeneratorService;
 use App\Entity\OrdreRoute;
 use App\Form\OrdreRouteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,5 +87,18 @@ class OrdreRouteController extends AbstractController
         $this->addFlash('success', 'OrdreRoute deleted successfully.');
 
         return $this->redirectToRoute('ordreRoute_index');
+    }
+
+
+    #[Route('/output-pdf-or', name: 'pdf_or')]
+    public function output(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/orpdf.html.twig');
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
     }
 }

@@ -35,6 +35,9 @@ class Bst
     #[ORM\Column]
     private ?bool $valide = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $etatvalide = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Bst
     public function setValide(bool $valide): static
     {
         $this->valide = $valide;
+
+        return $this;
+    }
+
+    public function getEtatvalide(): ?string
+    {
+        return $this->etatvalide;
+    }
+
+    public function setEtatvalide(string $etatvalide): static
+    {
+        $this->etatvalide = $etatvalide;
 
         return $this;
     }

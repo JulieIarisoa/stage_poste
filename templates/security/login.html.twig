@@ -3,30 +3,235 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <style>
+    /*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');*/
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            align-items: center;
+            display: flex;
+            justify-content:center;
+            flex-direction:column;
+            background: #f6f5f7;
+            font-family:'monserrat', sans-serif;
+            min-height: 100%;
+            margin: 5%;
+        }
+        .container{
+            position: relative;
+            width: 768px;
+            max-width:100%;
+            min-height: 380px;
+            background:#fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+        }
+        .sign-up, .sign-in{
+            top: 0;
+            left: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+            padding-top: 5%;
+        }
+        .sign-up{
+            width: 50%;
+            z-index: 1;
+        }
+        .sign-in{
+            width: 50%;
+            z-index: 2;
+        }
+        form{
+            background: #fff;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+        h1{
+            font-weight: bold;
+            margin: 0;
+            font-size: 25px;
+            padding-bottom: 2%;
+        }
+        p{
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 15px 0 20px;
+        }
+        input{
+            border-bottom: 2px solid  #b8b1b0;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            padding: 12px 15px;
+            margin: 8px 15px;
+            width: 90%;
+            outline: none;
+        }
+        a{
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+        button{
+            color: #000;
+            background: yellow;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 40px;
+            margin: 20px;
+            border-radius: 20px;
+            border: 1px solid yellow;
+            outline: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            cursor: pointer;
+        }
+        button:active{
+            transform: scale(0.90);
+        }
+        #signIn, #signUp{
+            background-color: transparent;
+            border: 2px solid #fff;
+        }
+        .container .right-panel-active .sign-up{
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+        }
+        .overlay-container{
+            position: absolute;
+            top: 0;
+            left: 65%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+        .container .right-panel-active .overlay-container{
+            transform: translateX(-100%);
+        }
+        .overlay{
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+        img{
+            width: 20%;
+            margin-top: 5%;
+        }
+        .error-message{
+            color: red;
+            font-size: 70%;
+        }
+        label{
+            display: none;
+        }
+        p{
+            width: 50%;
+        }
+        #deconnecter{
+            color: black;
+            background: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 40px;
+            margin: 20px;
+            border-radius: 20px;
+            border: 1px solid black;
+            outline: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            cursor: pointer;
+            
+        }
+        .overlay-left{
+            align-items: center;
+            justify-content: center;
+        }
+        label{
+            font-size: 12px;
+            margin-top: 5%;
+        }
+    </style>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <script>
+        function handleFocus(inputId, labelId) {
+            document.getElementById(labelId).style.display = 'flex'; // Afficher le label lors du focus sur le champ
+        }
+
+        function handleBlur(inputId, labelId) {
+            const inputField = document.getElementById(inputId);
+            if (inputField.value === '') {
+                document.getElementById(labelId).style.display = 'none'; // Masquer le label si le champ est vide après blur
+            }
+        }
+
+        // Fonction pour vérifier si les champs sont remplis au chargement et afficher le label si nécessaire
+        window.onload = function () {
+            const fields = [
+                { input: 'input1', label: 'label1' },
+                { input: 'input2', label: 'label2' }
+            ];
+            
+            fields.forEach(function(field) {
+                let inputField = document.getElementById(field.input);
+                let label = document.getElementById(field.label);
+                if (inputField.value !== '') {
+                    label.style.display = 'flex'; // Afficher le label si le champ est déjà rempli
+                } else {
+                    label.style.display = 'none'; // Masquer le label si le champ est vide
+                }
+            });
+        };
+
+    </script>
+
+    <div class="container" id="main">
+        <div class="sign-up">
+            <form method="post">
+
+
+                <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+                {% if error %}
+                    <div class="error-message">Mot de passe ou email incorrecte{#{ error.messageKey|trans(error.messageData, 'security') }#}</div>
+                {% endif %}
+
+                <label id="label1">Email:</label>
+                <input type="email" id="input1" placeholder="Entrer votre email" value="{{ last_username }}" name="email" class="form-control" autocomplete="email" required autofocus  onfocus="handleFocus('input1', 'label1')" onblur="handleBlur('input1', 'label1')">
+
+                <label id="label2">Password:</label>
+                <input type="password"id="input2" name="password" placeholder= "Entrer votre mot de pass" class="form-control" autocomplete="current-password" required onfocus="handleFocus('input2', 'label2')" onblur="handleBlur('input2', 'label2')">
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                <a href="{{path('app_forgot_password_request')}}">Mot de pass oublié? Créer un compte</a>
+
+                <button type="submit"> Se connecter </button>
+            </form>
         </div>
-    {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form><br>
-<a href="{{path('app_forgot_password_request')}}">Forgot password</a>
+        <div class="overlay-container">
+            <div class='overlay'>
+                <div class="overlay-left">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo-paositra-malagasy">
+                    {% if app.user %}
+                        <p>
+                            You are logged in as <br>{{ app.user.userIdentifier }}<br>
+                            <a href="{{ path('app_logout') }}"><button type="submit" id='deconnecter'> Deconnecter </button></a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

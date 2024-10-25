@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use \Twig\Environment;
+use App\Service\PdfGeneratorService;
 use App\Entity\Bst;
 use App\Entity\Employe;
 use App\Form\BstType;
+use App\Form\BstValideType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,6 +91,40 @@ class BstController extends AbstractController
         $this->addFlash('success', 'Bst deleted successfully.');
 
         return $this->redirectToRoute('bst_index');
+    }
+
+
+    #[Route('/output-pdf-bst', name: 'pdf_bst')]
+    public function output(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/bstpdf.html.twig');
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
+    }
+
+
+    #[Route("/bst/{id}/valide", name: "bst_valide")]
+    public function valider(Request $request, Bst $bst): Response
+    {
+        $form = $this->createForm(BstValideType::class, $bst);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bst updated successfully.');
+
+            return $this->redirectToRoute('bst_index');
+        }
+
+        return $this->render('bst/edit.html.twig', [
+            'form' => $form->createView(),
+            'bst' => $bst,
+        ]);
     }
 
 }

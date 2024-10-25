@@ -25,11 +25,11 @@ class EmployeController extends AbstractController
     public function index(): Response
     {
         $employe = $this->entityManager->getRepository(Employe::class)->findAll();
-        $employeSearch = $this->entityManager->getRepository(Employe::class)->findAll();
-
+        $employes = $this->entityManager->getRepository(Employe::class)->findAll();
+    
         return $this->render('employe/index.html.twig', [
             'employe' => $employe,
-            'employeSearch'=> json_encode($employeSearch), 
+            'employeSearch' => json_encode($employes),
         ]);
     }
 

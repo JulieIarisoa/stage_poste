@@ -5,6 +5,12 @@
     <p>nom: {{ employe.nom }}</p>
     <p>prenom: {{ employe.prenom }}</p>
     <p>titre: {{ employe.titre }}</p>
+    <p>{{ employe.sexe }}</p>
+    <p>{{ employe.fonction }}</p>
+    <p>{{ employe.situationFamiliale }}</p>
+    <p>{{ employe.cin }}</p>
+    <p>{{ employe.dateCin|date('Y-m-d') }}</p>
+    <p>{{ employe.tauxJournalier }}</p>
     <a href="{{ path('employe_edit', {id: employe.id}) }}">Edit</a>
     <a href="{{ path('employe_index') }}">Back to list</a>
 {% endblock %}

@@ -13,6 +13,7 @@
                 <span>numero: {{ bst0.TelephoneTransport }}</span>
                 <a href="{{ path('bst_edit', {id: bst0.id}) }}">Edit</a>
                 <a href="{{ path('bst_delete', {id: bst0.id}) }}">Delete</a>
+                <a href="{{ path('bst_valide', {id: bst0.id}) }}">Valider</a>
             </li>
         {% endfor %}
     </ul>
@@ -27,7 +28,6 @@
                 <span>numero: {{ bst1.LieuBst }}</span>
                 <span>numero: {{ bst1.NomTransporteur }}</span>
                 <span>numero: {{ bst1.TelephoneTransport }}</span>
-                <a href="{{ path('bst_edit', {id: bst1.id}) }}">Valider</a>
                 <a href="{{ path('bst_delete', {id: bst1.id}) }}">Delete</a>
             </li>
         {% endfor %}
