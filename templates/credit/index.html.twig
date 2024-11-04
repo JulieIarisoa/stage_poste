@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Credit</h1>
+    <a href="{{ path('credit_new') }}">Create new Credit</a>
+    <ul>
+        {% for credit in credit %}
+            <li>
+                <span>{{ credit.creditInitial }}</span>
+                <span>{{ credit.dateRenouvellement|date('Y-m-d') }}</span>
+                <a href="{{ path('credit_edit', {id: credit.id}) }}">Edit</a>
+                <a href="{{ path('credit_delete', {id: credit.id}) }}">Delete</a>
+                <a href="{{ path('credit_show', {id: credit.id}) }}">Voir</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

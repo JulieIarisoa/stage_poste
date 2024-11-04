@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>{{ credit.creditInitial }}</p>
+    <p>{{ credit.dateRenouvellement|date('Y-m-d') }}</p>
+    <a href="{{ path('credit_edit', {id: credit.id}) }}">Edit</a>
+    <a href="{{ path('credit_index') }}">Back to list</a>
+{% endblock %}
