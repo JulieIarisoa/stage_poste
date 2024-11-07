@@ -15,22 +15,35 @@ class BseValideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('num_bse', NumberType::class)
         ->add('destination', TextType::class)
         ->add('motif', TextType::class)
         ->add('date_bse', DateType::class)
-        ->add('depense_engage', NumberType::class)
-        ->add('matricule', NumberType::class)
-        ->add('etat_validation', ChoiceType::class, [
+        ->add('lieu_bse', TextType::class)
+        ->add('duree_mission', NumberType::class)
+        ->add('etat_validation_or', ChoiceType::class, [
             'choices' => [
-                'accepte' => 'Accepter',
-                'refuse' => 'Refuser',
+                'Accepter' => 'accepte',
+                'Refuser' => 'refuse',
             ],
-            'multiple' => true, // Permettre la sélection multiple
-            'expanded' => true,  // Utiliser des boutons radio
+            'multiple' => false,
+            'expanded' => false
         ])
-        ->add('etat_payment', TextType::class,[
+        ->add('etat_validation_bst', ChoiceType::class, [
+            'choices' => [
+                'Accepter' => 'accepte',
+                'Refuser' => 'refuse',
+            ],
+            'multiple' => false,
+            'expanded' => false
+        ])
+        ->add('etat_payment_or', TextType::class,[
             'data' => 'en_attente'
+        ])
+        ->add('etat_payment_bst', TextType::class,[
+            'data' => 'en_attente'
+        ])
+        ->add('etat', TextType::class,[
+            'data' => 'Ordre de route'
         ]);
     }
 

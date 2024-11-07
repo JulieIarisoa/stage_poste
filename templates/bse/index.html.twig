@@ -162,6 +162,9 @@
                     <td>{{ bse_validation_attente.codePostalePaymentBst }}</td>
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
+                    <td>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}">Valider</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
@@ -287,6 +290,9 @@
                     <td>{{ validation_accepte_non_paye.codePostalePaymentBst }}</td>
                     <td>{{ validation_accepte_non_paye.depenseBst }}</td>
                     <td>{{ validation_accepte_non_paye.etat }}</td>
+                    <td>
+                        <a href="{{ path('payment_new', {id: validation_accepte_non_paye.id}) }}">Payer</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
