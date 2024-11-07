@@ -62,12 +62,12 @@
                     <div class="w3-container w3-cell w3-mobile">
                         <div class="w3-panel w3-card w3-grey w3-border w3-round-large">
                             <p>Credit disponible</p>
-                            {% set somme_depense = 0%}
+                            {#% set somme_depense = 0%}
                             {% for bse in bse %}
                                 {% set somme_depense = somme_depense + bse.depenseEngage%}
                             {% endfor %}
                             {% set restant = somme_credit - somme_depense %}
-                            <p>{{restant}}</p>
+                            <p>{{restant}#}</p>
                         </div>
                     </div>
 
@@ -86,11 +86,11 @@
                     <div class="w3-container w3-cell w3-mobile">
                         <div class="w3-panel w3-card w3-grey w3-border w3-round-large">
                             <p>Dépense</p>
-                            {% set somme_depense = 0%}
+                            {#% set somme_depense = 0%}
                             {% for bse in bse %}
                                 {% set somme_depense = somme_depense + bse.depenseEngage%}
                             {% endfor %}
-                            <p>{{somme_depense}}</p>
+                            <p>{{somme_depense}#}</p>
                         </div>
                     </div>
                 </div>
@@ -180,13 +180,13 @@
     }
 
     // Les données des graphiques (en provenance de Symfony)
-    const dataBse = {{ dataBse|raw }};
+    {#const dataBse = {{ dataBse|raw }};#}
     const dataBst = {{ dataBst|raw }};
     const dataOrdreRoute = {{ dataOrdreRoute|raw }};
     const dataPayment = {{ dataPayment|raw }};
 
     // Créer les graphiques
-    createChart('myChartBse', dataBse, 'BSE - Valeurs');
+    //createChart('myChartBse', dataBse, 'BSE - Valeurs');
     createChart('myChartBst', dataBst, 'BST - Valeurs');
     createChart('myChartOrdreRoute', dataOrdreRoute, 'Ordre Route - Valeurs');
     createChart('myChartPayment', dataPayment, 'Payment - Valeurs');

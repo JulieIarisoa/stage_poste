@@ -25,23 +25,23 @@ class BseController extends AbstractController
     #[Route('/bse', name: 'bse_index')]
     public function index(): Response
     {
-        $bse = $this->entityManager->getRepository(Bse::class)->findAll();
-        $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'en_attente']);
+          $bse = $this->entityManager->getRepository(Bse::class)->findAll();
+      //  $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'en_attente']);
         /*$bse_validation_accepte = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte']);*/
-        $bse_validation_refuse = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'refuse']);
-        $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
-        $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
+       // $bse_validation_refuse = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'refuse']);
+       // $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
+       // $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
 
-        $user = $this->entityManager->getRepository(User::class)->findAll();
+        //$user = $this->entityManager->getRepository(User::class)->findAll();
 
         return $this->render('bse/index.html.twig', [
             'bse' => $bse,
-            'user' => $user,
-            'bse_validation_attente'=>$bse_validation_attente,
+           // 'user' => $user,
+           // 'bse_validation_attente'=>$bse_validation_attente,
             /*'bse_validation_accepte'=>$bse_validation_accepte,*/
-            'bse_validation_refuse'=>$bse_validation_refuse,
-            'bse_payment_attente'=>$bse_payment_attente,
-            'bse_payment_paye'=>$bse_payment_paye,
+           // 'bse_validation_refuse'=>$bse_validation_refuse,
+           // 'bse_payment_attente'=>$bse_payment_attente,
+           // 'bse_payment_paye'=>$bse_payment_paye,
         ]);
     }
 

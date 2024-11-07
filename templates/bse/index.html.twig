@@ -1,225 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Acceuil</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <style>
-    </style>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mission</title>
+        <style></style>
+    </head>
 
-{% block body %}
-    <h1>BSE</h1>
+    <body>
     {# Vérifiez si l'utilisateur a le rôle ADMIN #}
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="nav">
-        </div>
+    {#% if is_granted('ROLE_ADMIN') %#}
+    <div>
+        <table>
+            <tr>
+                <td>destination</td>
+                <td>motif</td>
+                <td>date_bse</td>
+                <td>matricule</td>
+                <td>duree_mission</td>
+                <td>nom_detenteur</td>
+                <td>prenom_detenteur</td>
+                <td>fonction_detenteur</td>
+                <td>lieu_depart_missionnaire</td>
+                <td>heure_depart_missionnaire</td>
+                <td>date_depart_missionnaire</td>
+                <td>lieu_bse</td>
+                <td>nom_chaufeur</td>
+                <td>prenom_chafeur</td>
+                <td>tel_transporteur</td>
+                <td>etat_payment_or</td>
+                <td>etat_payment_bst</td>
+                <td>etat_validation_or</td>
+                <td>etat_validation_bst</td>
+                <td>code_postale_payement_or</td>
+                <td>code_postale_payment_bst</td>
+                <td>depense_bst</td>
+            </tr>
+            {% for bse in bse %}
+                <tr>
+                    <td>{{ bse.destination }}</td>
+                    <td>{{ bse.motif }}</td>
+                    <td>{{ bse.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ bse.matricule }}</td>
+                    <td>{{ bse.dureeMission }}</td>
+                    <td>{{ bse.nomDetenteur }}</td>
+                    <td>{{ bse.prenomDetenteur }}</td>
+                    <td>{{ bse.fonctionDetenteur }}</td>
+                    <td>{{ bse.lieuDepartMissionnaire }}</td>
+                    <td>{{ bse.heureDepartMissionnaire }}</td>
+                    <td>{{ bse.dateDepartMissionnaire }}</td>
+                    <td>{{ bse.lieuBse }}</td>
+                    <td>{{ bse.nomChaufeur }}</td>
+                    <td>{{ bse.prenomChafeur }}</td>
+                    <td>{{ bse.telTransporteur }}</td>
+                    <td>{{ bse.etatPaymentOr }}</td>
+                    <td>{{ bse.etatPaymentBst }}</td>
+                    <td>{{ bse.etatValidationOr }}</td>
+                    <td>{{ bse.etatValidationBst }}</td>
+                    <td>{{ bse.codePostalePayementOr }}</td>
+                    <td>{{ bse.codePostalePaymentBst }}</td>
+                    <td>{{ bse.depenseBst }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
-        <div class="corp">
-            <div class="head">
-                <div id="head1">
-                    <p>Tous les BSE</p>
-                    {% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}}</p>
-                </div>
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %}
 
-                <!--div id="head2">
-                    <p>BSE accepté</p>
-                    {#% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}#}</p>
-                </div-->
-
-                <div id="head3">
-                    <p>BSE en attente</p>
-                    {% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}}</p>
-                </div>
-
-                <div id="head4">
-                    <p>BSE refuser</p>
-                    {% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}}</p>
-                </div>
-
-                <div id="head5">
-                    <p>BSE payé</p>
-                    {% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}}</p>
-                </div>
-
-                <div id="head6">
-                    <p>BSE non payer</p>
-                    {% set somme = 0%}
-                    {% for bse in bse %}
-                        {% set somme = somme +1%}
-                    {% endfor %}
-                    <p>{{somme}}</p>
-                </div>
-            </div>
-
-            <div id="section1">
-                <button>Nouveau</button>
-                <button>En attente de validation</button>
-                <!--button>Accepté</button-->
-                <button>Réfusé</button>
-                <button>Déjà payer</button>
-                <button>Non payer</button>
-            </div>
-
-            
-            <div class="section2">
-                <div id="bse_nouveau">
-                    <h1>Nouveau BSE</h1>
-                    <table>
-                        {% for user in user %}
-                            <tr>
-                                <td>{{ user.matricule }}</td>
-                                <td>{{ user.nom }}</td>
-                                <td>{{ user.prenom }}</td>
-                                <td>{{ user.sexe }}</td>
-                                <td>{{ user.fonction }}</td>
-                                <td>{{ user.situationFamiliale }}</td>
-                                <td>{{ user.cin }}</td>
-                                <td>{{ user.dateCin|date('Y-m-d') }}</td>
-                                <td>{{ user.tauxJournalier }}</td>
-                                <td>{{ user.titre }}</td>
-                                <td>
-                                    <a href="{{ path('bse_new', {id: user.matricule}) }}">Créer</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-                
-                <div id="bse_attente">
-                    <h1>BSE en attente de validation</h1>
-                    <table>
-                        {% for bse_validation_attente in bse_validation_attente %}
-                            <tr>
-                                <td>numero: {{ bse_validation_attente.Destination }}</td>
-                                <td>numero: {{ bse_validation_attente.DepenseEngage }}</td>
-                                <td>
-                                    <a href="{{ path('bse_edit', {id: bse_validation_attente.id}) }}">Modifier</a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('bse_delete', {id: bse_validation_attente.id}) }}">Supprimer</a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('bse_show', {id: bse_validation_attente.id}) }}">Voir</a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}">Valider</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-
-                <!--div id="bse_accepte">
-                    <h1>BSE accepté</h1>
-                    <ul>
-                        {#% for bse_validation_accepte in bse_validation_accepte %}
-                            <li>
-                                <a href="{{ path('bse_show', {id: bse_validation_accepte.id}) }}">{{ bse_validation_accepte.motif }}</a>
-                                <td>numero: {{ bse_validation_accepte.Destination }}</td>
-                                <td>numero: {{ bse_validation_accepte.DepenseEngage }}</td>
-                                <a href="{{ path('bse_edit', {id: bse_validation_accepte.id}) }}">Edit</a>
-                                <a href="{{ path('bse_delete', {id: bse_validation_accepte.id}) }}">Delete</a>
-                            </li>
-                        {% endfor %#}
-                    </ul>
-                </div-->
-
-
-                <div id="bse_refuse">
-                    <h1>BSE refusé</h1>
-                    <table>
-                        {% for bse_validation_refuse in bse_validation_refuse %}
-                            <tr>
-                                <td>numero: {{ bse_validation_refuse.Destination }}</td>
-                                <td>numero: {{ bse_validation_refuse.DepenseEngage }}</td>
-                                <td>
-                                    <a href="{{ path('bse_edit', {id: bse_validation_refuse.id}) }}">Modifier</a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('bse_delete', {id: bse_validation_refuse.id}) }}">Supprimer</a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('bse_show', {id: bse_validation_refuse.id}) }}">Voir</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-
-                <div id="bse_paye">
-                    <h1>BSE déjà payé</h1>
-                    <table>
-                        {% for bse_payment_paye in bse_payment_paye %}
-                            <tr>
-                                <td>numero: {{ bse_payment_paye.Destination }}</td>
-                                <td>numero: {{ bse_payment_paye.DepenseEngage }}</td>
-                                <td>
-                                    <a href="{{ path('bse_show', {id: bse_payment_paye.id}) }}">Voir</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
-                <div id="bse_non_paye">
-                    <h1>BSE en attente de payment</h1>
-                    <table>
-                        {% for bse_payment_attente in bse_payment_attente %}
-                            <tr>
-                                <td>numero: {{ bse_payment_attente.Destination }}</td>
-                                <td>numero: {{ bse_payment_attente.DepenseEngage }}</td>
-                                <td>
-                                    <a href="{{ path('bse_paye', {id: bse_payment_attente.id}) }}">Payer</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-    {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
-    {% elseif is_granted('ROLE_MISSIONNAIRE') %}
-        <div class="example-wrapper">
-        </div>
-
-
-    {# Vérifiez si l'utilisateur a le rôle USER #}
-    {% elseif is_granted('ROLE_USER') %}
-        <div class="example-wrapper">
-        </div>
-    {% endif %}
-
-    {# Contenu accessible à tous #}
-    <p>Ce contenu est visible par tous les visiteurs.</p>
-    <a href="{{ path('app_logout') }}"><button>Se deconnecter</button></a>
-</body>
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %#}
+    
+    </body>
 </html>
-
-{% endblock %}
