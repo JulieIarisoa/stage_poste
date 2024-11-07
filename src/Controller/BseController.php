@@ -26,20 +26,22 @@ class BseController extends AbstractController
     public function index(): Response
     {
           $bse = $this->entityManager->getRepository(Bse::class)->findAll();
-      //  $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'en_attente']);
-        /*$bse_validation_accepte = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte']);*/
-       // $bse_validation_refuse = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'refuse']);
+          $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'en_attente', 'etat_validation_bst' => 'en_attente','etat_payment_or' => 'en_attente','etat_payment_bst' => 'en_attente']);
+          $validation_accepte_non_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'en_attente','etat_payment_bst' => 'en_attente']);
+          $validation_accepte_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'paye','etat_payment_bst' => 'paye']);
+          $validation_refuse = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'refuse','etat_validation_bst' => 'refuse']);
        // $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
        // $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
 
-        //$user = $this->entityManager->getRepository(User::class)->findAll();
+        $user = $this->entityManager->getRepository(User::class)->findAll();
 
         return $this->render('bse/index.html.twig', [
             'bse' => $bse,
-           // 'user' => $user,
-           // 'bse_validation_attente'=>$bse_validation_attente,
-            /*'bse_validation_accepte'=>$bse_validation_accepte,*/
-           // 'bse_validation_refuse'=>$bse_validation_refuse,
+            'user' => $user,
+            'bse_validation_attente'=>$bse_validation_attente,
+            'validation_accepte_non_paye'=>$validation_accepte_non_paye,
+            'validation_accepte_paye'=>$validation_accepte_paye,
+            'validation_refuse'=>$validation_refuse,
            // 'bse_payment_attente'=>$bse_payment_attente,
            // 'bse_payment_paye'=>$bse_payment_paye,
         ]);
@@ -48,7 +50,7 @@ class BseController extends AbstractController
     #[Route("/bse/new", name: "bse_new")]
     public function new(Request $request): Response
     {
-        $id = $this->get;
+        $id = $request->get('id');
         $bse = new Bse();
         $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
 

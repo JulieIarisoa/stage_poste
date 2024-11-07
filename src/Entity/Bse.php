@@ -80,6 +80,9 @@ class Bse
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $depense_bst = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $etat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -345,6 +348,18 @@ class Bse
     public function setDepenseBst(?string $depense_bst): static
     {
         $this->depense_bst = $depense_bst;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): static
+    {
+        $this->etat = $etat;
 
         return $this;
     }

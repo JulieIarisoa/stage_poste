@@ -14,19 +14,28 @@ class BseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('num_bse', NumberType::class)
             ->add('destination', TextType::class)
             ->add('motif', TextType::class)
             ->add('date_bse', DateType::class)
-            ->add('depense_engage', NumberType::class)
+            ->add('lieu_bse', TextType::class)
+            ->add('duree_mission', NumberType::class)
             ->add('matricule', NumberType::class,[
                     'data' => $options['id'],
                 ])
-            ->add('etat_validation', TextType::class,[
+            ->add('etat_validation_or', TextType::class,[
                 'data' => 'en_attente'
             ])
-            ->add('etat_payment', TextType::class,[
+            ->add('etat_validation_bst', TextType::class,[
                 'data' => 'en_attente'
+            ])
+            ->add('etat_payment_or', TextType::class,[
+                'data' => 'en_attente'
+            ])
+            ->add('etat_payment_bst', TextType::class,[
+                'data' => 'en_attente'
+            ])
+            ->add('etat', TextType::class,[
+                'data' => 'Ordre de route'
             ]);
     }
 
