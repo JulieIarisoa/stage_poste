@@ -18,13 +18,22 @@ class BseType extends AbstractType
             ->add('destination', TextType::class)
             ->add('motif', TextType::class)
             ->add('date_bse', DateType::class)
-            ->add('depense_engage', NumberType::class);
+            ->add('depense_engage', NumberType::class)
+            ->add('matricule', NumberType::class,[
+                    'data' => $options['id'],
+                ])
+            ->add('etat_validation', TextType::class,[
+                'data' => 'en_attente'
+            ])
+            ->add('etat_payment', TextType::class,[
+                'data' => 'en_attente'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Bse::class,
+            'id' => null,
         ]);
     }
 }

@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>user</h1>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <a href="{{ path('user_new') }}">Create new user</a>
+    <ul>
+        {% for user in user %}
+            <li>
+                <a href="{{ path('user_show', {id: user.id}) }}">{{ user.nom }}</a>
+                <span>{{ user.matricule }}</span>
+                <span>{{ user.nom }}</span>
+                <span>{{ user.prenom }}</span>
+                <span>{{ user.sexe }}</span>
+                <span>{{ user.fonction }}</span>
+                <span>{{ user.situationFamiliale }}</span>
+                <span>{{ user.cin }}</span>
+                <span>{{ user.dateCin|date('Y-m-d') }}</span>
+                <span>{{ user.tauxJournalier }}</span>
+                <span>{{ user.titre }}</span>
+                <a href="{{ path('user_edit', {id: user.id}) }}">Edit</a>
+                <a href="{{ path('user_delete', {id: user.id}) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-5">
+    <h1>Recherche d'employés</h1>
+
+    <div class="form-group">
+        <label for="searchInput">Rechercher :</label>
+        <input type="text" id="searchInput" class="form-control" placeholder="Tapez pour rechercher...">
+    </div>
+
+    <div id="searchResults" class="mt-3"></div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('input', function(event) {
+        let searchTerm = event.target.value;
+
+        // Effectuer la recherche uniquement si le terme a 3 caractères ou plus
+        if (searchTerm.length >= 0) {
+            fetch(`/user/ajax?q=${searchTerm}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultsDiv = document.getElementById('searchResults');
+                    resultsDiv.innerHTML = '';  // Vider les anciens résultats
+
+                    if (data.length === 0) {
+                        resultsDiv.innerHTML = '<p>Aucun résultat trouvé.</p>';
+                    } else {
+                        // Affichage des résultats
+                        data.forEach(employe => {
+                            let row = document.createElement('div');
+                            row.classList.add('result-row', 'border', 'p-2', 'mb-2');
+                            row.innerHTML = `
+                                <div>
+                                    <strong>${employe.nom} ${employe.prenom}</strong><br>
+                                    Email: ${employe.email}<br>
+                                    <button class="btn btn-primary createButton" data-id="${employe.id}">Créer</button>
+                                </div>
+                            `;
+                            resultsDiv.appendChild(row);
+                        });
+
+                        // Ajout de l'événement au bouton "Créer"
+                        let createButtons = document.querySelectorAll('.createButton');
+                        createButtons.forEach(button => {
+                            button.addEventListener('click', function() {
+                                let employeId = button.getAttribute('data-id');
+                                console.log('Créer l\'employé avec l\'ID:', employeId);
+                                alert('Processus de création de l\'employé avec l\'ID : ' + employeId);
+                            });
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la recherche:', error);
+                    document.getElementById('searchResults').innerHTML = '<p>Une erreur est survenue lors de la recherche.</p>';
+                });
+        } else {
+            document.getElementById('searchResults').innerHTML = '';  // Vider les résultats si la recherche est inférieure à 3 caractères
+        }
+    });
+</script>
+
+{% endblock %}

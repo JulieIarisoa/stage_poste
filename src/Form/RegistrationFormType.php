@@ -6,6 +6,9 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,17 +30,16 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER',
-                    'Other' => 'ROLE_MISSIONNAIRE',
-                    // Ajoutez d'autres rôles si nécessaire
-                ],
-                'multiple' => true, // Permettre la sélection multiple
-                'expanded' => true,  // Utiliser des boutons radio
-                'data' => ['ROLE_USER'], // Attribuer un rôle par défaut
-            ])
+            ->add('matricule', NumberType::class)
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
+            ->add('sexe', TextType::class)
+            ->add('fonction', TextType::class)
+            ->add('situation_familiale', TextType::class)
+            ->add('cin', TextType::class)
+            ->add('date_cin', DateType::class)
+            ->add('taux_journalier', NumberType::class)
+            ->add('titre', TextType::class)
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -54,6 +56,17 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
+                    'Other' => 'ROLE_MISSIONNAIRE',
+                    // Ajoutez d'autres rôles si nécessaire
+                ],
+                'multiple' => true, // Permettre la sélection multiple
+                'expanded' => true,  // Utiliser des boutons radio
+                'data' => ['ROLE_USER'], // Attribuer un rôle par défaut
             ])
         ;
     }

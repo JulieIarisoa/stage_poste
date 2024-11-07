@@ -29,6 +29,15 @@ class Bse
     #[ORM\Column]
     private ?int $depense_engage = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $matricule = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $etat_validation = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $etat_payment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +99,42 @@ class Bse
     public function setDepenseEngage(int $depense_engage): static
     {
         $this->depense_engage = $depense_engage;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?int
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?int $matricule): static
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getEtatValidation(): ?string
+    {
+        return $this->etat_validation;
+    }
+
+    public function setEtatValidation(?string $etat_validation): static
+    {
+        $this->etat_validation = $etat_validation;
+
+        return $this;
+    }
+
+    public function getEtatPayment(): ?string
+    {
+        return $this->etat_payment;
+    }
+
+    public function setEtatPayment(?string $etat_payment): static
+    {
+        $this->etat_payment = $etat_payment;
 
         return $this;
     }

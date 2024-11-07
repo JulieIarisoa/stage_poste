@@ -4,19 +4,16 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-#route employes
-employe_new:
-    path: /employe/new
-    controller: App\Controller\EmployeController::new
-employe_show:
-    path: /employe/{id}
-    controller: App\Controller\EmployeController::show
-employe_edit:
-    path: /employe/{id}/edit
-    controller: App\Controller\EmployeController::edit
-employe_search:
-    path: /employe/search
-    controller: App\Controller\EmployeController::search
+#route user
+user_new:
+    path: /user/new
+    controller: App\Controller\UserController::new
+user_show:
+    path: /user/{id}
+    controller: App\Controller\UserController::show
+user_edit:
+    path: /user/{id}/edit
+    controller: App\Controller\UserController::edit
 
 
 #route bureau
@@ -40,6 +37,12 @@ bse_show:
 bse_edit:
     path: /bse/{id}/edit
     controller: App\Controller\BseController::edit
+bse_valide:
+    path: /bse/{id}/valide
+    controller: App\Controller\BseController::valide
+bse_paye:
+    path: /bse/{id}/paye
+    controller: App\Controller\BseController::paye
 
 #route bst:bon spécial de transport
 bst_new:

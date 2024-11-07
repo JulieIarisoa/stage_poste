@@ -9,12 +9,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'app_login')]
+    #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        //if the last user not logout before close this application, they redirectTo app_home_page
+         if ($this->getUser()) {
+             return $this->redirectToRoute('app_home_page');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

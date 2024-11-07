@@ -42,7 +42,7 @@ class PaymentController extends AbstractController
 
             $this->addFlash('success', 'payment created successfully.');
 
-            return $this->redirectToRoute('payment_index');
+            return $this->redirectToRoute('bse_paye');
         }
 
         return $this->render('payment/new.html.twig', [

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ user.matricule }}</h1>
+    <p>nom: {{ user.nom }}</p>
+    <p>prenom: {{ user.prenom }}</p>
+    <p>titre: {{ user.titre }}</p>
+    <p>{{ user.sexe }}</p>
+    <p>{{ user.fonction }}</p>
+    <p>{{ user.situationFamiliale }}</p>
+    <p>{{ user.cin }}</p>
+    <p>{{ user.dateCin|date('Y-m-d') }}</p>
+    <p>{{ user.tauxJournalier }}</p>
+    <a href="{{ path('user_edit', {id: user.id}) }}">Edit</a>
+    <a href="{{ path('user_index') }}">Back to list</a>
+{% endblock %}

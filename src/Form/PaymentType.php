@@ -17,7 +17,10 @@ class PaymentType extends AbstractType
         $builder
             ->add('taux_payer', NumberType::class)
             ->add('nom_bp', TextType::class)
-            ->add('nom_chef_agence', TextType::class);
+            ->add('nom_chef_agence', TextType::class)
+            ->add('date_payement', DateType::class,[
+                'data' => new \DateTime()]
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
