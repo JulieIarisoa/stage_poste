@@ -1,53 +1,66 @@
-<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Mission</title>
-        <style></style>
+        <title>Acceuil</title>
+        <link rel="stylesheet" href="{{ asset('assets/w3.css')}}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+        
     </head>
-
     <body>
-    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
-    {#% if is_granted('ROLE_ADMIN') %#}
+
+    <div class="w3-bar w3-black">
+        <button class="w3-bar-item w3-button" onclick="openMission('creation')">creation</button>
+        <button class="w3-bar-item w3-button" onclick="openMission('Lister_tous')">Lister tous</button>
+        <button class="w3-bar-item w3-button" onclick="openMission('en_attente')">En attente</button>
+        <button class="w3-bar-item w3-button" onclick="openMission('refuse')">refuse</button>
+        <button class="w3-bar-item w3-button" onclick="openMission('non_paye')"> non paye</button>
+        <button class="w3-bar-item w3-button" onclick="openMission('paye')">paye</button>
+    </div>
+
+    <div id="creation" class="w3-container Mission">
+        <h2>Creation</h2>
         <h1>BST</h1>
-    <table>
-            <tr>
-                <td>matricule</td>
-                <td>nom</td>
-                <td>prenom</td>
-                <td>sexe</td>
-                <td>fonction</td>
-                <td>situationFamiliale</td>
-                <td>cin</td>
-                <td>dateCin</td>
-                <td>tauxJournalier</td>
-                <td>titre</td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-        {% for user in user %}
-            <tr>
-                <td>{{ user.matricule }}</td>
-                <td>{{ user.nom }}</td>
-                <td>{{ user.prenom }}</td>
-                <td>{{ user.sexe }}</td>
-                <td>{{ user.fonction }}</td>
-                <td>{{ user.situationFamiliale }}</td>
-                <td>{{ user.cin }}</td>
-                <td>{{ user.dateCin|date('Y-m-d') }}</td>
-                <td>{{ user.tauxJournalier }}</td>
-                <td>{{ user.titre }}</td>
-                <td>
-                    <a href="{{ path('bst_new', {id: user.matricule}) }}">BST/OR</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+        <table>
+                <tr>
+                    <td>matricule</td>
+                    <td>nom</td>
+                    <td>prenom</td>
+                    <td>sexe</td>
+                    <td>fonction</td>
+                    <td>situationFamiliale</td>
+                    <td>cin</td>
+                    <td>dateCin</td>
+                    <td>tauxJournalier</td>
+                    <td>titre</td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% for user in user %}
+                <tr>
+                    <td>{{ user.matricule }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.sexe }}</td>
+                    <td>{{ user.fonction }}</td>
+                    <td>{{ user.situationFamiliale }}</td>
+                    <td>{{ user.cin }}</td>
+                    <td>{{ user.dateCin|date('Y-m-d') }}</td>
+                    <td>{{ user.tauxJournalier }}</td>
+                    <td>{{ user.titre }}</td>
+                    <td>
+                        <a href="{{ path('bst_new', {id: user.matricule}) }}">BST/OR</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
-
-    <div>
+    <div id="Lister_tous" class="w3-container Mission" style="display:none">
+        <h2>Tous mission créer</h2>
         <h1>Liste de BSE tout informations</h1>
         <table>
             <tr>
@@ -105,9 +118,8 @@
         </table>
     </div>
 
-
-
-    <div>
+    <div id="en_attente" class="w3-container Mission" style="display:none">
+        <h2>En attente</h2>
         <h1>Liste de BSE tout en attente</h1>
         <table>
             <tr>
@@ -168,10 +180,8 @@
         </table>
     </div>
 
-
-
-
-    <div>
+    <div id="refuse" class="w3-container Mission" style="display:none">
+        <h2>Refuse</h2>
         <h1>Liste de BSE tout refusé</h1>
         <table>
             <tr>
@@ -229,13 +239,8 @@
         </table>
     </div>
 
-
-
-
-
-
-
-    <div>
+    <div id="non_paye" class="w3-container Mission" style="display:none">
+        <h2>En attente</h2>
         <h1>Liste de BSE tout accepté non paye</h1>
         <table>
             <tr>
@@ -296,10 +301,8 @@
         </table>
     </div>
 
-
-
-
-    <div>
+    <div id="paye" class="w3-container Mission" style="display:none">
+        <h2>paye</h2>
         <h1>Liste de BSE tout accepté paye</h1>
         <table>
             <tr>
@@ -356,6 +359,20 @@
             {% endfor %}
         </table>
     </div>
+
+
+        <script>
+            function openMission(etatname) {
+                var i;
+                var x = document.getElementsByClassName("Mission");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";  
+                }
+                document.getElementById(etatname).style.display = "block";  
+            }
+        </script>
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %#}
 
     {# Vérifiez si l'utilisateur a le rôle ADMIN #}
     {#% if is_granted('ROLE_ADMIN') %}
