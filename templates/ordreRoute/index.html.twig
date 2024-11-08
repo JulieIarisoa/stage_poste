@@ -1,19 +1,365 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mission</title>
+        <style></style>
+    </head>
 
-{% block body %}
-    <h1>ordreRoute</h1>
-    <a href="{{ path('ordreRoute_new') }}">Create new ordreRoute</a>
-    <ul>
-        {% for ordreRoute in ordreRoute %}
-            <li>
-                <a href="{{ path('ordreRoute_show', {id: ordreRoute.id}) }}">{{ordreRoute.NumOr}}</a>
-                <span>{{ordreRoute.DureeDeplacement}}</span>
-                <span>{{ordreRoute.NomDetenteur}}</span>
-                <span>{{ordreRoute.FonctionDetenteur}}</span>
-                <span>{{ordreRoute.LieuDepart}}</span>
-                <a href="{{ path('ordreRoute_edit', {id: ordreRoute.id}) }}">Edit</a>
-                <a href="{{ path('ordreRoute_delete', {id: ordreRoute.id}) }}">Delete</a>
-            </li>
+    <body>
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %#}
+        <h1>Ordre Route</h1>
+    <table>
+            <tr>
+                <td>matricule</td>
+                <td>nom</td>
+                <td>prenom</td>
+                <td>sexe</td>
+                <td>fonction</td>
+                <td>situationFamiliale</td>
+                <td>cin</td>
+                <td>dateCin</td>
+                <td>tauxJournalier</td>
+                <td>titre</td>
+                <td>
+                </td>
+            </tr>
+        {% for user in user %}
+            <tr>
+                <td>{{ user.matricule }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.sexe }}</td>
+                <td>{{ user.fonction }}</td>
+                <td>{{ user.situationFamiliale }}</td>
+                <td>{{ user.cin }}</td>
+                <td>{{ user.dateCin|date('Y-m-d') }}</td>
+                <td>{{ user.tauxJournalier }}</td>
+                <td>{{ user.titre }}</td>
+                <td>
+                    <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}">OR</a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
-{% endblock %}
+    </table>
+
+
+    <div>
+        <h1>Liste de BSE tout informations</h1>
+        <table>
+            <tr>
+                <td>Destination</td>
+                <td>Motif</td>
+                <td>Création mission</td>
+                <td>Matricule</td>
+                <td>Durée mission</td>
+                <td>Nom detenteur</td>
+                <td>Prenom detenteur</td>
+                <td>Fonction Detenteur</td>
+                <td>Départ</td>
+                <td>Heure</td>
+                <td>Date</td>
+                <td>Création mission</td>
+                <td>Nom chaufeur</td>
+                <td>Prenom chafeur</td>
+                <td>Téléphone transporteur</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Validation OR</td>
+                <td>Validation BST</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Frais</td>
+                <td>Etat</td>
+            </tr>
+            {% for bse in bse %}
+                <tr>
+                    <td>{{ bse.destination }}</td>
+                    <td>{{ bse.motif }}</td>
+                    <td>{{ bse.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ bse.matricule }}</td>
+                    <td>{{ bse.dureeMission }}</td>
+                    <td>{{ bse.nomDetenteur }}</td>
+                    <td>{{ bse.prenomDetenteur }}</td>
+                    <td>{{ bse.fonctionDetenteur }}</td>
+                    <td>{{ bse.lieuDepartMissionnaire }}</td>
+                    <td>{{ bse.heureDepartMissionnaire }}</td>
+                    <td>{{ bse.dateDepartMissionnaire }}</td>
+                    <td>{{ bse.lieuBse }}</td>
+                    <td>{{ bse.nomChaufeur }}</td>
+                    <td>{{ bse.prenomChafeur }}</td>
+                    <td>{{ bse.telTransporteur }}</td>
+                    <td>{{ bse.etatPaymentOr }}</td>
+                    <td>{{ bse.etatPaymentBst }}</td>
+                    <td>{{ bse.etatValidationOr }}</td>
+                    <td>{{ bse.etatValidationBst }}</td>
+                    <td>{{ bse.codePostalePayementOr }}</td>
+                    <td>{{ bse.codePostalePaymentBst }}</td>
+                    <td>{{ bse.depenseBst }}</td>
+                    <td>{{ bse.etat }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+    <div>
+        <h1>Liste de BSE tout en attente</h1>
+        <table>
+            <tr>
+                <td>Destination</td>
+                <td>Motif</td>
+                <td>Création mission</td>
+                <td>Matricule</td>
+                <td>Durée mission</td>
+                <td>Nom detenteur</td>
+                <td>Prenom detenteur</td>
+                <td>Fonction Detenteur</td>
+                <td>Départ</td>
+                <td>Heure</td>
+                <td>Date</td>
+                <td>Création mission</td>
+                <td>Nom chaufeur</td>
+                <td>Prenom chafeur</td>
+                <td>Téléphone transporteur</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Validation OR</td>
+                <td>Validation BST</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Frais</td>
+                <td>Etat</td>
+            </tr>
+            {% for bse_validation_attente in bse_validation_attente %}
+                <tr>
+                    <td>{{ bse_validation_attente.destination }}</td>
+                    <td>{{ bse_validation_attente.motif }}</td>
+                    <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ bse_validation_attente.matricule }}</td>
+                    <td>{{ bse_validation_attente.dureeMission }}</td>
+                    <td>{{ bse_validation_attente.nomDetenteur }}</td>
+                    <td>{{ bse_validation_attente.prenomDetenteur }}</td>
+                    <td>{{ bse_validation_attente.fonctionDetenteur }}</td>
+                    <td>{{ bse_validation_attente.lieuDepartMissionnaire }}</td>
+                    <td>{{ bse_validation_attente.heureDepartMissionnaire }}</td>
+                    <td>{{ bse_validation_attente.dateDepartMissionnaire }}</td>
+                    <td>{{ bse_validation_attente.lieuBse}}</td>
+                    <td>{{ bse_validation_attente.nomChaufeur }}</td>
+                    <td>{{ bse_validation_attente.prenomChafeur }}</td>
+                    <td>{{ bse_validation_attente.telTransporteur }}</td>
+                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
+                    <td>{{ bse_validation_attente.etatPaymentBst }}</td>
+                    <td>{{ bse_validation_attente.etatValidationOr }}</td>
+                    <td>{{ bse_validation_attente.etatValidationBst }}</td>
+                    <td>{{ bse_validation_attente.codePostalePayementOr }}</td>
+                    <td>{{ bse_validation_attente.codePostalePaymentBst }}</td>
+                    <td>{{ bse_validation_attente.depenseBst }}</td>
+                    <td>{{ bse_validation_attente.etat }}</td>
+                    <td>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}">Valider</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+
+    <div>
+        <h1>Liste de BSE tout refusé</h1>
+        <table>
+            <tr>
+                <td>Destination</td>
+                <td>Motif</td>
+                <td>Création mission</td>
+                <td>Matricule</td>
+                <td>Durée mission</td>
+                <td>Nom detenteur</td>
+                <td>Prenom detenteur</td>
+                <td>Fonction Detenteur</td>
+                <td>Départ</td>
+                <td>Heure</td>
+                <td>Date</td>
+                <td>Création mission</td>
+                <td>Nom chaufeur</td>
+                <td>Prenom chafeur</td>
+                <td>Téléphone transporteur</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Validation OR</td>
+                <td>Validation BST</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Frais</td>
+                <td>Etat</td>
+            </tr>
+            {% for validation_refuse in validation_refuse %}
+                <tr>
+                    <td>{{ validation_refuse.destination }}</td>
+                    <td>{{ validation_refuse.motif }}</td>
+                    <td>{{ validation_refuse.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ validation_refuse.matricule }}</td>
+                    <td>{{ validation_refuse.dureeMission }}</td>
+                    <td>{{ validation_refuse.nomDetenteur }}</td>
+                    <td>{{ validation_refuse.prenomDetenteur }}</td>
+                    <td>{{ validation_refuse.fonctionDetenteur }}</td>
+                    <td>{{ validation_refuse.lieuDepartMissionnaire }}</td>
+                    <td>{{ validation_refuse.heureDepartMissionnaire }}</td>
+                    <td>{{ validation_refuse.dateDepartMissionnaire }}</td>
+                    <td>{{ validation_refuse.lieuBse}}</td>
+                    <td>{{ validation_refuse.nomChaufeur }}</td>
+                    <td>{{ validation_refuse.prenomChafeur }}</td>
+                    <td>{{ validation_refuse.telTransporteur }}</td>
+                    <td>{{ validation_refuse.etatPaymentOr }}</td>
+                    <td>{{ validation_refuse.etatPaymentBst }}</td>
+                    <td>{{ validation_refuse.etatValidationOr }}</td>
+                    <td>{{ validation_refuse.etatValidationBst }}</td>
+                    <td>{{ validation_refuse.codePostalePayementOr }}</td>
+                    <td>{{ validation_refuse.codePostalePaymentBst }}</td>
+                    <td>{{ validation_refuse.depenseBst }}</td>
+                    <td>{{ validation_refuse.etat }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+
+
+
+
+    <div>
+        <h1>Liste de BSE tout accepté non paye</h1>
+        <table>
+            <tr>
+                <td>Destination</td>
+                <td>Motif</td>
+                <td>Création mission</td>
+                <td>Matricule</td>
+                <td>Durée mission</td>
+                <td>Nom detenteur</td>
+                <td>Prenom detenteur</td>
+                <td>Fonction Detenteur</td>
+                <td>Départ</td>
+                <td>Heure</td>
+                <td>Date</td>
+                <td>Création mission</td>
+                <td>Nom chaufeur</td>
+                <td>Prenom chafeur</td>
+                <td>Téléphone transporteur</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Validation OR</td>
+                <td>Validation BST</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Frais</td>
+                <td>Etat</td>
+            </tr>
+            {% for validation_accepte_non_paye in validation_accepte_non_paye %}
+                <tr>
+                    <td>{{ validation_accepte_non_paye.destination }}</td>
+                    <td>{{ validation_accepte_non_paye.motif }}</td>
+                    <td>{{ validation_accepte_non_paye.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ validation_accepte_non_paye.matricule }}</td>
+                    <td>{{ validation_accepte_non_paye.dureeMission }}</td>
+                    <td>{{ validation_accepte_non_paye.nomDetenteur }}</td>
+                    <td>{{ validation_accepte_non_paye.prenomDetenteur }}</td>
+                    <td>{{ validation_accepte_non_paye.fonctionDetenteur }}</td>
+                    <td>{{ validation_accepte_non_paye.lieuDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_non_paye.heureDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_non_paye.dateDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_non_paye.lieuBse}}</td>
+                    <td>{{ validation_accepte_non_paye.nomChaufeur }}</td>
+                    <td>{{ validation_accepte_non_paye.prenomChafeur }}</td>
+                    <td>{{ validation_accepte_non_paye.telTransporteur }}</td>
+                    <td>{{ validation_accepte_non_paye.etatPaymentOr }}</td>
+                    <td>{{ validation_accepte_non_paye.etatPaymentBst }}</td>
+                    <td>{{ validation_accepte_non_paye.etatValidationOr }}</td>
+                    <td>{{ validation_accepte_non_paye.etatValidationBst }}</td>
+                    <td>{{ validation_accepte_non_paye.codePostalePayementOr }}</td>
+                    <td>{{ validation_accepte_non_paye.codePostalePaymentBst }}</td>
+                    <td>{{ validation_accepte_non_paye.depenseBst }}</td>
+                    <td>{{ validation_accepte_non_paye.etat }}</td>
+                    <td>
+                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye.id}) }}">Payer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+
+    <div>
+        <h1>Liste de BSE tout accepté paye</h1>
+        <table>
+            <tr>
+                <td>Destination</td>
+                <td>Motif</td>
+                <td>Création mission</td>
+                <td>Matricule</td>
+                <td>Durée mission</td>
+                <td>Nom detenteur</td>
+                <td>Prenom detenteur</td>
+                <td>Fonction Detenteur</td>
+                <td>Départ</td>
+                <td>Heure</td>
+                <td>Date</td>
+                <td>Création mission</td>
+                <td>Nom chaufeur</td>
+                <td>Prenom chafeur</td>
+                <td>Téléphone transporteur</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Validation OR</td>
+                <td>Validation BST</td>
+                <td>Payment OR</td>
+                <td>Payment BST</td>
+                <td>Frais</td>
+                <td>Etat</td>
+            </tr>
+            {% for validation_accepte_paye in validation_accepte_paye %}
+                <tr>
+                    <td>{{ validation_accepte_paye.destination }}</td>
+                    <td>{{ validation_accepte_paye.motif }}</td>
+                    <td>{{ validation_accepte_paye.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ validation_accepte_paye.matricule }}</td>
+                    <td>{{ validation_accepte_paye.dureeMission }}</td>
+                    <td>{{ validation_accepte_paye.nomDetenteur }}</td>
+                    <td>{{ validation_accepte_paye.prenomDetenteur }}</td>
+                    <td>{{ validation_accepte_paye.fonctionDetenteur }}</td>
+                    <td>{{ validation_accepte_paye.lieuDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_paye.heureDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_paye.dateDepartMissionnaire }}</td>
+                    <td>{{ validation_accepte_paye.lieuBse}}</td>
+                    <td>{{ validation_accepte_paye.nomChaufeur }}</td>
+                    <td>{{ validation_accepte_paye.prenomChafeur }}</td>
+                    <td>{{ validation_accepte_paye.telTransporteur }}</td>
+                    <td>{{ validation_accepte_paye.etatPaymentOr }}</td>
+                    <td>{{ validation_accepte_paye.etatPaymentBst }}</td>
+                    <td>{{ validation_accepte_paye.etatValidationOr }}</td>
+                    <td>{{ validation_accepte_paye.etatValidationBst }}</td>
+                    <td>{{ validation_accepte_paye.codePostalePayementOr }}</td>
+                    <td>{{ validation_accepte_paye.codePostalePaymentBst }}</td>
+                    <td>{{ validation_accepte_paye.depenseBst }}</td>
+                    <td>{{ validation_accepte_paye.etat }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %}
+
+    {# Vérifiez si l'utilisateur a le rôle ADMIN #}
+    {#% if is_granted('ROLE_ADMIN') %#}
+    
+    </body>
+</html>

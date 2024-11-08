@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Bse;
+use App\Entity\User;
+use App\Form\BseType;
+use App\Form\BsePayeType;
+use App\Form\BseValideType;
 
 class OrdreRouteController extends AbstractController
 {
@@ -24,33 +29,52 @@ class OrdreRouteController extends AbstractController
     #[Route('/ordreRoute', name: 'ordreRoute_index')]
     public function index(): Response
     {
-        $ordreRoute = $this->entityManager->getRepository(OrdreRoute::class)->findAll();
+          $bse = $this->entityManager->getRepository(Bse::class)->findAll();
+          $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'en_attente', 'etat_validation_bst' => 'en_attente','etat_payment_or' => 'en_attente','etat_payment_bst' => 'en_attente']);
+          $validation_accepte_non_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'en_attente','etat_payment_bst' => 'en_attente']);
+          $validation_accepte_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'paye','etat_payment_bst' => 'paye']);
+          $validation_refuse = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'refuse','etat_validation_bst' => 'refuse']);
+       // $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
+       // $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
+
+        $user = $this->entityManager->getRepository(User::class)->findAll();
 
         return $this->render('ordreRoute/index.html.twig', [
-            'ordreRoute' => $ordreRoute,
+            'bse' => $bse,
+            'user' => $user,
+            'bse_validation_attente'=>$bse_validation_attente,
+            'validation_accepte_non_paye'=>$validation_accepte_non_paye,
+            'validation_accepte_paye'=>$validation_accepte_paye,
+            'validation_refuse'=>$validation_refuse,
+           // 'bse_payment_attente'=>$bse_payment_attente,
+           // 'bse_payment_paye'=>$bse_payment_paye,
         ]);
     }
 
-    #[Route("/ordreRoute/new", name: "ordreRoute_new")]
+   // #[Route("/ordreRoute/new", name: "ordreRoute_new")]
+    
+    #[Route("/bse/new", name: "ordreRoute_new")]
     public function new(Request $request): Response
     {
-        $ordreRoute = new OrdreRoute();
-        $form = $this->createForm(OrdreRouteType::class, $ordreRoute);
+        $id = $request->get('id');
+        $bse = new Bse();
+        $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($ordreRoute);
+            $this->entityManager->persist($bse);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'OrdreRoute created successfully.');
+            $this->addFlash('success', 'Bse created successfully.');
 
-            return $this->redirectToRoute('ordreRoute_index');
+            return $this->redirectToRoute('bse_index');
         }
 
         return $this->render('ordreRoute/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
 
     #[Route("/ordreRoute/{id}", name: "ordreRoute_show")]
     public function show(OrdreRoute $ordreRoute): Response
