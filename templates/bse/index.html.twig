@@ -291,7 +291,7 @@
                     <td>{{ validation_accepte_non_paye.depenseBst }}</td>
                     <td>{{ validation_accepte_non_paye.etat }}</td>
                     <td>
-                        <a href="{{ path('payment_new', {id: validation_accepte_non_paye.id}) }}">Payer</a>
+                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye.id}) }}">Payer</a>
                     </td>
                 </tr>
             {% endfor %}

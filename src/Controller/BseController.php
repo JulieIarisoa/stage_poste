@@ -138,7 +138,7 @@ class BseController extends AbstractController
 
             $this->addFlash('success', 'Bse updated successfully.');
 
-            return $this->redirectToRoute('payment_new');
+            return $this->redirectToRoute('bse_index');
         }
 
         return $this->render('bse/paye.html.twig', [
