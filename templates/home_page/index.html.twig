@@ -30,19 +30,18 @@
             <div class="w3-col w3-amber " id="nav">
                 <img src="{{ asset('images/logo.png') }}" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
                 <h1 class="w3-opacity h4 mb-3 font-weight-normal">{{ app.user.userIdentifier }}</h1>
-                <a href=""><button class="w3-button w3-text-black w3-opacity">Approuver information</button></a>
                 <a href="{{path('ordreRoute_index')}}"><button class="w3-button w3-text-black w3-opacity">Ordre de route</button></a>
                 <a href="{{path('bst_index')}}"><button class="w3-button w3-text-black w3-opacity">Bon Spécial de Transport</button></a>
-                <a href="{{path('bse_index')}}"><button class="w3-button w3-text-black w3-opacity">Bon de saisie des engagements</button></a>
-                <a href="{{path('bureau_index')}}"><button class="w3-button w3-text-black w3-opacity">Agence</button></a>
-                <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity">Missionnaire</button></a>
+                <a href="{{path('bse_index')}}"><button class="w3-button w3-text-black w3-opacity">Mission</button></a>
                 <a href="{{path('payment_index')}}"><button class="w3-button w3-text-black w3-opacity">Payement</button></a>
                 <a href="{{path('pdf_bst')}}"><button class="w3-button w3-text-black w3-opacity">pdf</button></a>
                 <a href="{{path('pdf_or')}}"><button class="w3-button w3-text-black w3-opacity">Or</button></a>
+                <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity">Missionnaire</button></a>
+                <a href="{{path('bureau_index')}}"><button class="w3-button w3-text-black w3-opacity">Agence</button></a>
                 <a href="{{path('credit_index')}}"><button class="w3-button w3-text-black w3-opacity">Renouveller credit</button></a>
                 <!--a href=""><button class="w3-button w3-text-black w3-opacity">Deduire facture du bst</button></a>
                 <a href=""><button class="w3-button w3-text-black w3-opacity">Générer rapport</button></a-->
-                <a href="{{path('app_register')}}"><button class="w3-button w3-text-black w3-opacity">Créer un compte pour un utilisateur</button></a>
+                <a href="{{path('app_register')}}"><button class="w3-button w3-text-black w3-opacity">Nouveau utilisateur</button></a>
                 <a href="{{ path('app_logout') }}"><button class="w3-button w3-text-black w3-opacity">Se deconnecter</button></a>
             </div>
 
@@ -191,6 +190,5 @@
     createChart('myChartOrdreRoute', dataOrdreRoute, 'Ordre Route - Valeurs');
     createChart('myChartPayment', dataPayment, 'Payment - Valeurs');
 </script>
-
 </body>
 </html>
