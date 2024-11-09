@@ -67,7 +67,7 @@ class OrdreRouteController extends AbstractController
 
             $this->addFlash('success', 'Bse created successfully.');
 
-            return $this->redirectToRoute('bse_index');
+            return $this->redirectToRoute('ordreRoute_index');
         }
 
         return $this->render('ordreRoute/new.html.twig', [

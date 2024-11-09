@@ -10,7 +10,7 @@
     </head>
     <body>
 
-    <div class="w3-bar w3-black">
+    <div class="w3-bar w3-grey">
         <button class="w3-bar-item w3-button" onclick="openMission('creation')">creation</button>
         <button class="w3-bar-item w3-button" onclick="openMission('Lister_tous')">Lister tous</button>
         <button class="w3-bar-item w3-button" onclick="openMission('en_attente')">En attente</button>
@@ -22,7 +22,7 @@
     <div id="creation" class="w3-container Mission">
         <h2>Creation</h2>
         <h1>BST</h1>
-        <table>
+        <table class="w3-table w3-striped">
                 <tr>
                     <td>matricule</td>
                     <td>nom</td>
@@ -62,7 +62,7 @@
     <div id="Lister_tous" class="w3-container Mission" style="display:none">
         <h2>Tous mission créer</h2>
         <h1>Liste de BSE tout informations</h1>
-        <table>
+        <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
                 <td>Motif</td>
@@ -121,7 +121,7 @@
     <div id="en_attente" class="w3-container Mission" style="display:none">
         <h2>En attente</h2>
         <h1>Liste de BSE tout en attente</h1>
-        <table>
+        <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
                 <td>Motif</td>
@@ -183,7 +183,7 @@
     <div id="refuse" class="w3-container Mission" style="display:none">
         <h2>Refuse</h2>
         <h1>Liste de BSE tout refusé</h1>
-        <table>
+        <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
                 <td>Motif</td>
@@ -242,7 +242,7 @@
     <div id="non_paye" class="w3-container Mission" style="display:none">
         <h2>En attente</h2>
         <h1>Liste de BSE tout accepté non paye</h1>
-        <table>
+        <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
                 <td>Motif</td>
@@ -304,7 +304,7 @@
     <div id="paye" class="w3-container Mission" style="display:none">
         <h2>paye</h2>
         <h1>Liste de BSE tout accepté paye</h1>
-        <table>
+        <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
                 <td>Motif</td>
