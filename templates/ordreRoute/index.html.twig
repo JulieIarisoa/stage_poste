@@ -59,7 +59,7 @@
 
     <div id="Lister_tous" class="w3-container Mission" style="display:none">
         <h2>Tous mission créer</h2>
-        <h1>Liste de BSE tout informations</h1>
+        <h1>Liste de ordreRoute tout informations</h1>
         <table class="w3-table w3-striped">
             <tr>
                 <td>Destination</td>
@@ -96,23 +96,9 @@
                 <td>Création mission</td>
                 <td>Matricule</td>
                 <td>Durée mission</td>
-                <td>Nom detenteur</td>
-                <td>Prenom detenteur</td>
-                <td>Fonction Detenteur</td>
-                <td>Départ</td>
-                <td>Heure</td>
-                <td>Date</td>
                 <td>Création mission</td>
-                <td>Nom chaufeur</td>
-                <td>Prenom chafeur</td>
-                <td>Téléphone transporteur</td>
                 <td>Payment OR</td>
-                <td>Payment BST</td>
                 <td>Validation OR</td>
-                <td>Validation BST</td>
-                <td>Payment OR</td>
-                <td>Payment BST</td>
-                <td>Frais</td>
                 <td>Etat</td>
             </tr>
             {% for bse_validation_attente in bse_validation_attente %}
@@ -122,22 +108,9 @@
                     <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
                     <td>{{ bse_validation_attente.matricule }}</td>
                     <td>{{ bse_validation_attente.dureeMission }}</td>
-                    <td>{{ bse_validation_attente.nomDetenteur }}</td>
-                    <td>{{ bse_validation_attente.prenomDetenteur }}</td>
-                    <td>{{ bse_validation_attente.fonctionDetenteur }}</td>
-                    <td>{{ bse_validation_attente.lieuDepartMissionnaire }}</td>
-                    <td>{{ bse_validation_attente.heureDepartMissionnaire }}</td>
-                    <td>{{ bse_validation_attente.dateDepartMissionnaire }}</td>
                     <td>{{ bse_validation_attente.lieuBse}}</td>
-                    <td>{{ bse_validation_attente.nomChaufeur }}</td>
-                    <td>{{ bse_validation_attente.prenomChafeur }}</td>
-                    <td>{{ bse_validation_attente.telTransporteur }}</td>
                     <td>{{ bse_validation_attente.etatPaymentOr }}</td>
-                    <td>{{ bse_validation_attente.etatPaymentBst }}</td>
                     <td>{{ bse_validation_attente.etatValidationOr }}</td>
-                    <td>{{ bse_validation_attente.etatValidationBst }}</td>
-                    <td>{{ bse_validation_attente.codePostalePayementOr }}</td>
-                    <td>{{ bse_validation_attente.codePostalePaymentBst }}</td>
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
                     <td>
@@ -161,20 +134,9 @@
                 <td>Nom detenteur</td>
                 <td>Prenom detenteur</td>
                 <td>Fonction Detenteur</td>
-                <td>Départ</td>
-                <td>Heure</td>
-                <td>Date</td>
                 <td>Création mission</td>
-                <td>Nom chaufeur</td>
-                <td>Prenom chafeur</td>
-                <td>Téléphone transporteur</td>
                 <td>Payment OR</td>
-                <td>Payment BST</td>
                 <td>Validation OR</td>
-                <td>Validation BST</td>
-                <td>Payment OR</td>
-                <td>Payment BST</td>
-                <td>Frais</td>
                 <td>Etat</td>
             </tr>
             {% for validation_refuse in validation_refuse %}
@@ -187,20 +149,9 @@
                     <td>{{ validation_refuse.nomDetenteur }}</td>
                     <td>{{ validation_refuse.prenomDetenteur }}</td>
                     <td>{{ validation_refuse.fonctionDetenteur }}</td>
-                    <td>{{ validation_refuse.lieuDepartMissionnaire }}</td>
-                    <td>{{ validation_refuse.heureDepartMissionnaire }}</td>
-                    <td>{{ validation_refuse.dateDepartMissionnaire }}</td>
                     <td>{{ validation_refuse.lieuBse}}</td>
-                    <td>{{ validation_refuse.nomChaufeur }}</td>
-                    <td>{{ validation_refuse.prenomChafeur }}</td>
-                    <td>{{ validation_refuse.telTransporteur }}</td>
                     <td>{{ validation_refuse.etatPaymentOr }}</td>
-                    <td>{{ validation_refuse.etatPaymentBst }}</td>
                     <td>{{ validation_refuse.etatValidationOr }}</td>
-                    <td>{{ validation_refuse.etatValidationBst }}</td>
-                    <td>{{ validation_refuse.codePostalePayementOr }}</td>
-                    <td>{{ validation_refuse.codePostalePaymentBst }}</td>
-                    <td>{{ validation_refuse.depenseBst }}</td>
                     <td>{{ validation_refuse.etat }}</td>
                 </tr>
             {% endfor %}
@@ -224,16 +175,8 @@
                 <td>Heure</td>
                 <td>Date</td>
                 <td>Création mission</td>
-                <td>Nom chaufeur</td>
-                <td>Prenom chafeur</td>
-                <td>Téléphone transporteur</td>
                 <td>Payment OR</td>
-                <td>Payment BST</td>
                 <td>Validation OR</td>
-                <td>Validation BST</td>
-                <td>Payment OR</td>
-                <td>Payment BST</td>
-                <td>Frais</td>
                 <td>Etat</td>
             </tr>
             {% for validation_accepte_non_paye in validation_accepte_non_paye %}
@@ -250,16 +193,8 @@
                     <td>{{ validation_accepte_non_paye.heureDepartMissionnaire }}</td>
                     <td>{{ validation_accepte_non_paye.dateDepartMissionnaire }}</td>
                     <td>{{ validation_accepte_non_paye.lieuBse}}</td>
-                    <td>{{ validation_accepte_non_paye.nomChaufeur }}</td>
-                    <td>{{ validation_accepte_non_paye.prenomChafeur }}</td>
-                    <td>{{ validation_accepte_non_paye.telTransporteur }}</td>
                     <td>{{ validation_accepte_non_paye.etatPaymentOr }}</td>
-                    <td>{{ validation_accepte_non_paye.etatPaymentBst }}</td>
                     <td>{{ validation_accepte_non_paye.etatValidationOr }}</td>
-                    <td>{{ validation_accepte_non_paye.etatValidationBst }}</td>
-                    <td>{{ validation_accepte_non_paye.codePostalePayementOr }}</td>
-                    <td>{{ validation_accepte_non_paye.codePostalePaymentBst }}</td>
-                    <td>{{ validation_accepte_non_paye.depenseBst }}</td>
                     <td>{{ validation_accepte_non_paye.etat }}</td>
                     <td>
                         <a href="{{ path('bse_paye', {id: validation_accepte_non_paye.id}) }}">Payer</a>
@@ -286,16 +221,9 @@
                 <td>Heure</td>
                 <td>Date</td>
                 <td>Création mission</td>
-                <td>Nom chaufeur</td>
-                <td>Prenom chafeur</td>
-                <td>Téléphone transporteur</td>
                 <td>Payment OR</td>
-                <td>Payment BST</td>
                 <td>Validation OR</td>
-                <td>Validation BST</td>
                 <td>Payment OR</td>
-                <td>Payment BST</td>
-                <td>Frais</td>
                 <td>Etat</td>
             </tr>
             {% for validation_accepte_paye in validation_accepte_paye %}
