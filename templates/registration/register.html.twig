@@ -1,6 +1,13 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Register{% endblock %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Acceuil</title>
+        <link rel="stylesheet" href="{{ asset('assets/w3.css')}}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    </head>
 
 {% block body %}
     <h1>Register</h1>
@@ -8,12 +15,63 @@
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
+    <div>
+        {{ form_row(registrationForm.email, {
+            label: 'email',
+            'attr': {'class': 'w3-input'}
+        }) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Password',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.matricule, {
+            label: 'matricule',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.nom, {
+            label: 'nom',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.prenom, {
+            label: 'prenom',
+            'attr': {'class': 'w3-input'}
+        }) }}
+    </div>
+    <div>
+        {{ form_row(registrationForm.sexe, {
+            label: 'sexe',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.fonction, {
+            label: 'fonction',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.situation_familiale, {
+            label: 'situation_familiale',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.cin, {
+            label: 'cin',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.date_cin, {
+            label: 'date_cin',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.taux_journalier, {
+            label: 'taux_journalier',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.titre, {
+            label: 'titre',
+            'attr': {'class': 'w3-input'}
+        }) }}
+        {{ form_row(registrationForm.roles, {
+            label: 'roles',
+            'attr': {'class': 'w3-input'}
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn">Register</button></div>
     {{ form_end(registrationForm) }}
 {% endblock %}
