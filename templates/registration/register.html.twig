@@ -8,70 +8,147 @@
         <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
     </head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            align-items: center;
+            display: flex;
+            flex-direction:column;
+            background: #f6f5f7;
+            font-family:'monserrat', sans-serif;
+            min-height: 100%;
+            margin: 1%;
+        }
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", Times, serif;
+        }
+        .input{
+            display: flex;
+            margin: 2%;
+        }
+        .input1{
+            background: red;
+            margin-right: 5%;
+        }
+        .formulaire{
+            background:#fff;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+        }
+    </style>
+
 
 {% block body %}
-    <h1>Register</h1>
+  <div class=" w3-center w3-animate-zoom w3-half formulaire">
+    <div class="w3-container w3-amber">
+        <h2>Input Colors</h2>
+    </div>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-    <div>
-        {{ form_row(registrationForm.email, {
-            label: 'email',
-            'attr': {'class': 'w3-input'}
-        }) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password',
-            'attr': {'class': 'w3-input'}
-        }) }}
+    <div class= 'input'>
+        <div class= 'input1'>
         {{ form_row(registrationForm.matricule, {
             label: 'matricule',
-            'attr': {'class': 'w3-input'}
-        }) }}
-        {{ form_row(registrationForm.nom, {
-            label: 'nom',
-            'attr': {'class': 'w3-input'}
-        }) }}
-        {{ form_row(registrationForm.prenom, {
-            label: 'prenom',
-            'attr': {'class': 'w3-input'}
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
     </div>
-    <div>
-        {{ form_row(registrationForm.sexe, {
-            label: 'sexe',
-            'attr': {'class': 'w3-input'}
+        <div class= 'input1'>
+        {{ form_row(registrationForm.nom, {
+            label: 'nom',
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
-        {{ form_row(registrationForm.fonction, {
-            label: 'fonction',
-            'attr': {'class': 'w3-input'}
+    </div>
+    
+        {{ form_row(registrationForm.prenom, {
+            label: 'prenom',
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
+    </div>
+
+
+    <div class= 'input'>
+        <div class= 'input1'>
+            {{ form_row(registrationForm.titre, {
+                label: 'titre',
+                'attr': {'class': 'w3-input w3-border'}
+            }) }}
+        </div>
+    
+        <div class= 'input1'>
+        
+            {{ form_row(registrationForm.sexe, {
+                label: 'sexe',
+                'attr': {'class': 'w3-input w3-border'}
+            }) }}
+        </div>
         {{ form_row(registrationForm.situation_familiale, {
             label: 'situation_familiale',
-            'attr': {'class': 'w3-input'}
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
+    </div>
+
+    <div class= 'input'>
+        <div class= 'input1'>
         {{ form_row(registrationForm.cin, {
             label: 'cin',
-            'attr': {'class': 'w3-input'}
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
+    </div>
+    
+    <div class= 'input1'>
         {{ form_row(registrationForm.date_cin, {
             label: 'date_cin',
-            'attr': {'class': 'w3-input'}
+            'attr': {'class': 'w3-input w3-border'}
         }) }}
-        {{ form_row(registrationForm.taux_journalier, {
-            label: 'taux_journalier',
-            'attr': {'class': 'w3-input'}
-        }) }}
-        {{ form_row(registrationForm.titre, {
-            label: 'titre',
-            'attr': {'class': 'w3-input'}
-        }) }}
+    </div>
+
+
         {{ form_row(registrationForm.roles, {
             label: 'roles',
             'attr': {'class': 'w3-input'}
         }) }}
+    </div>
+
+    <div class= 'input'>
+        <div class= 'input1'>
+        {{ form_row(registrationForm.taux_journalier, {
+            label: 'taux_journalier',
+            'attr': {'class': 'w3-input w3-border'}
+        }) }}
+    </div>
+        {{ form_row(registrationForm.fonction, {
+            label: 'fonction',
+            'attr': {'class': 'w3-input w3-border'}
+        }) }}
+    
+    </div>
+
+    <div class= 'input'>
+        <div class= 'input1'>
+            {{ form_row(registrationForm.email, {
+                label: 'email',
+                'attr': {'class': 'w3-input w3-border'}
+            }) }}
+        </div>
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password',
+            'attr': {'class': 'w3-input w3-border'}
+        }) }}
+    </div>
+
+
+    <div class= 'input'>
+        <div class= 'input1'>
+    </div>
+
         {{ form_row(registrationForm.agreeTerms) }}
+    </div>
 
         <button type="submit" class="btn">Register</button></div>
     {{ form_end(registrationForm) }}
+
+  </div>
 {% endblock %}
