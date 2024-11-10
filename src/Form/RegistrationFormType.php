@@ -90,7 +90,6 @@ class RegistrationFormType extends AbstractType
                     'Admin' => 'ROLE_ADMIN',
                     'User' => 'ROLE_USER',
                     'Other' => 'ROLE_MISSIONNAIRE',
-                    // Ajoutez d'autres rôles si nécessaire
                 ],
                 'multiple' => true, // Permettre la sélection multiple
                 'expanded' => true,  // Utiliser des boutons radio
