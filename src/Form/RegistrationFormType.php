@@ -33,13 +33,41 @@ class RegistrationFormType extends AbstractType
             ->add('matricule', NumberType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
-            ->add('sexe', TextType::class)
+            ->add('sexe', ChoiceType::class, [
+                'choices' => [
+                    'Femme' => 'Femme',
+                    'Homme' => 'Homme',
+                ],
+                'multiple' => false,
+                'expanded' => false,  
+            ])
             ->add('fonction', TextType::class)
-            ->add('situation_familiale', TextType::class)
+            ->add('situation_familiale', ChoiceType::class, [
+                'choices' => [
+                    'Célibataire' => 'Célibataire',
+                    'En couple' => 'En couple',
+                    'Marié' => 'Marié',
+                    'Mariée' => 'Mariée',
+                    'Divorcé' => 'Divorcé',
+                    'Divorcée' => 'Divorcée',
+                    'Veuf' => 'Veuf',
+                    'Veuve' => 'Veuve',
+                ],
+                'multiple' => false,
+                'expanded' => false,  
+            ])
             ->add('cin', TextType::class)
             ->add('date_cin', DateType::class)
             ->add('taux_journalier', NumberType::class)
-            ->add('titre', TextType::class)
+            ->add('titre', ChoiceType::class, [
+                'choices' => [
+                    'Madame' => 'Madame',
+                    'Monsieur' => 'Monsieur',
+                    'Mademoiselle' => 'Mademoiselle',
+                ],
+                'multiple' => false,
+                'expanded' => false,  
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
