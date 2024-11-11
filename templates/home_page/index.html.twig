@@ -42,7 +42,7 @@
             <div class="w3-col w3-amber " id="nav">
                 <!--img src="{{ asset('images/logo.png') }}" class="w3-bar-item w3-circle w3-hide-small" style="width:85px"-->
                 <h1 class="w3-opacity h5 mb-3 font-weight-normal"><i class="fa fa-user-circle w3-opacity"></i>  {{ app.user.userIdentifier }}</h1>
-                <a href="{{path('app_register')}}"><button class="w3-button w3-text-black w3-opacity"><i class="fa fa-user-plus w3-opacity"></i> Nouveau utilisateur</button></a>
+                <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity"><i class="fa fa-user w3-opacity"></i> Utilisateur</button></a>
                 <a href="{{path('ordreRoute_index')}}"><button class="w3-button w3-text-black w3-opacity">Ordre de route</button></a>
                 <a href="{{path('bst_index')}}"><button class="w3-button w3-text-black w3-opacity">Bon Spécial de Transport</button></a>
                 <a href="{{path('bse_index')}}"><button class="w3-button w3-text-black w3-opacity">Mission</button></a>
