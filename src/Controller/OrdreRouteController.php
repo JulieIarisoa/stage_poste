@@ -71,7 +71,7 @@ class OrdreRouteController extends AbstractController
         }
 
         return $this->render('ordreRoute/new.html.twig', [
-            'form' => $form->createView(),
+            'nouveau_or' => $form->createView(),
         ]);
     }
 
