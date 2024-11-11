@@ -64,6 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_cin = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $nombre_enfant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -255,6 +261,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateCin(?\DateTimeInterface $date_cin): static
     {
         $this->date_cin = $date_cin;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getNombreEnfant(): ?int
+    {
+        return $this->nombre_enfant;
+    }
+
+    public function setNombreEnfant(?int $nombre_enfant): static
+    {
+        $this->nombre_enfant = $nombre_enfant;
 
         return $this;
     }

@@ -110,11 +110,21 @@
                 </div>
             </div>
 
+            <!-- Fifth Row: address and nombre enfant -->
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                <div class="w3-half">
+                    {{ form_row(utilisateur.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-half">
+                    {{ form_row(utilisateur.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+            </div>
+
 
             {# Bouton de soumission du formulaire et bouton de retour avec un style #}
-            <button type="submit" class="w3-btn w3-green w3-half">Update</button>
+            <button type="submit" class="w3-btn w3-green w3-half">Modifier</button>
             <a href="{{ path('user_index') }}" class="w3-btn w3-blue w3-half">
-                <i class="fa fa-arrow-left"></i> Back to list
+                <i class="fa fa-arrow-left"></i> Retourner 
             </a>
 
         {# Fermer le formulaire #}
