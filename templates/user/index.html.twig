@@ -66,7 +66,9 @@
         .w3-button {
             margin-bottom: 10px;
         }
-
+        #nouveau{
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -113,38 +115,63 @@
 
     <!-- Recherche Utilisateur -->
     <div class="w3-container content-wrapper">
-        <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Tapez pour rechercher...">
-        <div id="searchResults" class="mt-3"></div>
+    <div class="d-flex align-items-center">
+        <a href="{{ path('app_register') }}" class="w3-button w3-blue w3-quarter w3-margin" id="nouveau"><i class="fa fa-user-plus"></i>Add utilisateur</a>
+        <input type="text" id="searchInput" class="w3-input w3-border w3-threequarter" placeholder="Tapez pour rechercher...">
     </div>
+    <div id="searchResults" class="mt-3"></div>
+</div>
 
-    <!-- Liste des utilisateurs -->
-    <div class="w3-container content-wrapper">
-        <a href="{{ path('app_register') }}" class="w3-button w3-blue"><i class="fa fa-user-plus"></i> Créer un nouvel utilisateur</a>
-        <div>
-            {% for user in user %}
-                <div class="w3-container w3-animate-zoom w3-half w3-margin-bottom">
-                    <div class="container w3-card-4 w3-margin">
-                        <div class="w3-display-container w3-section">
-                            <h5 class="w3-display-topmiddle w3-red"><i class="fa fa-user w3-opacity"></i><b> {{ user.titre }} {{ user.nom }}</b></h5>
-                        </div>
-                        <div class="w3-padding">
-                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small">Voir</a>
-                            <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small">Modifier</a>
-                            <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small">Supprimer</a>
-                            <p>Matricule: {{ user.matricule }}</p>
-                            <p>Nom: {{ user.nom }}</p>
-                            <p>Prenom: {{ user.prenom }}</p>
-                            <p>Sexe: {{ user.sexe }}</p>
-                            <p>Fonction: {{ user.fonction }}</p>
-                            <p>Situation Familiale: {{ user.situationFamiliale }}</p>
-                            <p>CIN: {{ user.cin }}</p>
-                            <p>Date CIN: {{ user.dateCin|date('Y-m-d') }}</p>
-                            <p>Taux journalier: {{ user.tauxJournalier }}</p>
-                        </div>
+
+<!-- Liste des utilisateurs -->
+<div class="w3-container content-wrapper">
+    <div>
+        {% for user in user %}
+            <div class="w3-container w3-animate-zoom w3-half w3-margin-bottom">
+                <div class="container w3-card-4 w3-margin">
+                    <div class="w3-display-container w3-section">
+                        <center><h5 class="w3-grey w3-padding-16"><i class="fa fa-user w3-opacity"></i> <b>{{ user.titre }} {{ user.nom|upper }} {{ user.prenom }}</b></h5></center>
+                    </div>
+                    <div class="w3-padding">
+                        
+                        <!-- Matricule -->
+                        <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
+
+                        <!-- Sexe -->
+                        <p>
+                            {% if user.sexe == 'femme' %}
+                                <i class="fas fa-female"></i> {{ user.sexe }}
+                            {% elseif user.sexe == 'homme' %}
+                                <i class="fas fa-male"></i> {{ user.sexe }}
+                            {% endif %}
+                        </p>
+
+                        <!-- Fonction -->
+                        <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
+
+                        <!-- Situation Familiale -->
+                        <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
+
+                        <!-- CIN -->
+                        <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
+
+                        <!-- Date CIN -->
+                        <p><i class="fas fa-calendar-alt"></i> Date CIN: {{ user.dateCin|date('Y-m-d') }}</p>
+
+                        <!-- Taux journalier -->
+                        <p><i class="fas fa-money-bill-wave"></i> Taux journalier: {{ user.tauxJournalier }}</p>
+                        <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
+                        <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small"><i class="fas fa-edit"></i> Modifier</a>
+                        <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small"><i class="fas fa-trash-alt"></i> Supprimer</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+
     </div>
 
     <script>
