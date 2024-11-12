@@ -39,7 +39,7 @@
     {# Vérifiez si l'utilisateur a le rôle ADMIN #}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="w3-row">
-            <div class="w3-col w3-amber " id="nav">
+            <div class="w3-col w3-yellow " id="nav">
                 <!--img src="{{ asset('images/logo.png') }}" class="w3-bar-item w3-circle w3-hide-small" style="width:85px"-->
                 <h1 class="w3-opacity h5 mb-3 font-weight-normal"><i class="fa fa-user-circle w3-opacity"></i>  {{ app.user.userIdentifier }}</h1>
                 <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity"><i class="fa fa-user w3-opacity"></i> Utilisateur</button></a>

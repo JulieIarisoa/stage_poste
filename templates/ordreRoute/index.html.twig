@@ -39,7 +39,7 @@
     {# Vérifiez si l'utilisateur a le rôle ADMIN #}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="w3-row">
-            <div class="w3-col w3-amber " id="nav">
+            <div class="w3-col w3-yellow " id="nav">
                 <!--img src="{{ asset('images/logo.png') }}" class="w3-bar-item w3-circle w3-hide-small" style="width:85px"-->
                 <h1 class="w3-opacity h5 mb-3 font-weight-normal"><i class="fa fa-user-circle w3-opacity"></i>  {{ app.user.userIdentifier }}</h1>
                 <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity"><i class="fa fa-user w3-opacity"></i> Utilisateur</button></a>
@@ -101,7 +101,7 @@
         <h4>Création de l'ordre de route</h4>
         <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction('myTable','myInput',1)">
         <table class="w3-table-all w3-hoverable"  id="myTable">
-                <tr class="w3-green">
+                <tr class="w3-indigo">
                     <th>Matricule</th>
                     <th>Nom</th>
                     <th>Prenom</th>
@@ -128,7 +128,7 @@
                     <td>{{ user.tauxJournalier }}</td>
                     <td>{{ user.titre }}</td>
                     <td>
-                        <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-amber">OR</boutton></a>
+                        <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">OR</boutton></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -139,7 +139,7 @@
         <h2>Tous mission créer</h2>
         <h1>Liste de ordreRoute tout informations</h1>
         <table  class="w3-table-all w3-hoverable" >
-            <tr class="w3-green">
+            <tr class="w3-indigo">
                 <td>Destination</td>
                 <td>Motif</td>
                 <td>Création mission</td>
@@ -169,7 +169,7 @@
         <h1>Liste de BSE tout en attente</h1>
         <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myFunction('myTableAttente','myInputAttente',0)">
         <table class="w3-table-all w3-hoverable" id="myTableAttente">
-            <tr class="w3-green">
+            <tr class="w3-indigo">
                 <th>Destination</th>
                 <th>Motif</th>
                 <th>Création mission</th>
@@ -195,7 +195,7 @@
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Valider</button></a>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -205,8 +205,9 @@
     <div id="refuse" class="w3-container Mission" style="display:none">
         <h2>Refuse</h2>
         <h1>Liste de BSE tout refusé</h1>
-        <table  class="w3-table-all w3-hoverable" >
-            <tr class="w3-green">
+        <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputRefuse" onkeyup="myFunction('myTableRefuse','myInputRefuse',0)">
+        <table  class="w3-table-all w3-hoverable" id="myTableRefuse">
+            <tr class="w3-indigo">
                 <th>Destination</th>
                 <th>Motif</th>
                 <th>Création mission</th>
@@ -234,7 +235,7 @@
                     <td>{{ validation_refuse.etatValidationOr }}</td>
                     <td>{{ validation_refuse.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Modifier</button></a>
+                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -245,10 +246,9 @@
         <h2>En attente</h2>
         <h1>Liste de BSE tout accepté non paye</h1>
         <table class="w3-table-all w3-hoverable" >
-            <tr>
+            <tr class="w3-indigo">
                 <td>Destination</td>
                 <td>Motif</td>
-                <td>Création mission</td>
                 <td>Matricule</td>
                 <td>Durée mission</td>
                 <td>Nom detenteur</td>
@@ -257,16 +257,15 @@
                 <td>Départ</td>
                 <td>Heure</td>
                 <td>Date</td>
-                <td>Création mission</td>
                 <td>Payment OR</td>
                 <td>Validation OR</td>
                 <td>Etat</td>
+                <td></td>
             </tr>
             {% for validation_accepte_non_paye in validation_accepte_non_paye %}
                 <tr>
                     <td>{{ validation_accepte_non_paye.destination }}</td>
                     <td>{{ validation_accepte_non_paye.motif }}</td>
-                    <td>{{ validation_accepte_non_paye.dateBse|date('Y-m-d') }}</td>
                     <td>{{ validation_accepte_non_paye.matricule }}</td>
                     <td>{{ validation_accepte_non_paye.dureeMission }}</td>
                     <td>{{ validation_accepte_non_paye.nomDetenteur }}</td>
@@ -275,12 +274,11 @@
                     <td>{{ validation_accepte_non_paye.lieuDepartMissionnaire }}</td>
                     <td>{{ validation_accepte_non_paye.heureDepartMissionnaire }}</td>
                     <td>{{ validation_accepte_non_paye.dateDepartMissionnaire }}</td>
-                    <td>{{ validation_accepte_non_paye.lieuBse}}</td>
                     <td>{{ validation_accepte_non_paye.etatPaymentOr }}</td>
                     <td>{{ validation_accepte_non_paye.etatValidationOr }}</td>
                     <td>{{ validation_accepte_non_paye.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye.id}) }}">Payer</a>
+                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
                     </td>
                 </tr>
             {% endfor %}
