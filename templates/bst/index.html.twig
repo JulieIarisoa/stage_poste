@@ -135,17 +135,6 @@
                     <td>{{ bse_validation_attente.matricule }}</td>
                     <td>{{ bse_validation_attente.dureeMission }}</td>
                     <td>{{ bse_validation_attente.nomDetenteur }}</td>
-                    <td>{{ bse_validation_attente.prenomDetenteur }}</td>
-                    <td>{{ bse_validation_attente.fonctionDetenteur }}</td>
-                    <td>{{ bse_validation_attente.lieuDepartMissionnaire }}</td>
-                    <td>{{ bse_validation_attente.heureDepartMissionnaire }}</td>
-                    <td>{{ bse_validation_attente.dateDepartMissionnaire }}</td>
-                    <td>{{ bse_validation_attente.lieuBse}}</td>
-                    <td>{{ bse_validation_attente.nomChaufeur }}</td>
-                    <td>{{ bse_validation_attente.prenomChafeur }}</td>
-                    <td>{{ bse_validation_attente.telTransporteur }}</td>
-                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
-                    <td>{{ bse_validation_attente.etatPaymentBst }}</td>
                     <td>{{ bse_validation_attente.etatValidationOr }}</td>
                     <td>{{ bse_validation_attente.etatValidationBst }}</td>
                     <td>{{ bse_validation_attente.codePostalePayementOr }}</td>
@@ -153,7 +142,7 @@
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}">Valider</a>
+                        <a href="{{ path('bstOr_valide', {id: bse_validation_attente.id}) }}">Valider</a>
                     </td>
                 </tr>
             {% endfor %}

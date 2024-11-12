@@ -6,7 +6,7 @@ use App\Entity\Bse;
 use App\Entity\User;
 use App\Form\BstOrType;
 use App\Form\BsePayeType;
-use App\Form\BseValideType;
+use App\Form\BstOrValideType;
 use \Twig\Environment;
 use App\Service\PdfGeneratorService;
 use App\Entity\Bst;
@@ -125,23 +125,23 @@ class BstController extends AbstractController
     }
 
 
-    #[Route("/bst/{id}/valide", name: "bst_valide")]
-    public function valider(Request $request, Bst $bst): Response
+    #[Route("/bstor/{id}/valide", name: "bstOr_valide")]
+    public function valide(Request $request, Bse $bse): Response
     {
-        $form = $this->createForm(BstValideType::class, $bst);
+        $form = $this->createForm(BstOrValideType::class, $bse);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Bst updated successfully.');
+            $this->addFlash('success', 'Bse updated successfully.');
 
             return $this->redirectToRoute('bst_index');
         }
 
-        return $this->render('bst/edit.html.twig', [
+        return $this->render('bse/valide.html.twig', [
             'form' => $form->createView(),
-            'bst' => $bst,
+            'bse' => $bse,
         ]);
     }
 
