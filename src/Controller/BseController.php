@@ -145,7 +145,7 @@ class BseController extends AbstractController
         }
 
         return $this->render('bse/paye.html.twig', [
-            'form' => $form->createView(),
+            'payementOr' => $form->createView(),
             'bse' => $bse,
         ]);
     }
