@@ -99,7 +99,7 @@
 
     <div id="creation" class="w3-container Mission">
         <h4>Création de l'ordre de route</h4>
-        <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction()">
+        <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction('myTable','myInput',1)">
         <table class="w3-table-all w3-hoverable"  id="myTable">
                 <tr class="w3-green">
                     <th>Matricule</th>
@@ -139,7 +139,7 @@
         <h2>Tous mission créer</h2>
         <h1>Liste de ordreRoute tout informations</h1>
         <table  class="w3-table-all w3-hoverable" >
-            <tr>
+            <tr class="w3-green">
                 <td>Destination</td>
                 <td>Motif</td>
                 <td>Création mission</td>
@@ -167,17 +167,20 @@
     <div id="en_attente" class="w3-container Mission" style="display:none">
         <h2>En attente</h2>
         <h1>Liste de BSE tout en attente</h1>
-        <table class="w3-table-all w3-hoverable" >
-            <tr>
-                <td>Destination</td>
-                <td>Motif</td>
-                <td>Création mission</td>
-                <td>Matricule</td>
-                <td>Durée mission</td>
-                <td>Création mission</td>
-                <td>Payment OR</td>
-                <td>Validation OR</td>
-                <td>Etat</td>
+        <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myFunction('myTableAttente','myInputAttente',0)">
+        <table class="w3-table-all w3-hoverable" id="myTableAttente">
+            <tr class="w3-green">
+                <th>Destination</th>
+                <th>Motif</th>
+                <th>Création mission</th>
+                <th>Matricule</th>
+                <th>Durée mission</th>
+                <th>Création mission</th>
+                <th>Payment OR</th>
+                <th>Validation OR</th>
+                <th>Etat</th>
+                <th></th>
+                <th></th>
             </tr>
             {% for bse_validation_attente in bse_validation_attente %}
                 <tr>
@@ -192,7 +195,7 @@
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}">Valider</a>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Valider</button></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -336,14 +339,14 @@
 
 
         <script>
-            function myFunction() {
+            function myFunction(idTable, idInput, col) {
                 var input, filter, table, tr, td, i;
-                input = document.getElementById("myInput");
+                input = document.getElementById(idInput);
                 filter = input.value.toUpperCase();
-                table = document.getElementById("myTable");
+                table = document.getElementById(idTable);
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[1];
+                    td = tr[i].getElementsByTagName("td")[col];
                     if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
