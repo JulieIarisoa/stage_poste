@@ -110,7 +110,9 @@ class BseController extends AbstractController
     #[Route("/bse/{id}/valide", name: "bse_valide")]
     public function valide(Request $request, Bse $bse): Response
     {
+        $matricule = $request->get('matricule');
         $form = $this->createForm(BseValideType::class, $bse);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['matricule' => $matricule]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -122,8 +124,9 @@ class BseController extends AbstractController
         }
 
         return $this->render('bse/valide.html.twig', [
-            'form' => $form->createView(),
+            'valide' => $form->createView(),
             'bse' => $bse,
+            'user' => $user,
         ]);
     }
 

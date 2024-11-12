@@ -195,7 +195,7 @@
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
                     <td>
-                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Valider</button></a>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Valider</button></a>
                     </td>
                 </tr>
             {% endfor %}
