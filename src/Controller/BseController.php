@@ -89,8 +89,8 @@ class BseController extends AbstractController
             return $this->redirectToRoute('bse_index');
         }
 
-        return $this->render('bse/edit.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('ordreRoute/edit.html.twig', [
+            'edit_refuse' => $form->createView(),
             'bse' => $bse,
         ]);
     }

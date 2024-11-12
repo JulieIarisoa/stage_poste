@@ -216,7 +216,6 @@
                 <td>Prenom detenteur</td>
                 <td>Fonction Detenteur</td>
                 <td>Création mission</td>
-                <td>Payment OR</td>
                 <td>Validation OR</td>
                 <td>Etat</td>
             </tr>
@@ -231,9 +230,11 @@
                     <td>{{ validation_refuse.prenomDetenteur }}</td>
                     <td>{{ validation_refuse.fonctionDetenteur }}</td>
                     <td>{{ validation_refuse.lieuBse}}</td>
-                    <td>{{ validation_refuse.etatPaymentOr }}</td>
                     <td>{{ validation_refuse.etatValidationOr }}</td>
                     <td>{{ validation_refuse.etat }}</td>
+                    <td>
+                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-amber">Modifier</button></a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
