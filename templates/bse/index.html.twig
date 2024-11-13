@@ -124,9 +124,9 @@
                         Se deconnecter
                     </button>
                 </a>
-                {#
+               
                 <a href="{{path('ordreRoute_index')}}"><button class="w3-button w3-block w3-left-align">Ordre de route</button></a>
-                <a href="{{path('bst_index')}}"><button class="w3-button w3-block w3-left-align">Bon Spécial de Transport</button></a>
+                {# <a href="{{path('bst_index')}}"><button class="w3-button w3-block w3-left-align">Bon Spécial de Transport</button></a>
                 <a href="{{path('pdf_bst')}}"><button class="w3-button w3-block w3-left-align">pdf</button></a>
                 <a href="{{path('pdf_or')}}"><button class="w3-button w3-block w3-left-align">Or</button></a>
                 <a href="{{path('user_index')}}"><button class="w3-button w3-block w3-left-align"><i class="fas fa-flag"></i>Missionnaire</button></a>
@@ -158,9 +158,118 @@
     {% endif %}
 
     <!-- Recherche Utilisateur -->
-    <div class="w3-container content-wrapper">
-</div>
+    <div class="w3-container content-wrapper" id="creation">
+        <a href="#creation"><button class="w3-button w3-indigo">Création</button></a>
+        <a href="#validation"><button class="w3-button">Validation</button></a>
 
+
+        <div id="creation" class="w3-container Mission">
+            <div class="w3-display-container">
+                <input class="w3-input w3-border  w3-quarter w3-margin-right w3-margin-top w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction('myTable','myInput',1)">
+                <h4 class="w3-treequarter w3-display-middle">Création d'un ordre de route avec ou sans BST</h4>
+            </div>
+            <table class="w3-table-all w3-hoverable"  id="myTable">
+                    <tr class="w3-indigo">
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Sexe</th>
+                        <th>Fonction</th>
+                        <th>Situation Familiale</th>
+                        <th>CIN</th>
+                        <th>Date CIN</th>
+                        <th>Taux Journalier</th>
+                        <th>Titre</th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                {% for user in user %}
+                    <tr class="">
+                        <td>{{ user.matricule }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.sexe }}</td>
+                        <td>{{ user.fonction }}</td>
+                        <td>{{ user.situationFamiliale }}</td>
+                        <td>{{ user.cin }}</td>
+                        <td>{{ user.dateCin|date('Y-m-d') }}</td>
+                        <td>{{ user.tauxJournalier }}</td>
+                        <td>{{ user.titre }}</td>
+                        <td>
+                            <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">OR</boutton></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">OR/BST</boutton></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="w3-container content-wrapper" id="validation">
+        <a href="#creation"><button class="w3-button">Création</button></a>
+        <a href="#validation"><button class="w3-button w3-indigo">Validation</button></a>
+        <div id="creation" class="w3-container Mission">
+            <div class="w3-display-container">
+                <input class="w3-input w3-border  w3-quarter w3-margin-right w3-margin-top w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction('myTable','myInput',1)">
+                <h4 class="w3-treequarter w3-display-middle">Validation d'un ordre de route avec ou sans BST</h4>
+            </div>
+                <table class="w3-table-all w3-hoverable" id="myTableAttente">
+            <tr class="w3-indigo">
+                <th>Destination</th>
+                <th>Motif</th>
+                <th>Création mission</th>
+                <th>Matricule</th>
+                <th>Durée mission</th>
+                <th>Création mission</th>
+                <th>Payment OR</th>
+                <th>Validation OR</th>
+                <th>Etat</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for bse_validation_attente in bse_validation_attente %}
+                <tr>
+                    <td>{{ bse_validation_attente.destination }}</td>
+                    <td>{{ bse_validation_attente.motif }}</td>
+                    <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
+                    <td>{{ bse_validation_attente.matricule }}</td>
+                    <td>{{ bse_validation_attente.dureeMission }}</td>
+                    <td>{{ bse_validation_attente.lieuBse}}</td>
+                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
+                    <td>{{ bse_validation_attente.etatValidationOr }}</td>
+                    <td>{{ bse_validation_attente.depenseBst }}</td>
+                    <td>{{ bse_validation_attente.etat }}</td>
+                    <td>
+                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <script>
+            function myFunction(idTable, idInput, col) {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById(idInput);
+                filter = input.value.toUpperCase();
+                table = document.getElementById(idTable);
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[col];
+                    if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                    }
+                }
+            }
+        </script>
 
 <!-- Liste des utilisateurs -->
 <div class="w3-container content-wrapper">
