@@ -80,7 +80,7 @@ class Bse
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $depense_bst = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $etat = null;
 
     public function getId(): ?int

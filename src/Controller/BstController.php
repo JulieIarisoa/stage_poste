@@ -69,8 +69,8 @@ class BstController extends AbstractController
             return $this->redirectToRoute('bse_index');
         }
 
-        return $this->render('bse/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('bst/new.html.twig', [
+            'or_bst' => $form->createView(),
         ]);
     }
 
