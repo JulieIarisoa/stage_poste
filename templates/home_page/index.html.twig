@@ -72,6 +72,10 @@
         #nouveau{
             margin-right: 10px;
         }
+        #active{
+            background: rgba(0, 0, 0, 0.10);
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -85,56 +89,56 @@
                     {{ app.user.userIdentifier }}
                 </h1>
                 <a href="{{path('app_home_page')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align" id="active">
                         <i class="fa fa-home w3-opacity"></i> 
                         Acceuil
                     </button>
                 </a>
                 <a href="{{path('user_index')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fa fa-users w3-opacity"></i> 
                         Missionnaire
                     </button>
                 </a>
                 <a href="{{path('bse_index')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fas fa-briefcase"></i>
                         Mission
                     </button>
                 </a>
                 <a href="{{path('payment_index')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fas fa-dollar-sign"></i> 
                         Payement
                     </button>
                 </a>
                 <a href="{{path('bureau_index')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fas fa-building"></i>
                         Agence
                     </button>
                 </a>
                 <a href="{{path('credit_index')}}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fas fa-sync"></i>
                         Renouveller credit
                     </button>
                 </a>
                 <a href="{{ path('app_logout') }}">
-                    <button class="w3-button w3-text-black w3-opacity">
+                    <button class="w3-button w3-block w3-left-align">
                         <i class="fas fa-sign-out-alt"></i>
                         Se deconnecter
                     </button>
                 </a>
                 {#
-                <a href="{{path('ordreRoute_index')}}"><button class="w3-button w3-text-black w3-opacity">Ordre de route</button></a>
-                <a href="{{path('bst_index')}}"><button class="w3-button w3-text-black w3-opacity">Bon Spécial de Transport</button></a>
-                <a href="{{path('pdf_bst')}}"><button class="w3-button w3-text-black w3-opacity">pdf</button></a>
-                <a href="{{path('pdf_or')}}"><button class="w3-button w3-text-black w3-opacity">Or</button></a>
-                <a href="{{path('user_index')}}"><button class="w3-button w3-text-black w3-opacity"><i class="fas fa-flag"></i>Missionnaire</button></a>
-                <!--a href=""><button class="w3-button w3-text-black w3-opacity">Deduire facture du bst</button></a>
-                <a href=""><button class="w3-button w3-text-black w3-opacity">Générer rapport</button></a-->
-                <a href="{{ path('send_email') }}"><button class="w3-button w3-text-black w3-opacity">Send email</button></a>#}
+                <a href="{{path('ordreRoute_index')}}"><button class="w3-button w3-block w3-left-align">Ordre de route</button></a>
+                <a href="{{path('bst_index')}}"><button class="w3-button w3-block w3-left-align">Bon Spécial de Transport</button></a>
+                <a href="{{path('pdf_bst')}}"><button class="w3-button w3-block w3-left-align">pdf</button></a>
+                <a href="{{path('pdf_or')}}"><button class="w3-button w3-block w3-left-align">Or</button></a>
+                <a href="{{path('user_index')}}"><button class="w3-button w3-block w3-left-align"><i class="fas fa-flag"></i>Missionnaire</button></a>
+                <!--a href=""><button class="w3-button w3-block w3-left-align">Deduire facture du bst</button></a>
+                <a href=""><button class="w3-button w3-block w3-left-align">Générer rapport</button></a-->
+                <a href="{{ path('send_email') }}"><button class="w3-button w3-block w3-left-align">Send email</button></a>#}
             </div>
 
     <div class="w3-container content-wrapper">
