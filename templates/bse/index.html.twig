@@ -243,9 +243,16 @@
                     <td>{{ bse_validation_attente.etatValidationOr }}</td>
                     <td>{{ bse_validation_attente.depenseBst }}</td>
                     <td>{{ bse_validation_attente.etat }}</td>
-                    <td>
-                        <a href="{{ path('bse_valide', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
-                    </td>
+
+                    {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
+                        <td>
+                            <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                        </td>
+                    {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
+                        <td>
+                            <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

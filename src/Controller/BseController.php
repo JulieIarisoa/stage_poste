@@ -30,8 +30,12 @@ class BseController extends AbstractController
           $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
             ->where('b.etat_validation_or = :etat_validation_or')
             ->orWhere('b.etat_validation_bst = :etat_validation_bst')
+            ->andWhere('b.etat_payment_bst = :etat_payment_bst')
+            ->orWhere('b.etat_payment_or = :etat_payment_or')
             ->setParameter('etat_validation_or', 'en_attente')
             ->setParameter('etat_validation_bst', 'en_attente')
+            ->setParameter('etat_payment_bst', 'en_attente')
+            ->setParameter('etat_payment_or', 'en_attente')
             ->getQuery()
             ->getResult();
 
@@ -115,8 +119,8 @@ class BseController extends AbstractController
     }
 
 
-    #[Route("/bse/{id}/valide", name: "bse_valide")]
-    public function valide(Request $request, Bse $bse): Response
+    #[Route("/bse/{id}/valide_or", name: "bse_valide_or")]
+    public function valideOr(Request $request, Bse $bse): Response
     {
         $matricule = $request->get('matricule');
         $form = $this->createForm(BseValideType::class, $bse);
@@ -131,7 +135,32 @@ class BseController extends AbstractController
             return $this->redirectToRoute('bse_index');
         }
 
-        return $this->render('bse/valide.html.twig', [
+        return $this->render('bse/valideOr.html.twig', [
+            'valide' => $form->createView(),
+            'bse' => $bse,
+            'user' => $user,
+        ]);
+    }
+
+
+
+    #[Route("/bse/{id}/valide_orbst", name: "bse_valide_or_bst")]
+    public function valideOrBst(Request $request, Bse $bse): Response
+    {
+        $matricule = $request->get('matricule');
+        $form = $this->createForm(BseValideType::class, $bse);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['matricule' => $matricule]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bse updated successfully.');
+
+            return $this->redirectToRoute('bse_index');
+        }
+
+        return $this->render('bse/valideOrBst.html.twig', [
             'valide' => $form->createView(),
             'bse' => $bse,
             'user' => $user,

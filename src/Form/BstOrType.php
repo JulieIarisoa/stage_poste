@@ -35,7 +35,7 @@ class BstOrType extends AbstractType
                 'data' => 'en_attente'
             ])
             ->add('etat', TextType::class,[
-                'data' => 'Ordre de route et BST'
+                'data' => 'Ordre de route avec BST'
             ]);
     }
 

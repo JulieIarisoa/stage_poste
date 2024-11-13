@@ -35,7 +35,7 @@ class BseType extends AbstractType
                 'attr' => ['readonly' => true],
             ])
             ->add('etat', TextType::class,[
-                'data' => 'Ordre de route',
+                'data' => 'Ordre de route sans BST',
                 'attr' => ['readonly' => true],
             ]);
     }
