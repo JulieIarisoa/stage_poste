@@ -15,7 +15,22 @@ class BseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BSE::class);
     }
+    public function sommeDureeTauxJournalier(): float
+    {
+        // Créer le QueryBuilder
+        $qb = $this->createQueryBuilder('b')
+            // Jointure avec l'entité OrdreDeRoute pour accéder à `duree_mission`
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            // Jointure avec l'entité Missionnaire pour accéder à `taux_journalier`
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            // Calcul de la somme de (duree_mission * taux_journalier)
+            ->select('SUM(o.duree_mission * m.taux_journalier) as somme');
 
+            // Exécuter la requête et récupérer le résultat
+            $result = $qb->getQuery()->getSingleScalarResult();
+
+            return $result ? (float)$result : 0.0;
+    }
    /*** 
      * @return BSE[] Returns an array of BSE objects that have at least one BST or OR associated
     
