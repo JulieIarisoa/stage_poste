@@ -10,27 +10,67 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     
     <style>
-        *{
+        * {
             box-sizing: border-box;
         }
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", Times, serif;
+        }
+
         a{
             text-decoration: none;
             color: grey;
         }
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Times New Roman", Times, serif;
-        }
         .w3-button{
             display: block;
         }
-        #nav{
-            width:20%;
-            height: 100vh;
+
+        .container {
+            min-height: 350px;
+            background: #fff;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+            margin-bottom: 5%;
         }
-        @media(max-width:1050px){
-            #nav{
+
+        /* Refonte du menu de navigation pour mieux utiliser W3.CSS */
+        #nav {
+            width: 20%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            padding-top: 20px;
+        }
+
+        #nav a {
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media(max-width: 1050px) {
+            #nav {
                 width: 100%;
+                position: relative;
+                height: auto;
             }
+        }
+
+        .content-wrapper {
+            margin-left: 22%;
+            padding: 20px;
+        }
+
+        /* Refonte des boutons */
+        .w3-button {
+            margin-bottom: 10px;
+        }
+        #nouveau{
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -39,8 +79,8 @@
     {# Vérifiez si l'utilisateur a le rôle ADMIN #}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="w3-row">
-            <div class="w3-col w3-yellow  w3-container-display" id="nav">
-                <h1 class="w3-opacity h5 mb-3 font-weight-normal w3-display-topmiddle">
+            <div class="w3-col w3-yellow" id="nav">
+                <h1 class="w3-opacity h5 mb-3 font-weight-normal">
                     <i class="fa fa-user-circle w3-opacity"></i>
                     {{ app.user.userIdentifier }}
                 </h1>
@@ -52,13 +92,13 @@
                 </a>
                 <a href="{{path('user_index')}}">
                     <button class="w3-button w3-text-black w3-opacity">
-                        <i class="fa fa-user w3-opacity"></i> 
+                        <i class="fa fa-users w3-opacity"></i> 
                         Missionnaire
                     </button>
                 </a>
                 <a href="{{path('bse_index')}}">
                     <button class="w3-button w3-text-black w3-opacity">
-                        <i class="fas fa-dollar-sign"></i> 
+                        <i class="fas fa-briefcase"></i>
                         Mission
                     </button>
                 </a>
@@ -97,6 +137,7 @@
                 <a href="{{ path('send_email') }}"><button class="w3-button w3-text-black w3-opacity">Send email</button></a>#}
             </div>
 
+    <div class="w3-container content-wrapper">
             <div class="w3-col" style="width:80%">
                 <div class="w3-cell-row">
                     <div class="w3-container w3-cell w3-mobile">
