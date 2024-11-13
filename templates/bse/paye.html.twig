@@ -61,8 +61,45 @@
             <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Valider ordre de route</h4>
         </div>
     <h1>Paye Bse</h1>
+    {{ form_errors(payementOr) }}
     {{ form_start(payementOr) }}
-    {{ form_widget(payementOr) }}
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-half">
+                {{ form_row(payementOr.destination, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(payementOr.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(payementOr.etat, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+        </div>
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-half">
+                {{ form_row(payementOr.lieu_bse, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(payementOr.date_bse, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(payementOr.duree_mission, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+        </div>
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-half">
+                {{ form_row(payementOr.etat_payment_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(payementOr.etat_payment_bst, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+        </div>
+
     <button type="submit" class="w3-btn w3-indigo w3-half">Payer</button>
     <a href="{{ path('bse_index') }}" class="w3-btn w3-red w3-half">Back to list</a>
     {{ form_end(payementOr) }}
