@@ -158,43 +158,182 @@
     {% endif %}
 
     <!-- Recherche Utilisateur -->
-    <div class="w3-container content-wrapper" id="creation">
-        <a href="#creation"><button class="w3-button w3-indigo">Création</button></a>
-        <a href="#validation"><button class="w3-button">Validation</button></a>
-        <a href="#refuse"><button class="w3-button ">Refusé</button></a>
+    <div class="w3-container content-wrapper" id="payer_bst">
+        <a href="#payer_bst"><button class="w3-button w3-indigo">Payer BST</button></a>
+        <a href="#payer_or"><button class="w3-button">Payer OR</button></a>
+        <a href="#bst_paye"><button class="w3-button ">BST payé</button></a>
+        <a href="#or_paye"><button class="w3-button ">OR payé</button></a>
 
 
-        <div id="creation" class="w3-container Mission">
+        <div id="payer_bst" class="w3-container Mission">
             <div class="w3-display-container">
                 <input class="w3-input w3-border  w3-quarter w3-margin-right w3-margin-top w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myFunction('myTable','myInput',1)">
-                <h4 class="w3-treequarter w3-display-middle">Création d'un ordre de route avec ou sans BST</h4>
+                <h4 class="w3-treequarter w3-display-middle">Liste des bon Spécial de Transport Non payer</h4>
             </div>
+
+            <table class="w3-table-all w3-hoverable" >
+                <tr class="w3-indigo">
+                    <td>Destination</td>
+                    <td>Motif</td>
+                    <td>Matricule</td>
+                    <td>Durée mission</td>
+                    <td>Nom detenteur</td>
+                    <td>Prenom detenteur</td>
+                    <td>Fonction Detenteur</td>
+                    <td>Départ</td>
+                    <td>Heure</td>
+                    <td>Date</td>
+                    <td>Payment OR</td>
+                    <td>Validation OR</td>
+                    <td>Etat</td>
+                    <td></td>
+                </tr>
+                {% for validation_accepte_non_paye_bst in validation_accepte_non_paye_bst %}
+                    <tr>
+                        <td>{{ validation_accepte_non_paye_bst.destination }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.motif }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.matricule }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.dureeMission }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.nomDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.prenomDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.fonctionDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.lieuDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.heureDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.dateDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.etatPaymentOr }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.etatValidationOr }}</td>
+                        <td>{{ validation_accepte_non_paye_bst.etat }}</td>
+                        <td>
+                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 
-    <div class="w3-container content-wrapper" id="validation">
-        <a href="#creation"><button class="w3-button">Création</button></a>
-        <a href="#validation"><button class="w3-button w3-indigo">Validation</button></a>
-        <a href="#refuse"><button class="w3-button">Refusé</button></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="w3-container content-wrapper" id="payer_or">
+        <a href="#payer_bst"><button class="w3-button">Payer BST</button></a>
+        <a href="#payer_or"><button class="w3-button w3-indigo">Payer OR</button></a>
+        <a href="#bst_paye"><button class="w3-button ">BST payé</button></a>
+        <a href="#or_paye"><button class="w3-button ">OR payé</button></a>
         <div id="creation" class="w3-container Mission">
             <div class="w3-display-container">
                 <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myFunction('myTableAttente','myInputAttente',0)">
-                <h4 class="w3-treequarter w3-display-middle">Validation d'un ordre de route avec ou sans BST</h4>
+                <h4 class="w3-treequarter w3-display-middle">Liste des ordres de route non payer</h4>
             </div>
+            <table class="w3-table-all w3-hoverable" >
+                <tr class="w3-indigo">
+                    <td>Destination</td>
+                    <td>Motif</td>
+                    <td>Matricule</td>
+                    <td>Durée mission</td>
+                    <td>Nom detenteur</td>
+                    <td>Prenom detenteur</td>
+                    <td>Fonction Detenteur</td>
+                    <td>Départ</td>
+                    <td>Heure</td>
+                    <td>Date</td>
+                    <td>Payment OR</td>
+                    <td>Validation OR</td>
+                    <td>Etat</td>
+                    <td></td>
+                </tr>
+                {% for validation_accepte_non_paye_or in validation_accepte_non_paye_or %}
+                    <tr>
+                        <td>{{ validation_accepte_non_paye_or.destination }}</td>
+                        <td>{{ validation_accepte_non_paye_or.motif }}</td>
+                        <td>{{ validation_accepte_non_paye_or.matricule }}</td>
+                        <td>{{ validation_accepte_non_paye_or.dureeMission }}</td>
+                        <td>{{ validation_accepte_non_paye_or.nomDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_or.prenomDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_or.fonctionDetenteur }}</td>
+                        <td>{{ validation_accepte_non_paye_or.lieuDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_or.heureDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_or.dateDepartMissionnaire }}</td>
+                        <td>{{ validation_accepte_non_paye_or.etatPaymentOr }}</td>
+                        <td>{{ validation_accepte_non_paye_or.etatValidationOr }}</td>
+                        <td>{{ validation_accepte_non_paye_or.etat }}</td>
+                        <td>
+                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 
-    <div class="w3-container content-wrapper" id="refuse">
-        <a href="#creation"><button class="w3-button">Création</button></a>
-        <a href="#validation"><button class="w3-button">Validation</button></a>
-        <a href="#refuse"><button class="w3-button w3-indigo">Refusé</button></a>
+
+
+
+
+
+
+
+
+
+
+    <div class="w3-container content-wrapper" id="bst_paye">
+        <a href="#payer_bst"><button class="w3-button">Payer BST</button></a>
+        <a href="#payer_or"><button class="w3-button">Payer OR</button></a>
+        <a href="#bst_paye"><button class="w3-button  w3-indigo">BST payé</button></a>
+        <a href="#or_paye"><button class="w3-button ">OR payé</button></a>
         <div id="creation" class="w3-container Mission">
             <div class="w3-display-container">
                 <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myFunction('myTableAttente','myInputAttente',0)">
-                <h4 class="w3-treequarter w3-display-middle">Ordre de route avec ou sans BST refusé</h4>
+                <h4 class="w3-treequarter w3-display-middle">Liste des Bon Spécial de Transport déjà payé</h4>
             </div>
+
+            
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="w3-container content-wrapper" id="or_paye">
+        <a href="#payer_bst"><button class="w3-button">Payer BST</button></a>
+        <a href="#payer_or"><button class="w3-button">Payer OR</button></a>
+        <a href="#bst_paye"><button class="w3-button ">BST payé</button></a>
+        <a href="#or_paye"><button class="w3-button  w3-indigo">OR payé</button></a>
+        <div id="creation" class="w3-container Mission">
+            <div class="w3-display-container">
+                <input class="w3-input w3-border w3-padding w3-margin w3-quarter" type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myFunction('myTableAttente','myInputAttente',0)">
+                <h4 class="w3-treequarter w3-display-middle">Liste des ordres de route déjà payé</h4>
+            </div>
+
+            
+        </div>
+    </div>
+
+
+
+
+
 
 
         <script>

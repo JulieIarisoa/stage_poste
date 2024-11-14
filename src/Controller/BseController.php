@@ -36,8 +36,6 @@ class BseController extends AbstractController
             ->getQuery()
             ->getResult();
 
-          $validation_accepte_non_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'en_attente','etat_payment_bst' => 'en_attente']);
-          $validation_accepte_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_validation_bst' => 'accepte','etat_payment_or' => 'paye','etat_payment_bst' => 'paye']);
           $validation_refuse = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
             ->where('b.etat_validation_or = :etat_validation_or')
             ->orWhere('b.etat_validation_bst = :etat_validation_bst')
@@ -54,8 +52,6 @@ class BseController extends AbstractController
             'bse' => $bse,
             'user' => $user,
             'bse_validation_attente'=>$bse_validation_attente,
-            'validation_accepte_non_paye'=>$validation_accepte_non_paye,
-            'validation_accepte_paye'=>$validation_accepte_paye,
             'validation_refuse'=>$validation_refuse,
            // 'bse_payment_attente'=>$bse_payment_attente,
            // 'bse_payment_paye'=>$bse_payment_paye,
