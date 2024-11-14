@@ -15,6 +15,7 @@ class BseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BSE::class);
     }
+
     public function sommeDureeTauxJournalier(): float
     {
         // Créer le QueryBuilder
@@ -31,6 +32,7 @@ class BseRepository extends ServiceEntityRepository
 
             return $result ? (float)$result : 0.0;
     }
+
    /*** 
      * @return BSE[] Returns an array of BSE objects that have at least one BST or OR associated
     

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Bse;
 use App\Entity\User;
 use App\Form\BseType;
-use App\Repository\BseRepository;
 use App\Form\BsePayeType;
 use App\Form\BseValideType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +18,9 @@ class BseController extends AbstractController
     private $entityManager;
     private $BseRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->BseRepository = $BseRepository;
     }
 
     #[Route('/bse', name: 'bse_index')]
@@ -64,15 +62,6 @@ class BseController extends AbstractController
         ]);
     }
 
-    #[Route('/somme-duree-taux-journalier', name: 'somme_duree_taux_journalier')]
-    public function sommeDureeTauxJournalier(): Response
-    {
-        // Appeler la méthode pour récupérer la somme calculée
-        $somme = $this->BseRepository->sommeDureeTauxJournalier();
-
-        // Retourner la somme dans la réponse
-        return new Response('La somme de (duree_mission * taux_journalier) est : ' . $somme);
-    }
 
     #[Route("/bse/new", name: "bse_new")]
     public function new(Request $request): Response
@@ -83,10 +72,6 @@ class BseController extends AbstractController
 
         $form->handleRequest($request);
 
-        $somme_credit = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('q')
-            ->select('SUM(q.credit_initial)')
-            ->getQuery()
-            ->getResult();
         
         
         /*

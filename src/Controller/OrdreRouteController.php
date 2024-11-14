@@ -5,6 +5,8 @@ namespace App\Controller;
 use \Twig\Environment;
 use App\Service\PdfGeneratorService;
 use App\Entity\OrdreRoute;
+use App\Entity\Credit;
+use App\Repository\BseRepository;
 use App\Form\OrdreRouteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +23,10 @@ class OrdreRouteController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository)
     {
         $this->entityManager = $entityManager;
+        $this->BseRepository = $BseRepository;
     }
 
     #[Route('/ordreRoute', name: 'ordreRoute_index')]
@@ -59,6 +62,11 @@ class OrdreRouteController extends AbstractController
         $id = $request->get('id');
         $bse = new Bse();
         $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
+        $somme_credit = $this->entityManager->createQueryBuilder();
+        $somme_credit->select('SUM(c.credit_initial)')
+                     ->from(Credit::class, 'c');
+        $total_credit = $somme_credit->getQuery()->getSingleScalarResult();
+        $somme = $this->BseRepository->sommeDureeTauxJournalier();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -72,6 +80,8 @@ class OrdreRouteController extends AbstractController
 
         return $this->render('ordreRoute/new.html.twig', [
             'nouveau_or' => $form->createView(),
+            'somme' => $somme,
+            'total_credit' => $total_credit
         ]);
     }
 
