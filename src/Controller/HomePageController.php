@@ -30,7 +30,7 @@ class HomePageController extends AbstractController
     //$bseData = $this->entityManager->getRepository(Bse::class)->findAll();
     $bstData = $this->entityManager->getRepository(Bst::class)->findAll();
     $ordreRouteData = $this->entityManager->getRepository(OrdreRoute::class)->findAll();
-    $paymentData = $this->entityManager->getRepository(Payment::class)->findAll();
+    //$paymentData = $this->entityManager->getRepository(Payment::class)->findAll();
 
     // Récupérer les utilisateurs et les crédits
     $user = $this->entityManager->getRepository(User::class)->findAll();
@@ -40,7 +40,7 @@ class HomePageController extends AbstractController
     //$dataBse = $this->prepareChartData($bseData, 'DateBse', 'DepenseEngage');
     $dataBst = $this->prepareChartData($bstData, 'DateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
     $dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
-    $dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
+    //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
 
     return $this->render('home_page/index.html.twig', [
         'controller_name' => 'HomePageController',
@@ -50,7 +50,7 @@ class HomePageController extends AbstractController
         //'dataBse' => json_encode($dataBse),
         'dataBst' => json_encode($dataBst),
         'dataOrdreRoute' => json_encode($dataOrdreRoute),
-        'dataPayment' => json_encode($dataPayment),
+        //'dataPayment' => json_encode($dataPayment),
     ]);
 }
 

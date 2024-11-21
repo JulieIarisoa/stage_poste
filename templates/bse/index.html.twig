@@ -178,7 +178,6 @@
                         <th>Fonction</th>
                         <th>Situation Familiale</th>
                         <th>CIN</th>
-                        <th>Date CIN</th>
                         <th>Taux Journalier</th>
                         <th>Titre</th>
                         <th>
@@ -195,14 +194,16 @@
                         <td>{{ user.fonction }}</td>
                         <td>{{ user.situationFamiliale }}</td>
                         <td>{{ user.cin }}</td>
-                        <td>{{ user.dateCin|date('Y-m-d') }}</td>
                         <td>{{ user.tauxJournalier }}</td>
                         <td>{{ user.titre }}</td>
                         <td>
-                            <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">OR</boutton></a>
+                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
                         </td>
                         <td>
-                            <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">OR/BST</boutton></a>
+                            <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR</boutton></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR/BST</boutton></a>
                         </td>
                     </tr>
                 {% endfor %}
