@@ -121,8 +121,11 @@ class HomePageController extends AbstractController
     $user = $this->entityManager->getRepository(User::class)->findAll();
     $credit = $this->entityManager->getRepository(Credit::class)->findAll();
 
-    // Préparer les données pour les graphiques
-    //$dataBse = $this->prepareChartData($bseData, 'DateBse', 'DepenseEngage');
+    // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
+    $bseData = $this->entityManager->getRepository(Bse::class)->findAll();
+
+    // Now you can call the method with the initialized variable
+    $dataBse = $this->prepareChartData($bseData, 'DateBse', 'id');
     $dataBst = $this->prepareChartData($bstData, 'DateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
     $dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
     //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
@@ -132,7 +135,7 @@ class HomePageController extends AbstractController
         'user' => $user,
         //'bse' => $bseData,
         'credit' => $credit,
-        //'dataBse' => json_encode($dataBse),
+        'dataBse' => json_encode($dataBse),
         'dataBst' => json_encode($dataBst),
         'dataOrdreRoute' => json_encode($dataOrdreRoute),
         //'dataPayment' => json_encode($dataPayment),

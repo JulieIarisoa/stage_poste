@@ -76,6 +76,10 @@
                 background: rgba(0, 0, 0, 0.10);
                 color: black;
             }
+            .detail{
+                float: right;
+                margin-bottom: 2%;
+            }
         </style>
     </head>
     <body>
@@ -145,7 +149,7 @@
                                         <label>Date : {#{ date_renouvellement | date('d/m/Y')}#}</label></br>
                                         <label>Récent : {{credit_renouveler}} Ar</label></br>
                                         <label>Solde :  Ar</label></br>
-                                        <i class="fa fa-eye w3-opacity"></i>
+                                        <i class="detail fa fa-eye w3-opacity"></i>
                                 </div>
                             </div>
 
@@ -157,7 +161,7 @@
                                         {% set somme_depense = depense_or_6mois + somme_depense_bst_6mois%}
                                         <label>Dépense : {{somme_depense}} Ar</label></br>
                                         <label>Restant : {{credit_restant}} Ar</label></br>
-                                        <i class="fa fa-eye w3-opacity"></i>
+                                        <i class="detail fa fa-eye w3-opacity"></i>
                                 </div>
                             </div>
 
@@ -171,16 +175,17 @@
                                         <label>Du: {{date_1moi_1 | date('d/m/Y')}} au {{date_1moi_2 | date('d/m/Y')}}</label></br>
                                         <label>OR : {{depense_or_1mois}} Ar</label></br>
                                         <label>BST : {{somme_depense_bst_1mois }} Ar</label></br>
-                                        <i class="fa fa-eye w3-opacity"></i>
+                                        <i class="detail fa fa-eye w3-opacity"></i>
                                 </div>
                             </div>
 
                             <div class="w3-container w3-cell w3-mobile">
                                 <div class="w3-panel w3-card w3-grey w3-border w3-round-large w3-opacity">
                                     <center>Utilisateur</center>
-                                    {#% set somme_f = 0, somme_h%}
+                                    {% set somme_f = 0 %}
+                                    {% set somme_h = 0 %}
                                     {% for user in user %}
-                                        {% if user.sexe == 'femme' %}
+                                        {% if user.sexe == 'Femme'%}
                                             {% set somme_f = somme_f +1 %}
                                         {% elseif user.sexe == 'homme' %}
                                             {% set somme_h = somme_h +1 %}
@@ -189,8 +194,8 @@
                                         {% set somme_u = somme_f + somme_h %}
                                         <label>Femme : {{somme_f}}</label></br>
                                         <label>Homme : {{somme_h}}</label></br>
-                                        <label>Total : {{somme_u}#} personnes</label></br>
-                                        <i class="fa fa-eye w3-opacity"></i>
+                                        <label>Total : {{somme_u}} personnes</label></br>
+                                        <i class="detail fa fa-eye w3-opacity"></i>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +205,7 @@
                             <div class="w3-container w3-cell w3-mobile">
                                 <div class="w3-panel w3-card  w3-border w3-round-large">
                                     <center>Dépense</center>
-                                    <canvas id="myChartBst" width="400" height="200">BSE</canvas>
+                                    <canvas id="myChartBse" width="400" height="200">BSE</canvas>
                                 </div>
                             </div>
 
@@ -366,12 +371,12 @@
             }
 
             // Les données des graphiques (en provenance de Symfony)
-            {#const dataBse = {{ dataBse|raw }};#}
+            const dataBse = {{ dataBse|raw }};
             const dataBst = {{ dataBst|raw }};
             const dataOrdreRoute = {{ dataOrdreRoute|raw }};
 
             // Créer les graphiques
-            //createChart('myChartBse', dataBse, 'BSE - Valeurs');
+            createChart('myChartBse', dataBse, 'BSE - Valeurs');
             createChart('myChartBst', dataBst, 'BST - Valeurs');
             createChart('myChartOrdreRoute', dataOrdreRoute, 'Ordre Route - Valeurs');
             //createChart('myChartPayment', dataPayment, 'Payment - Valeurs');
