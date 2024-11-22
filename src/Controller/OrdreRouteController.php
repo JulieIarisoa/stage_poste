@@ -66,7 +66,7 @@ class OrdreRouteController extends AbstractController
         $somme_credit->select('SUM(c.credit_initial)')
                      ->from(Credit::class, 'c');
         $total_credit = $somme_credit->getQuery()->getSingleScalarResult();
-        $somme = $this->BseRepository->sommeDureeTauxJournalier();
+        $somme = $this->BseRepository->orDeuxDate('21/10/2024', '21/11/2024');
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
