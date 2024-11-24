@@ -146,87 +146,40 @@
 
                     {# Contenue #}
                     <div class="d-flex align-items-center">
-                                <table class="w3-table-all w3-hoverable"  id="myTable">
-                                        <tr class="w3-indigo">
-                                            <th>Matricule</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Fonction</th>
-                                            <th>Taux Journalier</th>
-                                            <th>Titre</th>
-                                            <th>
-                                            </th>
-                                            <th>
-                                            </th>
-                                            <th>
-                                            </th>
-                                        </tr>
-                                    {% for user in user %}
-                                        <tr class="">
-                                            <td>{{ user.matricule }}</td>
-                                            <td>{{ user.nom }}</td>
-                                            <td>{{ user.prenom }}</td>
-                                            <td>{{ user.fonction }}</td>
-                                            <td>{{ user.tauxJournalier }}</td>
-                                            <td>{{ user.titre }}</td>
-                                            <td class="w3-display-flex">
-                                                <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i></a>
-                                            </td>
-                                            <td class="w3-display-flex">
-                                                <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small"><i class="fas fa-edit"></i></a>
-                                            </td>
-                                            <td class="w3-display-flex">
-                                                <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small"><i class="fas fa-trash-alt"></i></a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                                    {#<div class="container w3-card-4 w3-margin">
-                                        <div class="w3-display-container w3-section">
-                                            <center><h5 class="w3-grey w3-padding-16"><i class="fa fa-user w3-opacity"></i> <b>{{ user.titre }} {{ user.nom|upper }} {{ user.prenom }}</b></h5></center>
-                                        </div>
-                                        <div>
-                                            
-                                            <!-- Matricule -->
-                                            <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
-
-                                            <!-- Sexe -->
-                                            <p>
-                                                {% if user.sexe == 'Femme' %}
-                                                    <i class="fas fa-female"></i>Sexe: {{ user.sexe }}
-                                                {% elseif user.sexe == 'homme' %}
-                                                    <i class="fas fa-male"></i>Sexe: {{ user.sexe }}
-                                                {% endif %}
-                                            </p>
-
-                                            <!-- Fonction -->
-                                            <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
-
-                                            <!-- Situation Familiale -->
-                                            <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
-
-                                            <!-- CIN -->
-                                            <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
-
-                                            <!-- Date CIN -->
-                                            <p><i class="fas fa-calendar-alt"></i> Date CIN: {{ user.dateCin|date('Y-m-d') }}</p>
-
-                                            <!-- Taux journalier -->
-                                            <p><i class="fas fa-money-bill-wave"></i> Taux journalier: {{ user.tauxJournalier }}</p>
-
-                                            <!-- Adress -->
-                                            <p><i class="fas fa-money-bill-wave"></i> Adresse: {{ user.address }}</p>
-                                            
-                                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
-                                            <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small"><i class="fas fa-edit"></i> Modifier</a>
-                                            <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small"><i class="fas fa-trash-alt"></i> Supprimer</a>
-                                        </div>
-                                    </div>#}
-                                </div>
-                        </div>
+                        <table class="w3-table-all w3-hoverable" id="myTable">
+                            <tr class="w3-indigo">
+                                <th>Matricule</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Fonction</th>
+                                <th>Taux Journalier</th>
+                                <th>Titre</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            {% for user in user %}
+                                <tr>
+                                    <td>{{ user.matricule }}</td>
+                                    <td>{{ user.nom }}</td>
+                                    <td>{{ user.prenom }}</td>
+                                    <td>{{ user.fonction }}</td>
+                                    <td>{{ user.tauxJournalier }}</td>
+                                    <td>{{ user.titre }}</td>
+                                    <td class="w3-display-flex">
+                                        <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                    <td class="w3-display-flex">
+                                        <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                    <td class="w3-display-flex">
+                                        <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
-                <div class="w3-container content-wrapper"></div>
+                </div>
             </div>
 
         {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
@@ -403,6 +356,47 @@
 
 
 {#<!DOCTYPE html>
+{#<div class="container w3-card-4 w3-margin">
+                                        <div class="w3-display-container w3-section">
+                                            <center><h5 class="w3-grey w3-padding-16"><i class="fa fa-user w3-opacity"></i> <b>{{ user.titre }} {{ user.nom|upper }} {{ user.prenom }}</b></h5></center>
+                                        </div>
+                                        <div>
+                                            
+                                            <!-- Matricule -->
+                                            <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
+
+                                            <!-- Sexe -->
+                                            <p>
+                                                {% if user.sexe == 'Femme' %}
+                                                    <i class="fas fa-female"></i>Sexe: {{ user.sexe }}
+                                                {% elseif user.sexe == 'homme' %}
+                                                    <i class="fas fa-male"></i>Sexe: {{ user.sexe }}
+                                                {% endif %}
+                                            </p>
+
+                                            <!-- Fonction -->
+                                            <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
+
+                                            <!-- Situation Familiale -->
+                                            <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
+
+                                            <!-- CIN -->
+                                            <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
+
+                                            <!-- Date CIN -->
+                                            <p><i class="fas fa-calendar-alt"></i> Date CIN: {{ user.dateCin|date('Y-m-d') }}</p>
+
+                                            <!-- Taux journalier -->
+                                            <p><i class="fas fa-money-bill-wave"></i> Taux journalier: {{ user.tauxJournalier }}</p>
+
+                                            <!-- Adress -->
+                                            <p><i class="fas fa-money-bill-wave"></i> Adresse: {{ user.address }}</p>
+                                            
+                                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
+                                            <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-yellow w3-small"><i class="fas fa-edit"></i> Modifier</a>
+                                            <a href="{{ path('user_delete', {id: user.id}) }}" class="w3-button w3-red w3-small"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                        </div>
+                                    </div>#}
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
