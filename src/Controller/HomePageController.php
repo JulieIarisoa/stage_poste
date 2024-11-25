@@ -125,7 +125,7 @@ class HomePageController extends AbstractController
     $bseData = $this->entityManager->getRepository(Bse::class)->findAll();
 
     // Now you can call the method with the initialized variable
-    $dataBse = $this->prepareChartData($bseData, 'dateBse', 'dureeMission');
+    $dataBse = $this->prepareChartData($bseData, 'id', 'dureeMission');
     $dataBst = $this->prepareChartData($bstData, 'dateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
     $dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
     //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
