@@ -309,13 +309,22 @@
                     <div class="Modal">
                         {# Renouvelment modal#}
                         <div id="profile" class="w3-modal">
-                            <div  class="w3-modal-content w3-animate-zoom">
-                                <div class=" w3-display-topmiddle w3-red w3-padding">
-                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                                    <center>Profile</center></br>
-                                    {{ app.user.userIdentifier }}
-                                    <p>Welcome, {{ app.user.prenom }}!</p>
-                                    <p>Your unique ID is: {{ app.user.userIdentifier }}</p>
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        {% if app.user.sexe == 'Femme' %}
+                                            <img src="{{asset('images/logo.png')}}" style='width: 60px' class="w3-margin"/>
+                                        {% elseif app.user.sexe == 'homme' %}
+                                            <img/>
+                                        {% endif %}
+                                            
+                                        <h6>Bonjour !</h6>
+                                        <p>{{ app.user.prenom | upper() }}</br>
+                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
+                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
+                                    </center>
                                 </div>
                             </div>
                         </div>

@@ -100,6 +100,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->prenom;
     }
+    public function getSex(): string
+    {
+        return $this->sexe;
+    }
     /**
      * @see UserInterface
      *
