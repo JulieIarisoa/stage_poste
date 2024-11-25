@@ -122,12 +122,24 @@ class HomePageController extends AbstractController
     $credit = $this->entityManager->getRepository(Credit::class)->findAll();
 
     // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
-    $bseData = $this->entityManager->getRepository(Bse::class)->findAll();
+    
+    $dataBse1 = $this->entityManager->createQueryBuilder();
+    $dataBse1->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
+        ->from(Bse::class, 'd')
+        ->where('d.date_bse BETWEEN :startDate AND :endDate')
+        ->groupBy('d.date_bse')
+        ->orderBy('d.date_bse','ASC')
+        ->setParameter('startDate', $date_6moi_1)
+        ->setParameter('endDate', $date_6moi_2);
 
-    // Now you can call the method with the initialized variable
-    $dataBse = $this->prepareChartData($bseData, 'id', 'dureeMission');
-    $dataBst = $this->prepareChartData($bstData, 'dateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
-    $dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
+    // Execute the query to get the data array
+    $queryResult = $dataBse1->getQuery()->getResult();
+
+// Now pass the result (array) to the prepareChartData function
+    $dataBse = $this->prepareChartData($queryResult, 'dateBse', 'total');
+
+    //$dataBst = $this->prepareChartData($bstData, 'dateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
+    //$dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
     //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
 
     return $this->render('home_page/index.html.twig', [
@@ -136,8 +148,8 @@ class HomePageController extends AbstractController
         //'bse' => $bseData,
         'credit' => $credit,
         'dataBse' => json_encode($dataBse),
-        'dataBst' => json_encode($dataBst),
-        'dataOrdreRoute' => json_encode($dataOrdreRoute),
+        //'dataBst' => json_encode($dataBst),
+        //'dataOrdreRoute' => json_encode($dataOrdreRoute),
         //'dataPayment' => json_encode($dataPayment),
             'depense_or_1mois' => $depense_or_1mois,
             'somme_depense_bst_1mois'=> $resultat_somme_bst_1mois,
@@ -162,14 +174,25 @@ class HomePageController extends AbstractController
  * @param string $valueKey
  * @return array
  */
-private function prepareChartData(array $data, string $labelKey, string $valueKey): array
+public function prepareChartData(array $data, string $labelKey, string $valueKey)
 {
     $labels = [];
     $values = [];
 
     foreach ($data as $item) {
-        $labels[] = $item->{'get' . $labelKey}();  // Récupère dynamiquement la valeur du label
-        $values[] = $item->{'get' . $valueKey}();  // Récupère dynamiquement la valeur
+        // Supposons que item est un objet ou un tableau d'objets. Par exemple, un objet DateTime pour 'dateBse'
+        
+        // Si labelKey est 'dateBse' et que c'est un objet DateTime, on le convertit en chaîne
+        if ($labelKey === 'dateBse' && isset($item[$labelKey])) {
+            // Si c'est un objet DateTime, formattez-le en chaîne
+            $labels[] = $item[$labelKey]->format('Y-m-d'); // Par exemple '2023-10-01'
+        } else {
+            // Sinon, utilisez la valeur brute
+            $labels[] = $item[$labelKey]; // Par exemple 'total'
+        }
+
+        // Les valeurs sont supposées être déjà des nombres ou des chaînes, on les ajoute directement
+        $values[] = $item[$valueKey];
     }
 
     return [
@@ -177,5 +200,7 @@ private function prepareChartData(array $data, string $labelKey, string $valueKe
         'values' => $values,
     ];
 }
+
+
 
 }

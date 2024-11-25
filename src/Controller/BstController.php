@@ -145,4 +145,17 @@ class BstController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/output-pdf-stat', name: 'pdf_stat')]
+    public function statOut(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/stat.html.twig');
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
+    }
 }
