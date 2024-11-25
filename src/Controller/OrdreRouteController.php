@@ -135,4 +135,17 @@ class OrdreRouteController extends AbstractController
             'content-type' => 'application/pdf',
         ]);
     }
+
+
+    #[Route('/output-pdf-stat', name: 'pdf_stat')]
+    public function statout(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/statistique.html.twig');
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
+    }
 }

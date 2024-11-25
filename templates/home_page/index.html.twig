@@ -94,7 +94,7 @@
                     <h1 class="w3-opacity h5 mb-3 font-weight-normal w3-container-display w3-margin-bottom">
                         <i class="fa  fa-bars w3-opacity w3-margin-top w3-margin-left w3-display-topleft"></i>
                             <span class="w3-margin-top w3-display-topmiddle">Profile</span>
-                            <i class="fa fa-user-circle  w3-opacity w3-margin-top w3-margin-right w3-display-topright"  onclick="document.getElementById('renouveller').style.display='block'"></i>
+                            <i class="fa fa-user-circle  w3-opacity w3-margin-top w3-margin-right w3-display-topright"  onclick="document.getElementById('profile').style.display='block'"></i>
                     </h1>
                     <a href="{{path('app_home_page')}}">
                         <button class="w3-button w3-block w3-left-align" id="active">
@@ -313,10 +313,9 @@
                                 <div class=" w3-display-topmiddle w3-red w3-padding">
                                     <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
                                     <center>Profile</center></br>
-                                        {% set somme_credit = 0%}
-                                        <label>Date : {#{ date_renouvellement | date('d/m/Y')}#}</label></br>
-                                        <label>Récent : {{credit_renouveler}} Ar</label></br>
-                                        <label>Solde :  Ar</label></br>
+                                    {{ app.user.userIdentifier }}
+                                    <p>Welcome, {{ app.user.prenom }}!</p>
+                                    <p>Your unique ID is: {{ app.user.userIdentifier }}</p>
                                 </div>
                             </div>
                         </div>

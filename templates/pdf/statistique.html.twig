@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+                {# corp pour l'administrateur #}
+                <div class="w3-container content-wrapper">
+
+                    {# contenue du corp pour l'administrateur #}
+                    <div class="w3-col">
+                        <div class="w3-cell-row">
+                            <div class="w3-container w3-cell w3-mobile">
+                                <div class="w3-panel w3-card  w3-border w3-round-large">
+                                    <img id="myChartBse" width="400" height="180">
+                                </div>
+                            </div>
+
+                            <div class="w3-container w3-cell w3-mobile">
+                                <div class="w3-panel w3-card  w3-border w3-round-large">
+                                    <center>
+                                        <label>Légende</label></br>
+                                        <button class="w3-btn w3-red"></button><label>  BSE  -10% </label></br>
+                                        <button class="w3-btn w3-pink"></button><label>  BSE  -25% </label></br>
+                                        <button class="w3-btn w3-indigo"></button><label>  BSE  -50% </label></br>
+                                        <button class="w3-btn w3-green"></button><label>  BSE  -75% </label></br>
+                                        <button class="w3-btn w3-yellow"></button><label>  BSE +75% </label></br></br>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Javascript pour le statistique #}
+        <script>
+            // Fonction générique pour créer un graphique
+            // Fonction pour générer une couleur en fonction de la valeur
+            function getColorForValue(value) {
+                if ( value < 1){
+                    return '(255, 0, 0)';//red
+                } else if (value < 2) {
+                    return 'rgb(0, 255, 0)';  // Rouge pour les valeurs faibles
+                } else if (value < 3) {
+                    return 'RGB(255, 255, 0)';  // Orange pour les valeurs moyennes
+                } else if (value < 7.5) {
+                    return 'RGB(75, 0, 130)';  // Bleu pour les valeurs relativement élevées
+                } else {
+                    return 'RGB(255, 255, 0)';  // yellow
+                }
+            }
+
+            // Fonction générique pour créer un graphique avec des couleurs basées sur les valeurs des barres
+            function createChart(canvasId, chartData, chartLabel) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+
+                // Générer les couleurs en fonction des valeurs
+                const barColors = chartData.values.map(value => getColorForValue(value));
+
+                new Chart(ctx, {
+                    type: 'bar',  // Type de graphique : barres
+                    data: {
+                        labels: chartData.labels,  // Labels des barres
+                        datasets: [{
+                            label: chartLabel,  // Légende du graphique
+                            data: chartData.values,  // Valeurs des barres
+                            backgroundColor: barColors,  // Appliquer les couleurs dynamiques aux barres
+                            borderColor: barColors,  // Couleur de la bordure des barres
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true  // Commence l'axe Y à zéro
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Les données des graphiques (en provenance de Symfony)
+            const dataBse = {{ dataBse|raw }};
+
+            // Créer les graphiques avec des couleurs dynamiques basées sur les valeurs des barres
+            createChart('myChartBse', dataBse, 'BSE - Valeurs');
+           // createChart('myChartBst', dataBst, 'BST - Valeurs');
+            //createChart('myChartOrdreRoute', dataOrdreRoute, 'Ordre Route - Valeurs');
+
+            //createChart('myChartPayment', dataPayment, 'Payment - Valeurs');
+
+            const canvas = document.getElementById('myChartBse');
+const dataUrl = canvas.toDataURL('image/png');
+
+        </script>
+{% endblock %}
