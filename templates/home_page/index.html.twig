@@ -315,9 +315,24 @@
                                     <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
                                     <center>
                                         {% if app.user.sexe == 'Femme' %}
-                                            <img src="{{asset('images/logo.png')}}" style='width: 60px' class="w3-margin"/>
-                                        {% elseif app.user.sexe == 'homme' %}
-                                            <img/>
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+                                        {% elseif app.user.sexe == 'Homme' %}
+                                           <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+
                                         {% endif %}
                                             
                                         <h6>Bonjour !</h6>
