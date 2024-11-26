@@ -16,6 +16,7 @@
 
             body, h1, h2, h3, h4, h5, h6 {
                 font-family: "Times New Roman", Times, serif;
+                font-size: 90%;
             }
 
             a{
@@ -146,6 +147,22 @@
                             <i class="fa fa-bars w3-opacity w3-margin"></i>
                         </div>
                     </div>
+                    
+                            <table  class="w3-table w3-bordered" id="">
+                                <tr class="w3-light-grey">
+                                    <th>Code postale</th>
+                                    <th>Adresse</th>
+                                    <th>Téléphone</th>
+                                    <th></th>
+                                </tr>
+                                {% for bureau in bureau %}
+                                    <tr>
+                                        <td>{{ bureau.codePoste   }}</td>
+                                        <td>{{ bureau.adresse }}</td>
+                                        <td>{{ bureau.telephone }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                 </div>
             </div>
 
@@ -191,7 +208,7 @@
                             Agence
                         </button>
                     </a>
-                    <a href="{{path('credit_index')}}">
+                    <a href="{{path('bureau_index')}}">
                         <button class="w3-button w3-block w3-left-align">
                             <i class="fas fa-sync"></i>
                             Renouveller credit

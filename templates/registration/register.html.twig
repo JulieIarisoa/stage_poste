@@ -91,7 +91,9 @@
         <!-- Third Row: CIN, Date CIN, Roles -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-                {{ form_row(registrationForm.cin, { 'label': 'CIN', 'attr': {'class': 'w3-input w3-border'} }) }}
+        <p id="live-display" style="font-weight: bold; color: blue;"></p>
+                {{ form_row(registrationForm.cin, { 'label': 'CIN', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'valideCin(this)'} }) }}
             </div>
             <div class="w3-third">
                 {{ form_row(registrationForm.date_cin, { 'label': 'Date CIN', 'attr': {'class': 'w3-input w3-border'} }) }}
@@ -142,6 +144,46 @@
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}
+
+
+
+<script>
+    // Fonction appelée à chaque onkeyup
+    function valideCin(input) {
+        const display = document.getElementById('live-display');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        // Vérifie si la valeur contient des caractères non numériques ou des espaces
+        if (isNaN(value) || value.includes(' ')) {
+            // Supprime le dernier caractère si ce n'est pas un nombre ou si l'espace est trouvé
+            value = value.slice(0, -1);
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des chiffres.';
+            display.style.color = 'red';
+        }
+        // Vérifie si la longueur du CIN dépasse 12 caractères
+        else if (value.length > 12) {
+            // Limiter à 12 caractères
+            value = value.slice(0, 12);
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le CIN ne peut pas dépasser 12 chiffres.';
+            display.style.color = 'red';
+        }
+        // Vérifie que le sixième caractère est bien 1 ou 2
+        else if (value.length >= 6 && value[5] !== '1' && value[5] !== '2') {
+            // Si le sixième caractère n'est pas 1 ou 2, supprimer tout après le cinquième caractère
+            value = value.slice(0, 5); // Garde uniquement les 5 premiers caractères
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le sixième chiffre doit être 1 ou 2.';
+            display.style.color = 'red';
+        } else {
+            // Affiche la valeur saisie
+            display.textContent = `${value}`;
+            display.style.color = 'blue';
+        }
+    }
+</script>
+
 
 </body>
 </html>

@@ -16,6 +16,7 @@
 
             body, h1, h2, h3, h4, h5, h6 {
                 font-family: "Times New Roman", Times, serif;
+                font-size: 90%;
             }
 
             a{
@@ -148,7 +149,7 @@
                         <div class="w3-cell-row">
                             {# Renouvelment #}
                             <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-grey w3-border w3-round-large w3-opacity">
+                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
                                     <center>Renouvelment</center>
                                     {% set somme_credit = 0%}
                                         <label>Date : {#{ date_renouvellement | date('d/m/Y')}#}</label></br>
@@ -162,7 +163,7 @@
 
                             {# Etat crédit #}
                             <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-grey w3-border w3-round-large w3-opacity">
+                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
                                     <center>Etat crédit</center>
                                     {% set somme_depense = 0%}
                                         <label>Du: {{date_6moi_1 | date('d/m/Y')}} au {{date_6moi_2 | date('d/m/Y')}}</label></br>
@@ -177,7 +178,7 @@
 
                             {# Depense #}
                             <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-grey w3-border w3-round-large w3-opacity">
+                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
                                     <center>Dépense</center>
                                     {% set somme = 0%}
                                     {% for user in user %}
@@ -194,7 +195,7 @@
 
                             {# utilisateur #}
                             <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-grey w3-border w3-round-large w3-opacity">
+                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
                                     <center>Utilisateur</center>
                                     {% set somme_f = 0 %}
                                     {% set somme_h = 0 %}

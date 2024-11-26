@@ -1,9 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        .test {
+            background: red;
+        }
+    </style>
     <h1>Create Credit</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Create</button>
-    {{ form_end(form) }}
+
+    {# Affichage des erreurs globales du formulaire #}
+    {{ form_errors(formCredit) }}
+
+    {# Formulaire de création de crédit #}
+    {{ form_start(formCredit) }}
+        <div>
+            {{ form_row(formCredit.credit_initial, { 
+                'label': 'Crédit initial', 
+                'attr': {
+                    'class': 'w3-input w3-border test', 
+                    'placeholder': 'Entrez le montant initial', 
+                    'onkeyup': 'updateValue(this)'
+                } 
+            }) }}
+        </div>
+        <div>
+            {{ form_row(formCredit.date_renouvellement, { 
+                'label': 'Date de renouvellement', 
+                'attr': {'class': 'w3-input w3-border', 'placeholder': 'Sélectionnez une date'} 
+            }) }}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Créer</button>
+    {{ form_end(formCredit) }}
+        {# Zone pour afficher la mise à jour en direct #}
+        <p id="live-display" style="font-weight: bold; color: blue;"></p>
+
+    <script>
+        // Fonction appelée à chaque onkeyup
+        function updateValue(input) {
+            const display = document.getElementById('live-display');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+            if (value === '') {
+                display.textContent = ' ';
+                display.style.color = 'gray';
+            } else if (isNaN(value) ||  value.includes(' ')) {
+                // Supprimer le dernier caractère si ce n'est pas un nombre
+                value = value.slice(0, -1); 
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer des chiffres.';
+                display.style.color = 'red';
+            } else {
+                display.textContent = `${value}`;
+                display.style.color = 'blue';
+            }
+        }
+    </script>
+
 {% endblock %}
