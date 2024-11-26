@@ -123,17 +123,37 @@ class HomePageController extends AbstractController
 
     // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
     
+    $date_6moi2 = new \DateTime(); 
+    $date_6moi1 = new \DateTime(); 
+    $date_6moi1 = $date_6moi1->modify('-6 month');
+
     $dataBse1 = $this->entityManager->createQueryBuilder();
     $dataBse1->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
         ->from(Bse::class, 'd')
         ->where('d.date_bse BETWEEN :startDate AND :endDate')
         ->groupBy('d.date_bse')
         ->orderBy('d.date_bse','ASC')
-        ->setParameter('startDate', $date_6moi_1)
-        ->setParameter('endDate', $date_6moi_2);
+        ->setParameter('startDate', $date_6moi1)
+        ->setParameter('endDate', $date_6moi2);
 
     // Execute the query to get the data array
-    $queryResult = $dataBse1->getQuery()->getResult();
+    $queryResult = $dataBse1->getQuery()->getResult();  
+    
+   /* $date_6moi2 = new \DateTime(); 
+    $date_6moi1 = new \DateTime(); 
+    $date_6moi1 = $date_6moi1->modify('-6 month');// Date actuelle - 6 mois
+    
+    $dataBse1 = $this->entityManager->createQueryBuilder();
+    $dataBse1->select('SUBSTRING(d.date_bse, 1, 7) AS dateBse, COUNT(d.id) AS total')
+        ->from(Bse::class, 'd')
+        ->where('d.date_bse BETWEEN :startDate AND :endDate')
+        ->groupBy('dateBse') // Regroupe par mois (année-mois)
+        ->orderBy('dateBse', 'ASC')
+        ->setParameter('startDate', $date_6moi1) // Formate pour la requête
+        ->setParameter('endDate', $date_6moi2); // Formate pour la requête
+    
+    $queryResult = $dataBse1->getQuery()->getResult();*/
+    
 
 // Now pass the result (array) to the prepareChartData function
     $dataBse = $this->prepareChartData($queryResult, 'dateBse', 'total');
