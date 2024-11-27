@@ -46,7 +46,7 @@ class BureauController extends AbstractController
         }
 
         return $this->render('bureau/new.html.twig', [
-            'form' => $form->createView(),
+            'nouveauBureau' => $form->createView(),
         ]);
     }
 
@@ -71,7 +71,7 @@ class BureauController extends AbstractController
         }
 
         return $this->render('bureau/edit.html.twig', [
-            'form' => $form->createView(),
+            'modifierBureau' => $form->createView(),
             'bureau' => $bureau,
         ]);
     }

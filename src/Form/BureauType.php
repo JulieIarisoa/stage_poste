@@ -16,7 +16,8 @@ class BureauType extends AbstractType
         $builder
             ->add('code_poste', NumberType::class)
             ->add('adresse', TextType::class)
-            ->add('telephone', TextType::class);
+            ->add('telephone', TextType::class)
+            ->add('matricule', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

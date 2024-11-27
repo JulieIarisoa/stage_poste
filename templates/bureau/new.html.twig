@@ -1,9 +1,157 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceuil</title>
+    <link rel="stylesheet" href="{{ asset('assets/w3.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script><!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-{% block body %}
-    <h1>Create Employer</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Create</button>
-    {{ form_end(form) }}
-{% endblock %}
+    <style>
+            *{
+                box-sizing: border-box;
+            }
+            body{
+                align-items: center;
+                display: flex;
+                flex-direction:column;
+                background: #f6f5f7;
+                font-family:'monserrat', sans-serif;
+                min-height: 100%;
+                margin: 2%;
+            }
+            a{
+                text-decoration: none;
+                color: grey;
+            }
+            body, h1, h2, h3, h4, h5, h6 {
+                font-family: "Times New Roman", Times, serif;
+            }
+            .w3-display-container {
+                position: relative;  /* Nécessaire pour que le bouton soit correctement positionné */
+            }
+
+            .w3-display-topright {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1000;  /* S'assurer que le bouton est au-dessus des autres éléments */
+            }
+
+            .fa-times {
+                pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
+            }
+
+
+
+    </style>
+</head>
+<body class="w3-light-grey">
+
+    <div class=" w3-animate-zoom w3-quarter w3-card-4 w3-white">
+        <div class="w3-display-container w3-yellow">
+            <a href="{{path('user_index')}}" class="fa fa-times w3-display-topright">
+            </a>
+            <h4  class="w3-opacity w3-padding-16 w3-center"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Nouveau Bureau</h4>
+        </div>
+    {{ form_errors(nouveauBureau) }}
+    {{ form_start(nouveauBureau) }}
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+        {{ form_row(nouveauBureau.code_poste, { 'label': 'codePoste', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controleCode(this)'} }) }}
+        <p id="validateCode" style="font-size: 10px; color: blue;"></p>
+        {{ form_row(nouveauBureau.adresse, { 'label': 'adresse', 'attr': {'class': 'w3-input w3-border'} }) }}
+        {{ form_row(nouveauBureau.telephone, { 'label': 'telephone', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controleNumTele(this)'} }) }}
+        <p id="validateTele" style="font-size: 10px; color: blue;"></p>
+        {{ form_row(nouveauBureau.matricule, { 'label': 'matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+    
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="w3-btn w3-indigo w3-half" id="envoyer" disabled><i class="fas fa-save"></i>  Register</button>
+        <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
+    {{ form_end(nouveauBureau) }}
+
+
+
+<script>
+    // Fonction controle le champ code postale
+    function controleCode(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateCode');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez remplir le champ !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (isNaN(value) || /\s/.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des chiffres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }
+        // Vérifie si la longueur du code postale dépasse 3 caractères
+        else if (value.length > 3) {
+            // Limiter à 3 caractères
+            value = value.slice(0, 3);
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le code postale ne peut pas dépasser 3 chiffres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {
+            // Affiche la valeur saisie
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+    // Fonction controle le champ telephone
+    function controleNumTele(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateTele');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        // Vérifie si la valeur contient des caractères non numériques ou des espaces
+        
+        if (value=='') {
+            display.textContent = 'Veuillez remplir le champ !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (isNaN(value) || /\s/.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des chiffres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }
+        // Vérifie si la longueur du numéro téléphone dépasse 10 caractères
+        else if (value.length > 10) {
+            // Limiter à 10 caractères
+            value = value.slice(0, 10);
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le numéro téléphone ne peut pas dépasser 10 chiffres.';
+            display.style.color = 'red';
+            btn.removeAttribute('disabled');
+        }else if (value.length < 10) {
+            // Limiter à 10 caractères
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le numéro que vous avez saisi est incomplet.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {
+            // Affiche la valeur saisie
+            display.textContent = `Validation ok`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+</script>

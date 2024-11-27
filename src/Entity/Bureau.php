@@ -22,6 +22,9 @@ class Bureau
     #[ORM\Column(length: 109)]
     private ?string $telephone = null;
 
+    #[ORM\Column(length: 8, nullable: true)]
+    private ?string $matricule = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Bureau
     public function setTelephone(string $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?string $matricule): static
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }

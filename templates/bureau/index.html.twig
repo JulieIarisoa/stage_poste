@@ -142,28 +142,36 @@
                 <div class="w3-container content-wrapper">
                     <div class="w3-row-padding w3-margin-bottom">
                         <div  class="w3-quarter">
-                            <a href="{{path('bureau_new')}}"><button class="w3-button">Add bureau</button></a>
+                            <a href="{{path('bureau_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add bureau</button></a>
                         </div>
                         <div  class="w3-half">
-                            <input class="w3-input w3-border " type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myRecherche('myTableAttente','myInputAttente',0)">
+                            <input class="w3-input w3-border w3-padding  " type="text" placeholder="Rechercher ..." id="myInput" onkeyup="myFunction('myTable','myInput')">
                         </div>
                     </div>
-                    
-                            <table  class="w3-table w3-bordered" id="">
-                                <tr class="w3-light-grey">
-                                    <th>Code postale</th>
-                                    <th>Adresse</th>
-                                    <th>Téléphone</th>
-                                    <th></th>
-                                </tr>
-                                {% for bureau in bureau %}
-                                    <tr>
-                                        <td>{{ bureau.codePoste   }}</td>
-                                        <td>{{ bureau.adresse }}</td>
-                                        <td>{{ bureau.telephone }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
+                    <table  class="w3-table w3-bordered" id="myTable">
+                        <tr class="w3-light-grey">
+                            <th>Code postale</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th>Matricule chef agence</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for bureau in bureau %}
+                            <tr>
+                                <td>{{ bureau.codePoste   }}</td>
+                                <td>{{ bureau.adresse }}</td>
+                                <td>{{ bureau.telephone }}</td>
+                                <td>{{ bureau.matricule }}</td>
+                                <td>
+                                    <a href="{{ path('bureau_edit', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('bureau_delete', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Supprimer</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
 
 
@@ -368,5 +376,37 @@
             </div>
 
         {% endif %}
+
+
+
+        <script>
+            {# script pour le bare de recherche #}
+            function myFunction(idTable, idInput) {
+                var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+                input = document.getElementById(idInput);
+                filter = input.value.toUpperCase(); // Valeur à rechercher
+                table = document.getElementById(idTable);
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i < tr.length; i++) { // Commence après l'en-tête
+                    td0 = tr[i].getElementsByTagName("td")[0]; // Colonne codepostale
+                    td1 = tr[i].getElementsByTagName("td")[1]; // Colonne adresse
+                    td2 = tr[i].getElementsByTagName("td")[2]; // Colonne numéro téléphone
+                    td3 = tr[i].getElementsByTagName("td")[3]; // Colonne matricule Chef d'agence
+
+                    txtValue0 = td0 ? td0.textContent || td0.innerText : ""; // Texte de la colonne codepostale
+                    txtValue1 = td1 ? td1.textContent || td1.innerText : ""; // Texte de la colonne adresse
+                    txtValue2 = td2 ? td2.textContent || td2.innerText : ""; // Texte de la colonne numéro téléphone
+                    txtValue3 = td3 ? td3.textContent || td3.innerText : ""; // Texte de la colonne matricule Chef d'agence
+
+                    // Vérifie si le filtre correspond à la colonne ,codepostale ou adresse ou numéro téléphone
+                    if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Affiche la ligne
+                    } else {
+                        tr[i].style.display = "none"; // Masque la ligne
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

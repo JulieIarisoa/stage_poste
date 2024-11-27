@@ -154,9 +154,9 @@
         let value = input.value.trim(); // Supprime les espaces au début et à la fin
 
         // Vérifie si la valeur contient des caractères non numériques ou des espaces
-        if (isNaN(value) || value.includes(' ')) {
-            // Supprime le dernier caractère si ce n'est pas un nombre ou si l'espace est trouvé
-            value = value.slice(0, -1);
+        if (isNaN(value) || /\s/.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
             input.value = value; // Met à jour la valeur dans le champ de saisie
             display.textContent = 'Veuillez entrer uniquement des chiffres.';
             display.style.color = 'red';
