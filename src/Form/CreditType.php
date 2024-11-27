@@ -6,6 +6,7 @@ use App\Entity\Credit;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,11 @@ class CreditType extends AbstractType
     {
         $builder
             ->add('credit_initial', NumberType::class)
-            ->add('date_renouvellement', DateType::class);
+            ->add('date_renouvellement', DateType::class,[
+                'data'=>new \DateTime(),
+                'attr' => ['readonly' => true],
+            ])
+            ->add('matricule', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

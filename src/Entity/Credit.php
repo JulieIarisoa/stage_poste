@@ -20,6 +20,9 @@ class Credit
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_renouvellement = null;
 
+    #[ORM\Column(length: 8, nullable: true)]
+    private ?string $matricule = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Credit
     public function setDateRenouvellement(\DateTimeInterface $date_renouvellement): static
     {
         $this->date_renouvellement = $date_renouvellement;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(?string $matricule): static
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }

@@ -71,7 +71,7 @@ class CreditController extends AbstractController
         }
 
         return $this->render('credit/edit.html.twig', [
-            'form' => $form->createView(),
+            'modifierCredit' => $form->createView(),
             'credit' => $Credit,
         ]);
     }
