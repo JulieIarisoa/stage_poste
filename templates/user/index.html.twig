@@ -152,8 +152,8 @@
 
                     {# Contenue #}
                     <div class="d-flex align-items-center">
-                        <table class="w3-table-all w3-hoverable" id="myTable">
-                            <tr class="w3-indigo">
+                        <table class="w3-table w3-bordered" id="myTable">
+                            <tr class="w3-light-grey">
                                 <th>Matricule</th>
                                 <th>Nom</th>
                                 <th>Prenom</th>
@@ -389,34 +389,34 @@
         {% endif %}
 
 
-        {# script pour le bare de recherche #}
         <script>
-        function myFunction(idTable, idInput) {
-            var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
-            input = document.getElementById(idInput);
-            filter = input.value.toUpperCase(); // Valeur à rechercher
-            table = document.getElementById(idTable);
-            tr = table.getElementsByTagName("tr");
+            {# script pour le bare de recherche #}
+            function myFunction(idTable, idInput) {
+                var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+                input = document.getElementById(idInput);
+                filter = input.value.toUpperCase(); // Valeur à rechercher
+                table = document.getElementById(idTable);
+                tr = table.getElementsByTagName("tr");
 
-            for (i = 1; i < tr.length; i++) { // Commence après l'en-tête
-                td0 = tr[i].getElementsByTagName("td")[0]; // Colonne matricule
-                td1 = tr[i].getElementsByTagName("td")[1]; // Colonne nom
-                td2 = tr[i].getElementsByTagName("td")[2]; // Colonne prenom
-                td3 = tr[i].getElementsByTagName("td")[3]; // Colonne fonction
+                for (i = 1; i < tr.length; i++) { // Commence après l'en-tête
+                    td0 = tr[i].getElementsByTagName("td")[0]; // Colonne matricule
+                    td1 = tr[i].getElementsByTagName("td")[1]; // Colonne nom
+                    td2 = tr[i].getElementsByTagName("td")[2]; // Colonne prenom
+                    td3 = tr[i].getElementsByTagName("td")[3]; // Colonne fonction
 
-                txtValue0 = td0 ? td0.textContent || td0.innerText : ""; // Texte de la colonne matricule
-                txtValue1 = td1 ? td1.textContent || td1.innerText : ""; // Texte de la colonne nom
-                txtValue2 = td2 ? td2.textContent || td2.innerText : ""; // Texte de la colonne prenom
-                txtValue3 = td3 ? td3.textContent || td3.innerText : ""; // Texte de la colonne fonction
+                    txtValue0 = td0 ? td0.textContent || td0.innerText : ""; // Texte de la colonne matricule
+                    txtValue1 = td1 ? td1.textContent || td1.innerText : ""; // Texte de la colonne nom
+                    txtValue2 = td2 ? td2.textContent || td2.innerText : ""; // Texte de la colonne prenom
+                    txtValue3 = td3 ? td3.textContent || td3.innerText : ""; // Texte de la colonne fonction
 
-                // Vérifie si le filtre correspond à la colonne ,matricule ou nom ou prenom
-                if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = ""; // Affiche la ligne
-                } else {
-                    tr[i].style.display = "none"; // Masque la ligne
+                    // Vérifie si le filtre correspond à la colonne ,matricule ou nom ou prenom
+                    if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Affiche la ligne
+                    } else {
+                        tr[i].style.display = "none"; // Masque la ligne
+                    }
                 }
             }
-        }
 
 
             function openMission(etatname) {
