@@ -87,7 +87,7 @@
                     <div class="w3-margin">
                             <a href="{{path('app_forgot_password_request')}}">Mot de pass oublié?</a>
                     </div>
-                    <button type="submit" class="w3-amber w3-round-large w3-medium ">Se connecter</button>
+                    <button type="submit" class="w3-yellow w3-round-large w3-medium ">Se connecter</button>
                 </form>
 
                 <div class="info">
@@ -95,7 +95,7 @@
                     {% if app.user %}
                         <p>
                             Vous êtes connecter en <br>{{ app.user.userIdentifier }}<br>
-                            <a href="{{ path('app_logout') }}"><button type="submit" class="w3-amber w3-round-large w3-medium "> Deconnecter </button></a>
+                            <a href="{{ path('app_logout') }}"><button type="submit" class="w3-yellow w3-round-large w3-medium "> Deconnecter </button></a>
                         </p>
                     {% endif %}
                 </div>

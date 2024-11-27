@@ -7,6 +7,8 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
         <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        
         <style>
             *{
                 box-sizing: border-box;
@@ -67,6 +69,9 @@
     <body>
         <div class="w3-container w3-center w3-animate-zoom w3-mobile">
             <div class="container">
+                    <a href="{{ path('app_logout') }}">
+                        <i class="fas fa-return">retour</i>
+                    </a>
                 <form method="post">
                     <h4 class="h5 mb-3 font-weight-normal">Restaurer mot de pass</h4>
                         {% for flash_error in app.flashes('reset_password_error') %}
@@ -74,7 +79,7 @@
                         {% endfor %}
                     <label id="label1">Email:</label>
                     <input type="email" id="input1" placeholder="Entrer votre email" name="email" class="w3-input" autocomplete="email" required autofocus  onfocus="handleFocus('input1', 'label1')" onblur="handleBlur('input1', 'label1')">
-                        <button class="w3-amber w3-round-large w3-medium ">Envoyer</button>
+                        <button class="w3-yellow w3-round-large w3-medium ">Envoyer</button>
                 </form>
 
                 <div class="info">
@@ -82,7 +87,7 @@
                     {% if app.user %}
                         <p>
                             Vous êtes connecter en <br>{{ app.user.userIdentifier }}<br>
-                            <a href="{{ path('app_logout') }}"><button type="submit" class="w3-amber w3-round-large w3-medium "> Deconnecter </button></a>
+                            <a href="{{ path('app_logout') }}"><button type="submit" class="w3-yellow w3-round-large w3-medium "> Deconnecter </button></a>
                         </p>
                     {% endif %}
                 </div>
