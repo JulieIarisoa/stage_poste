@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mode sombre/clair</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <style>
+        body {
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="{{ app.request.cookies.get('theme') == 'dark' ? 'w3-dark-grey' : 'w3-light-grey' }}">
+
+    <div class="w3-container">
+        <h1>Application Symfony avec Mode Sombre/Clair</h1>
+
+        <!-- Bouton pour changer de thème -->
+        <button id="toggle-theme" class="w3-button w3-circle w3-dark-grey" style="position: fixed; top: 20px; right: 20px;">
+            <i id="theme-icon" class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <!-- Votre contenu ici -->
+
+    <script>
+        // Fonction pour changer le thème
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('w3-dark-grey') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            // Changer la classe du body pour appliquer le thème
+            document.body.classList.toggle('w3-dark-grey');
+            document.body.classList.toggle('w3-light-grey');
+
+            // Modifier l'icône du bouton
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.classList.toggle('fa-sun');
+            themeIcon.classList.toggle('fa-moon');
+
+            // Enregistrer le thème dans les cookies pour la prochaine visite
+            document.cookie = "theme=" + newTheme + "; path=/; max-age=" + (60 * 60 * 24 * 365); // 1 an
+        }
+
+        // Attacher l'événement au bouton
+        document.getElementById('toggle-theme').addEventListener('click', toggleTheme);
+
+        // Vérifier le thème au chargement de la page
+        window.onload = function() {
+            const savedTheme = document.cookie.split('; ').find(row => row.startsWith('theme='));
+            if (savedTheme) {
+                const theme = savedTheme.split('=')[1];
+                if (theme === 'dark') {
+                    document.body.classList.add('w3-dark-grey');
+                    document.body.classList.remove('w3-light-grey');
+                    document.getElementById('theme-icon').classList.remove('fa-sun');
+                    document.getElementById('theme-icon').classList.add('fa-moon');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
