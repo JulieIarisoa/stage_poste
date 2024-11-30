@@ -110,13 +110,13 @@
                         </button>
                     </a>
                     <a href="{{path('bureau_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
+                        <button class="w3-button w3-block w3-left-align" id="active">
                             <i class="fas fa-building"></i>
                             Agence
                         </button>
                     </a>
                     <a href="{{path('credit_index')}}">
-                        <button class="w3-button w3-block w3-left-align" id="active">
+                        <button class="w3-button w3-block w3-left-align">
                             <i class="fas fa-sync"></i>
                             Renouveller credit
                         </button>
@@ -142,8 +142,7 @@
                 <div class="w3-container content-wrapper">
                     <div class="w3-row-padding w3-margin-bottom">
                         <div  class="w3-quarter">
-                            <a href="{{path('credit_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add credit</button></a>
-                            <a href="{{ path('pdf_credit') }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                            <a href="{{path('bureau_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add bureau</button></a>
                         </div>
                         <div  class="w3-half">
                             <input class="w3-input w3-border w3-padding  " type="text" placeholder="Rechercher ..." id="myInput" onkeyup="myFunction('myTable','myInput')">
@@ -151,27 +150,28 @@
                     </div>
                     <table  class="w3-table w3-bordered" id="myTable">
                         <tr class="w3-light-grey">
-                            <th>Solde</th>
+                            <th>Lieu</th>
+                            <th>Heure</th>
                             <th>Date</th>
+                            <th>Matricule</th>
                             <th></th>
                             <th></th>
                         </tr>
-                        {% for credit in credit %}
+                        {% for depart in depart %}
                             <tr>
-                                <td>{{ credit.creditInitial  }}</td>
-                                <td>{{ credit.dateRenouvellement |date('Y-m-d') }}</td>
+                                <td>{{ depart.lieuDepartMissionnaire   }}</td>
+                                <td>{#{ depart.heureDepartMissionnaire | datetime('h:m:ss') }#}</td>
+                                <td>{{ depart.dateDepartMissionnaire | date('d-m-Y') }}</td>
+                                <td>{{ depart.matricule }}</td>
                                 <td>
-                                    <a href="{{ path('credit_edit', {id: credit.id, id: credit.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                    <a href="{{ path('depart_edit', {id: depart.id, id: depart.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Depart</button></a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('credit_delete', {id: credit.id, id: credit.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Supprimer</button></a>
+                                    <a href="{{ path('depart_show', {id: depart.id, id: depart.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Voir</button></a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </table>
-
-
-                                    <canvas id="myChartCredit" width="400" height="180">BSE</canvas>
                 </div>
 
 
@@ -407,56 +407,6 @@
                     }
                 }
             }
-
-
-
-
- {# Javascript pour le statistique #}
-            function getColorForValue(value) {
-                if ( value < 1){
-                    return '(255, 0, 0)';//red
-                } else if (value < 2) {
-                    return 'rgb(0, 255, 0)';  // Rouge pour les valeurs faibles
-                } else if (value < 3) {
-                    return 'RGB(255, 255, 0)';  // Orange pour les valeurs moyennes
-                } else if (value < 7.5) {
-                    return 'RGB(75, 0, 130)';  // Bleu pour les valeurs relativement élevées
-                } else {
-                    return 'RGB(255, 255, 0)';  // yellow
-                }
-            }
-
-            // Fonction générique pour créer un graphique avec des couleurs basées sur les valeurs des barres
-            function createChart(canvasId, chartData, chartLabel) {
-                const ctx = document.getElementById(canvasId).getContext('2d');
-
-                const barColors = chartData.values.map(value => getColorForValue(value));
-
-                new Chart(ctx, {
-                    type: 'bar',  // Type de graphique : barres
-                    data: {
-                        labels: chartData.labels,  // Labels des barres
-                        datasets: [{
-                            label: chartLabel,  // Légende du graphique
-                            data: chartData.values,  // Valeurs des barres
-                            backgroundColor: barColors,  // Appliquer les couleurs dynamiques aux barres
-                            borderColor: barColors,  // Couleur de la bordure des barres
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true  // Commence l'axe Y à zéro
-                            }
-                        }
-                    }
-                });
-            }
-
-            const dataCredit = {{ dataCredit|raw }};
-
-            createChart('myChartCredit', dataCredit, 'CREDIT - Valeurs');
         </script>
     </body>
 </html>

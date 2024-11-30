@@ -110,7 +110,13 @@
                             Mission
                         </button>
                     </a>
-                    <a href="{{path('payment_index')}}">
+                    <a href="{{path('depart_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-car"></i>
+                            Depart
+                        </button>
+                    </a>
+                    <a href="{{path('payement_index')}}">
                         <button class="w3-button w3-block w3-left-align">
                             <i class="fas fa-dollar-sign"></i> 
                             Payement
@@ -126,12 +132,6 @@
                         <button class="w3-button w3-block w3-left-align">
                             <i class="fas fa-sync"></i>
                             Renouveller credit
-                        </button>
-                    </a>
-                    <a href="{{ path('app_logout') }}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Se deconnecter
                         </button>
                     </a>
                 </div>
@@ -515,7 +515,7 @@
                 const barColors = chartData.values.map(value => getColorForValue(value));
 
                 new Chart(ctx, {
-                    type: 'bar',  // Type de graphique : barres
+                    type: 'bar',  // Type de graphique : barres, line, pie, doughnut
                     data: {
                         labels: chartData.labels,  // Labels des barres
                         datasets: [{

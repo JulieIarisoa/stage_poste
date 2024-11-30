@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>{{ depart.matricule }}</p>
+    <p>{{ depart.dateDepartMissionnaire|date('Y-m-d') }}</p>
+    <a href="{{ path('depart_edit', {id: depart.id}) }}">Edit</a>
+    <a href="{{ path('depart_index') }}">Back to list</a>
+{% endblock %}

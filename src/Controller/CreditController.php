@@ -23,9 +23,11 @@ class CreditController extends AbstractController
     public function index(): Response
     {
         $Credit = $this->entityManager->getRepository(Credit::class)->findAll();
+        $dataCredit = $this->prepareChartData($Credit, 'date_renouvellement', 'credit_initial');
 
         return $this->render('credit/index.html.twig', [
             'credit' => $Credit,
+            'dataCredit' => json_encode($dataCredit),
         ]);
     }
 
@@ -86,4 +88,43 @@ class CreditController extends AbstractController
 
         return $this->redirectToRoute('credit_index');
     }
+
+
+    /**
+ * Prépare les données pour un graphique à partir d'une entité donnée.
+ *
+ * @param array $data
+ * @param string $labelKey
+ * @param string $valueKey
+ * @return array
+ */
+public function prepareChartData(array $data, string $labelKey, string $valueKey)
+{
+    $values = [];
+$labels = [];
+
+foreach ($data as $item) {
+    if ($item instanceof App\Entity\Credit) {
+        if ($labelKey === 'date_renouvellement' && $item->getDateRenouvellement()) {
+            $labels[] = $item->getDateRenouvellement()->format('Y-m-d');
+        } else {
+            $getter = "get" . ucfirst($labelKey);
+            if (method_exists($item, $getter)) {
+                $labels[] = $item->$getter();
+            }
+        }
+    } elseif (is_array($item) && isset($item[$labelKey])) {
+        $labels[] = $item[$labelKey];
+    }
+}
+
+// Reste du traitement des données
+
+
+    return [
+        'labels' => $labels,
+        'values' => $values,
+    ];
+}
+
 }

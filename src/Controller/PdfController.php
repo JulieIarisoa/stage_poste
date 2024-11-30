@@ -21,6 +21,8 @@ use App\Form\BseValideType;
 use App\Entity\Bst;
 use App\Entity\Payment;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Dompdf\Options;
+use Dompdf\Dompdf;
 
 class PdfController extends AbstractController
 {
@@ -35,7 +37,11 @@ class PdfController extends AbstractController
 
     #[Route('/output-pdf-credit', name: 'pdf_credit')]
     public function outputCredit(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
-    {
+    {// Configurer Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        
         $date_1moi_2 = new \DateTime(); 
         $date_1moi_1 = new \DateTime(); 
         $date_1moi_1 = $date_1moi_1->modify('-1 month');
@@ -73,9 +79,30 @@ class PdfController extends AbstractController
                             ->setParameter('endDate', $date_6moi_2->format('Y-m-d'))
                             ->from(Bse::class, 'c');
         $resultat_somme_bst_6mois = $somme_depense_bst->getQuery()->getSingleScalarResult();
+
+
+
+
+        /*///calcule dépense dans 1 mois  dans 6 dernier mois
+        $date_now= new \DateTime(); 
+        $daty = new \DateTime(); 
+
+        $date_1moi_1_or = $daty->modify('-6 month');
+        $date_1moi_2_or  = $daty->modify('-5 month');
+        $date_1moi_3_or  = $daty->modify('-4 month');
+        $date_1moi_4_or  = $daty->modify('-3 month');
+        $date_1moi_5_or  = $daty->modify('-2 month');
+        $date_1moi_6_or  = $daty->modify('-1 month');
     
     
+    $depense_or_1mois1 = $this->BseRepository->orDeuxDate($date_1moi_1_or ->format('d/m/Y'), $date_1moi_2_or ->format('d/m/Y'));
+    $depense_or_1mois2 = $this->BseRepository->orDeuxDate($date_1moi_2_or ->format('d/m/Y'), $date_1moi_3_or ->format('d/m/Y'));
+    $depense_or_1mois3 = $this->BseRepository->orDeuxDate($date_1moi_3_or ->format('d/m/Y'), $date_1moi_4_or ->format('d/m/Y'));
+    $depense_or_1mois4 = $this->BseRepository->orDeuxDate($date_1moi_4_or ->format('d/m/Y'), $date_1moi_5_or ->format('d/m/Y'));
+    $depense_or_1mois5 = $this->BseRepository->orDeuxDate($date_1moi_5_or ->format('d/m/Y'), $date_1moi_6_or ->format('d/m/Y'));
+    $depense_or_1mois6 = $this->BseRepository->orDeuxDate($date_1moi_6_or ->format('d/m/Y'), $date_now->format('d/m/Y'));
     
+    */
     
     
     
@@ -89,9 +116,6 @@ class PdfController extends AbstractController
     
     
     
-    
-    
-        ///somme des tous les dépense
     
         $date_tous = new \DateTime('01-01-1999');
         $date_aujour = new \DateTime();
@@ -110,26 +134,10 @@ class PdfController extends AbstractController
         $total_credit = $somme_credit->getQuery()->getSingleScalarResult();
     
         $credit_restant = $total_credit - $depense;
-        /*$date_renouvellement = $this->entityManager->createQueryBuilder();
-        $date_renouvellement->select('c.date_renouvellement')
-                    ->from(Credit::class, 'c')
-                    ->orderBy('c.id', 'DESC')  // Applique l'ordre par id DESC
-                    ->setMaxResults(1);
-        $date_renouvel = $date_renouvellement->getQuery()->getSingleScalarResult();*/
     
-    
-        // Récupérer toutes les données des entités
-        //$bseData = $this->entityManager->getRepository(Bse::class)->findAll();
-        $bstData = $this->entityManager->getRepository(Bst::class)->findAll();
-        $ordreRouteData = $this->entityManager->getRepository(OrdreRoute::class)->findAll();
-        //$paymentData = $this->entityManager->getRepository(Payment::class)->findAll();
-    
-        // Récupérer les utilisateurs et les crédits
         $user = $this->entityManager->getRepository(User::class)->findAll();
         $credit = $this->entityManager->getRepository(Credit::class)->findAll();
     
-        // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
-        
         $dataBse1 = $this->entityManager->createQueryBuilder();
         $dataBse1->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
             ->from(Bse::class, 'd')
@@ -139,17 +147,9 @@ class PdfController extends AbstractController
             ->setParameter('startDate', $date_6moi_1)
             ->setParameter('endDate', $date_6moi_2);
     
-        // Execute the query to get the data array
         $queryResult = $dataBse1->getQuery()->getResult();
     
-    // Now pass the result (array) to the prepareChartData function
         $dataBse = $this->prepareChartData($queryResult, 'dateBse', 'total');
-    
-        //$dataBst = $this->prepareChartData($bstData, 'dateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
-        //$dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
-        //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
-    
-    
     
         $Credit = $this->entityManager->getRepository(Credit::class)->findAll();
 
@@ -159,9 +159,6 @@ class PdfController extends AbstractController
             //'bse' => $bseData,
             'credit' => $credit,
             'dataBse' => json_encode($dataBse),
-            //'dataBst' => json_encode($dataBst),
-            //'dataOrdreRoute' => json_encode($dataOrdreRoute),
-            //'dataPayment' => json_encode($dataPayment),
                 'depense_or_1mois' => $depense_or_1mois,
                 'somme_depense_bst_1mois'=> $resultat_somme_bst_1mois,
                 'depense_or_6mois' => $depense_or_6mois,
@@ -174,6 +171,21 @@ class PdfController extends AbstractController
                 'date_6moi_2' => $date_6moi_2,
                 'depense_or_tous' => $depense_or_tous,
                 'credit_restant' => $credit_restant,
+
+               /* 'date_1moi_1_or ' => $date_1moi_1_or ,
+                'date_1moi_2_or ' => $date_1moi_2_or ,
+                'date_1moi_3_or ' => $date_1moi_3_or ,
+                'date_1moi_4_or ' => $date_1moi_4_or ,
+                'date_1moi_5_or ' => $date_1moi_5_or ,
+                'date_1moi_6_or ' => $date_1moi_6_or ,
+
+
+                'depense_or_1mois1' => $depense_or_1mois1,
+                'depense_or_1mois2' => $depense_or_1mois2,
+                'depense_or_1mois3' => $depense_or_1mois3,
+                'depense_or_1mois4' => $depense_or_1mois4,
+                'depense_or_1mois5' => $depense_or_1mois5,
+                'depense_or_1mois6' => $depense_or_1mois6,*/
         ]);
 
         $content = $pdfGeneratorService->output($htmlContent);
@@ -196,43 +208,6 @@ class PdfController extends AbstractController
         ]);
     }
 
-    #[Route('/output-pdf-stat', name: 'pdf_stat')]
-    public function statout(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
-    {
-
-        ///Calcule depense dans 1 mos //
-    
-
-        $htmlContent = $twig->render('pdf/statistique.html.twig', [
-            'controller_name' => 'HomePageController',
-            'user' => $user,
-            //'bse' => $bseData,
-            'credit' => $credit,
-            'dataBse' => json_encode($dataBse),
-            //'dataBst' => json_encode($dataBst),
-            //'dataOrdreRoute' => json_encode($dataOrdreRoute),
-            //'dataPayment' => json_encode($dataPayment),
-                'depense_or_1mois' => $depense_or_1mois,
-                'somme_depense_bst_1mois'=> $resultat_somme_bst_1mois,
-                'depense_or_6mois' => $depense_or_6mois,
-                'somme_depense_bst_6mois'=> $resultat_somme_bst_6mois,
-                'credit_renouveler'=> $credit_renouveler,
-                /*'date_renouvellement' => $date_renouvellement*/
-                'date_1moi_1' => $date_1moi_1,
-                'date_1moi_2' => $date_1moi_2,
-                'date_6moi_1' => $date_6moi_1,
-                'date_6moi_2' => $date_6moi_2,
-                'depense_or_tous' => $depense_or_tous,
-                'credit_restant' => $credit_restant,
-        ]);
-
-        $content = $pdfGeneratorService->output($htmlContent);
-
-        return new Response($content, 200, [
-            'content-type' => 'application/pdf',
-        ]);
-    }
-    
     /**
  * Prépare les données pour un graphique à partir d'une entité donnée.
  *

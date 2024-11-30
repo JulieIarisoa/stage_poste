@@ -113,8 +113,6 @@ class HomePageController extends AbstractController
 
     // Récupérer toutes les données des entités
     //$bseData = $this->entityManager->getRepository(Bse::class)->findAll();
-    $bstData = $this->entityManager->getRepository(Bst::class)->findAll();
-    $ordreRouteData = $this->entityManager->getRepository(OrdreRoute::class)->findAll();
     //$paymentData = $this->entityManager->getRepository(Payment::class)->findAll();
 
     // Récupérer les utilisateurs et les crédits
@@ -127,8 +125,8 @@ class HomePageController extends AbstractController
     $date_6moi1 = new \DateTime(); 
     $date_6moi1 = $date_6moi1->modify('-6 month');
 
-    $dataBse1 = $this->entityManager->createQueryBuilder();
-    $dataBse1->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
+    $dataBse = $this->entityManager->createQueryBuilder();
+    $dataBse->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
         ->from(Bse::class, 'd')
         ->where('d.date_bse BETWEEN :startDate AND :endDate')
         ->groupBy('d.date_bse')
@@ -137,14 +135,14 @@ class HomePageController extends AbstractController
         ->setParameter('endDate', $date_6moi2);
 
     // Execute the query to get the data array
-    $queryResult = $dataBse1->getQuery()->getResult();  
+    $queryResult = $dataBse->getQuery()->getResult();  
     
    /* $date_6moi2 = new \DateTime(); 
     $date_6moi1 = new \DateTime(); 
     $date_6moi1 = $date_6moi1->modify('-6 month');// Date actuelle - 6 mois
     
-    $dataBse1 = $this->entityManager->createQueryBuilder();
-    $dataBse1->select('SUBSTRING(d.date_bse, 1, 7) AS dateBse, COUNT(d.id) AS total')
+    $dataBse = $this->entityManager->createQueryBuilder();
+    $dataBse->select('SUBSTRING(d.date_bse, 1, 7) AS dateBse, COUNT(d.id) AS total')
         ->from(Bse::class, 'd')
         ->where('d.date_bse BETWEEN :startDate AND :endDate')
         ->groupBy('dateBse') // Regroupe par mois (année-mois)
@@ -152,7 +150,7 @@ class HomePageController extends AbstractController
         ->setParameter('startDate', $date_6moi1) // Formate pour la requête
         ->setParameter('endDate', $date_6moi2); // Formate pour la requête
     
-    $queryResult = $dataBse1->getQuery()->getResult();*/
+    $queryResult = $dataBse->getQuery()->getResult();*/
     
 
 // Now pass the result (array) to the prepareChartData function

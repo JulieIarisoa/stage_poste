@@ -68,6 +68,9 @@ ordreRoute_edit:
     controller: App\Controller\OrdreRouteController::edit
 
 #route vers payement
+payement_index:
+    path: /payment/index
+    controller: App\Controller\PaymentController::index
 payment_new:
     path: /payment/new
     controller: App\Controller\PaymentController::new
@@ -89,3 +92,20 @@ credit_show:
 credit_edit:
     path: /credit/{id}/edit
     controller: App\Controller\CreditController::edit
+
+#route depart
+depart_new:
+    path: /depart/new
+    controller: App\Controller\DepartController::new
+depart_show:
+    path: /depart/{id}
+    controller: App\Controller\DepartController::show
+depart_edit:
+    path: /depart/{id}/edit
+    controller: App\Controller\DepartController::edit
+depart_index:
+    path: /depart/
+    controller: App\Controller\DepartController::index
+depart_delete:
+    path: /depart/{id}/delete
+    controller: App\Controller\DepartController::delete

@@ -47,6 +47,31 @@ class BseRepository extends ServiceEntityRepository
             }
     }
 
+    /*public function departMissionnaire(): array
+    {
+        // Construction de la requête
+        $qb = $this->createQueryBuilder('b')
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            ->select('o.id as id, m.nom, m.matricule, o.lieu_depart_missionnaire, o.heure_depart_missionnaire, o.date_depart_missionnaire')
+            ->where('o.etat_validation_or = :etat') // Correction de la condition
+            ->setParameter('etat', 'accepte');
+    
+        try {
+            // Exécuter la requête et récupérer les résultats
+            $results = $qb->getQuery()->getResult();
+            // Retourner les résultats sous forme de tableau
+            return $results ?: [];
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            // Si aucun résultat trouvé, retourner un tableau vide
+            return [];
+        } catch (\Exception $e) {
+            // Gestion des autres erreurs (ajouter un log si nécessaire)
+            return [];
+        }
+    }*/
+    
+
    /*** 
      * @return BSE[] Returns an array of BSE objects that have at least one BST or OR associated
     

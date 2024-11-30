@@ -9,145 +9,89 @@
         <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         
-        <style>
-            * {
-                box-sizing: border-box;
-            }
-
-            body, h1, h2, h3, h4, h5, h6 {
-                font-family: "Times New Roman", Times, serif;
-                font-size: 90%;
-            }
-
-            a{
-                text-decoration: none;
-                color: black;
-            }
-
-            .container {
-                min-height: 350px;
-                background: #fff;
-                border-radius: 2px;
-                overflow: hidden;
-                box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
-                margin-bottom: 5%;
-            }
-
-            /* Refonte du menu de navigation pour mieux utiliser W3.CSS */
-            #nav {
-                width: 20%;
-                height: 100vh;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 999;
-                padding-top: 20px;
-            }
-
-            #nav a {
-                display: block;
-                margin: 10px 0;
-            }
-
-            /* Mobile Responsiveness */
-            @media(max-width: 1050px) {
-                #nav {
-                    width: 100%;
-                    position: relative;
-                    height: auto;
-                }
-            }
-
-            .content-wrapper {
-                margin-left: 22%;
-                padding: 20px;
-            }
-
-            /* Refonte des boutons */
-            .w3-button {
-                margin-bottom: 10px;
-            }
-            #nouveau{
-                margin-right: 10px;
-            }
-            #active{
-                background: rgba(0, 0, 0, 0.10);
-                color: black;
-            }
-        </style>
+         <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
     </head>
     <body>
         {# Vérifiez si l'utilisateur a le rôle ADMIN #}
         {% if is_granted('ROLE_ADMIN') %}
+        
+        {% set somme_depense = 0%}
 
-            {# Contenue pour l'administrateur #}
-                    <table  class="w3-table w3-bordered" id="myTable">
-                        <tr class="w3-light-grey">
-                            <th>Solde</th>
-                            <th>Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        {% for credit in credit %}
-                            <tr>
-                                <td>{{ credit.creditInitial  }}</td>
-                                <td>{{ credit.dateRenouvellement |date('Y-m-d') }}</td>
+        <center><p><u>ETAT CREDIT</u></p></center>
+        <p><b>Date:</b> {{date_6moi_2 | date('d /m /Y')}}</p>
+        <p><b>Heure:</b> 10: 35: 23</p>
+        {% set somme_depense = depense_or_6mois + somme_depense_bst_6mois%}
+        <p><b>Solde disponible :</b>  {{credit_restant}} Ariary</p>
+
+
+        <p><b>Etat credit dans 6 derniers mois :</b></p>
+<table>
+                            <tr class="w3-light-grey">
+                                <th>Date</th>
+                                <th>BST</th>
+                                <th>OR</th>
+                                <th>Sous-totale</th>
                             </tr>
-                        {% endfor %}
-                    </table>
-<div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
-                                    <center>Etat crédit</center>
-                                    {% set somme_depense = 0%}
-                                        <label>Du: {{date_6moi_1 | date('d/m/Y')}} au {{date_6moi_2 | date('d/m/Y')}}</label></br>
-                                        {% set somme_depense = depense_or_6mois + somme_depense_bst_6mois%}
-                                        <label>Dépense : {{somme_depense}} Ar</label></br>
-                                        <label>Restant : {{credit_restant}} Ar</label></br>
-                                        <div>
-                                            <i class="detail fa fa-eye w3-opacity w3-btn"   onclick="document.getElementById('creditRestant').style.display='block'">Voir</i>
-                                        </div>
-                                </div>
-
-                            {# Depense #}
-                            <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
-                                    <center>Dépense (6mois)</center>
-                                    {% set somme = 0%}
-                                    {% for user in user %}
-                                        {% set somme = somme +1 %}
-                                    {% endfor %}
-                                        <label>OR : {{depense_or_1mois}} Ar</label></br>
-                                        <label>BST : {{somme_depense_bst_1mois }} Ar</label></br>
-                                        {% set somme_depense = 0%}
-                                            {% set somme_depense = depense_or_6mois + somme_depense_bst_6mois%}
-                                            <label>Total : {{somme_depense}} Ar</label></br>
-                                        <div>
-                                            <i class="detail fa fa-eye w3-opacity w3-btn"   onclick="document.getElementById('depense').style.display='block'">Voir</i>
-                                        </div>
-                                </div>
+                                <tr>
+                                    <td>01/05/2024 au 01/06/2024</td>
+                                    <td>20000</td>
+                                    <td>45000</td>
+                                    <td>65000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/06/2024 au 01/07/2024</td>
+                                    <td>50000</td>
+                                    <td>50000</td>
+                                    <td>100000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/07/2024 au 01/08/2024</td>
+                                    <td>6000</td>
+                                    <td>40000</td>
+                                    <td>46000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/08/2024 au 01/09/2024</td>
+                                    <td>6000</td>
+                                    <td>40000</td>
+                                    <td>46000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/09/2024 au 01/10/2024</td>
+                                    <td>6000</td>
+                                    <td>40000</td>
+                                    <td>46000</td>
+                                </tr>
+                                <tr>
+                                    <td>01/10/2024 au 01/11/2024</td>
+                                    <td>6000</td>
+                                    <td>40000</td>
+                                    <td>46000</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td>100 000</td>
+                                    <td>295 000</td>
+                                    <td>395 000</td>
+                                </tr>
+                        </table>
+        
                             </div>
+    <img src="{{asset('images/hprofile.png')}}" alt="Example Image" style="width:200px;height:auto;">
 
-                            {# utilisateur #}
-                            <div class="w3-container w3-cell w3-mobile">
-                                <div class="w3-panel w3-card w3-border w3-round-large w3-opacity">
-                                    <center>Utilisateur</center>
-                                    {% set somme_f = 0 %}
-                                    {% set somme_h = 0 %}
-                                    {% for user in user %}
-                                        {% if user.sexe == 'Femme'%}
-                                            {% set somme_f = somme_f +1 %}
-                                        {% elseif user.sexe == 'Homme' %}
-                                            {% set somme_h = somme_h +1 %}
-                                        {% endif %}
-                                    {% endfor %}
-                                        {% set somme_u = somme_f + somme_h %}
-                                        <label>Femme : {{somme_f}}</label></br>
-                                        <label>Homme : {{somme_h}}</label></br>
-                                        <label>Total : {{somme_u}} personnes</label></br>
-                                        <div>
-                                            <i class="detail fa fa-eye w3-opacity w3-btn" onclick="document.getElementById('utilisateur').style.display='block'">Voir</i>
-                                        </div>
-                                </div>
-                            </div>
         {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
         {% elseif is_granted('ROLE_MISSIONNAIRE') %}
 
@@ -268,8 +212,6 @@
             </div>
 
         {% endif %}
-
-
 
     </body>
 </html>
