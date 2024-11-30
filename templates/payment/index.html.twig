@@ -144,54 +144,44 @@
                     <div>
 
                         {# Entete du Liste BST non payer  contenue #}
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Liste BST non payer</b></h4>
-                                </center>
-                            </div>
 
                             <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button w3-yellow">BST non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">BST payé</button></a>
-                                    <a href="#validation"><button class="w3-button">OR Non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">OR payé</button></a>
+                                <div  class="w3-half">
+                                    <a href="#creation"><button class="w3-button w3-yellow">Payer BST</button></a>
+                                    <a href="#validation"><button class="w3-button w3-light-grey">Payer OR</button></a>
+                                    <a href="#validation"><button class="w3-button w3-light-grey">Tous payement</button></a>
                                 </div>
                                 <div  class="w3-third">
                                     <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
                                 </div>
                             </div>
-                        </div>
                         
                         {# Corp du Liste BST non payer  contenue #}
                         <div>
                             <table class="w3-table w3-bordered">
                                 <tr class="w3-light-grey">
-                                    <th>destination</th>
-                                    <th>motif</th>
-                                    <th>date_bse</th>
-                                    <th>matricule</th>
-                                    <th>duree_mission</th>
-                                    <th>nom_detenteur</th>
-                                    <th>prenom_detenteur</th>
-                                    <th>fonction_detenteur</th>
-                                    <th>nom_chaufeur</th>
-                                    <th>prenom_chaufeur</th>
+                                    <th>Matricule</th>
+                                    <th>Duree mission</th>
+                                    <th>Destination</th>
+                                    <th>Detenteur</th>
+                                    <th>Création BSE</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
 
                                 <tr>
                                     {% for validation_accepte_non_paye_bst in validation_accepte_non_paye_bst %}
-                                        <td>{{ validation_accepte_non_paye_bst.destination }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.motif }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.dateBse | date('m-d-Y') }}</td>
                                         <td>{{ validation_accepte_non_paye_bst.matricule }}</td>
                                         <td>{{ validation_accepte_non_paye_bst.dureeMission }}</td>
+                                        <td>{{ validation_accepte_non_paye_bst.destination }}</td>
                                         <td>{{ validation_accepte_non_paye_bst.nomDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.prenomDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.fonctionDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.nomChaufeur }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.prenomChafeur }}</td>
+                                        <td>{{ validation_accepte_non_paye_bst.dateBse | date('m-d-Y') }}</td>
+                                        <td>
+                                            <a href="{{ path('bse_show', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                                        </td>
                                     {% endfor %}
                                 </tr>
                             </table>
