@@ -90,13 +90,13 @@
                 <div class="w3-col w3-yellow" id="nav">
                     <a href="{{path('app_home_page')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-home w3-opacity"></i> 
+                            <i class="fa fa-home w3-opaModal"></i> 
                             Acceuil
                         </button>
                     </a>
                     <a href="{{path('user_index')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
+                            <i class="fa fa-users w3-opaModal"></i> 
                             Missionnaire
                         </button>
                     </a>
@@ -134,41 +134,97 @@
 
                 {# bare d'icon #}
                 <div class="w3-container w3-cell w3-mobile  w3-display-topright w3-margin">
-                    <div  class="w3-center">
-                        <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
-                        <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
-                        <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
-                    </div>
+                   
                 </div>
 
 
                 <div class="w3-container content-wrapper">
 
-                    {# Liste BST non payer #}
+
+<div class="w3-bar  w3-padding">
+  <button class="w3-bar-item w3-button w3-blue" onclick="openModal('TousPayement')" id="tous">TousPayement</button>
+  <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">payerBst</button>
+  <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">payerOr</button>
+   <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
+  <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                        <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
+                        <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                        <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                    </div>
+</div>
+
+<div id="TousPayement" class="w3-container w3-display-container Modal">
+                    {# liste Ordre de route deja paye #}
                     <div>
-
-                        {# Entete du Liste BST non payer  contenue #}
-
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-half">
-                                    <a href="#creation"><button class="w3-button w3-yellow">Payer BST</button></a>
-                                    <a href="#validation"><button class="w3-button w3-light-grey">Payer OR</button></a>
-                                    <a href="#validation"><button class="w3-button w3-light-grey">Tous payement</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        
-                        {# Corp du Liste BST non payer  contenue #}
+                        {# Corp du Liste Ordre de route deja paye   contenue #}
                         <div>
                             <table class="w3-table w3-bordered">
+                                <tr  class="w3-light-grey">
+                                    <th>destination</th>
+                                    <th>motif</th>
+                                    <th>date_bse</th>
+                                    <th>matricule</th>
+                                    <th>duree_mission</th>
+                                    <th>nom_detenteur</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+
+                                <tr>
+                                    {% for payment_all_or in payment_all_or %}
+                                        <td>{{ payment_all_or.destination }}</td>
+                                        <td>{{ payment_all_or.motif }}</td>
+                                        <td>{{ payment_all_or.dateBse | date('m-d-Y') }}</td>
+                                        <td>{{ payment_all_or.matricule }}</td>
+                                        <td>{{ payment_all_or.dureeMission }}</td>
+                                        <td>{{ payment_all_or.nomDetenteur }}</td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for payment_all_bst in payment_all_bst %}
+                                        <td>{{ payment_all_bst.destination }}</td>
+                                        <td>{{ payment_all_bst.motif }}</td>
+                                        <td>{{ payment_all_bst.dateBse | date('m-d-Y') }}</td>
+                                        <td>{{ payment_all_bst.matricule }}</td>
+                                        <td>{{ payment_all_bst.dureeMission }}</td>
+                                        <td>{{ payment_all_bst.nomDetenteur }}</td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+</div>
+
+<div id="payerBst" class="w3-container w3-display-container Modal" style="display:none">
+                        {# Corp du Liste BST non payer  contenue #}
+                        <div>
+                            <table class="w3-table w3-bordered" id="myTable">
                                 <tr class="w3-light-grey">
                                     <th>Matricule</th>
                                     <th>Duree mission</th>
                                     <th>Destination</th>
                                     <th>Detenteur</th>
                                     <th>Création BSE</th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -186,215 +242,63 @@
                                         <td>
                                             <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
                                         </td>
+                                        <td>
+                                            <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                        </td>
                                     {% endfor %}
                                 </tr>
                             </table>
                         </div>
-                    </div>
-
-<!-- Trigger/Open the Modal -->
-<button onclick="document.getElementById('tous').style.display='block'"
-class="w3-button">Tous</button>
-
-
-                <div class="w3-container content-wrapper">
-<!-- The Modal -->
-<div id="tous" class="w3-modal w3-white">
-      <span onclick="document.getElementById('tous').style.display='none'"
-      class="w3-button w3-display-topright">&times;</span>
-{# Liste Bst deja paye #}
-                    <div>
-
-                        {# Entete du Liste Ordre de oroute à payer  contenue #}
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Liste Bst deja paye</b></h4>
-                                </center>
-                            </div>
-
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">BST non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">BST payé</button></a>
-                                    <a href="#validation"><button class="w3-button w3-yellow">OR Non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">OR payé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du Liste BST non payer  contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered">
-                                <tr class="w3-light-grey">
-                                    <th>destination</th>
-                                    <th>motif</th>
-                                    <th>date_bse</th>
-                                    <th>matricule</th>
-                                    <th>duree_mission</th>
-                                    <th>nom_detenteur</th>
-                                    <th>prenom_detenteur</th>
-                                    <th>fonction_detenteur</th>
-                                    <th>nom_chaufeur</th>
-                                    <th>prenom_chaufeur</th>
-                                </tr>
-
-                                <tr>
-                                    {% for validation_accepte_paye_or in validation_accepte_paye_or %}
-                                        <td>{{ validation_accepte_paye_or.destination }}</td>
-                                        <td>{{ validation_accepte_paye_or.motif }}</td>
-                                        <td>{{ validation_accepte_paye_or.dateBse | date('m-d-Y') }}</td>
-                                        <td>{{ validation_accepte_paye_or.matricule }}</td>
-                                        <td>{{ validation_accepte_paye_or.dureeMission }}</td>
-                                        <td>{{ validation_accepte_paye_or.nomDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_or.prenomDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_or.fonctionDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_or.nomChaufeur }}</td>
-                                        <td>{{ validation_accepte_paye_or.prenomChafeur }}</td>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    {# liste Ordre de route deja paye #}
-                    <div>
-
-                        {# Entete du Liste Ordre de route deja paye  contenue #}
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Liste Ordre de route deja paye</b></h4>
-                                </center>
-                            </div>
-
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">BST non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">BST payé</button></a>
-                                    <a href="#validation"><button class="w3-button">OR Non payer</button></a>
-                                    <a href="#validation"><button class="w3-button w3-yellow">OR payé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du Liste Ordre de route deja paye   contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered">
-                                <tr  class="w3-light-grey">
-                                    <th>destination</th>
-                                    <th>motif</th>
-                                    <th>date_bse</th>
-                                    <th>matricule</th>
-                                    <th>duree_mission</th>
-                                    <th>nom_detenteur</th>
-                                    <th>prenom_detenteur</th>
-                                    <th>fonction_detenteur</th>
-                                    <th>nom_chaufeur</th>
-                                    <th>prenom_chaufeur</th>
-                                </tr>
-
-                                <tr>
-                                    {% for validation_accepte_paye_bst in validation_accepte_paye_bst %}
-                                        <td>{{ validation_accepte_paye_bst.destination }}</td>
-                                        <td>{{ validation_accepte_paye_bst.motif }}</td>
-                                        <td>{{ validation_accepte_paye_bst.dateBse | date('m-d-Y') }}</td>
-                                        <td>{{ validation_accepte_paye_bst.matricule }}</td>
-                                        <td>{{ validation_accepte_paye_bst.dureeMission }}</td>
-                                        <td>{{ validation_accepte_paye_bst.nomDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_bst.prenomDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_bst.fonctionDetenteur }}</td>
-                                        <td>{{ validation_accepte_paye_bst.nomChaufeur }}</td>
-                                        <td>{{ validation_accepte_paye_bst.prenomChafeur }}</td>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-</div>
 </div>
 
-
-<!-- Trigger/Open the Modal -->
-<button onclick="document.getElementById('ordreroute').style.display='block'"
-class="w3-button">Ordre de routel</button>
-
-
-                <div class="w3-container content-wrapper">
-<!-- The Modal -->
-<div id="ordreroute" class="w3-modal w3-white">
-      <span onclick="document.getElementById('ordreroute').style.display='none'"
-      class="w3-button w3-display-topright">&times;</span>
-      
-                    {# Liste Ordre de oroute à payer #}
-                    <div>
-
-                        {# Entete du Liste Ordre de oroute à payer  contenue #}
+<div id="payerOr" class="w3-container w3-display-container Modal" style="display:none">
                         <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Liste Ordre de oroute à payer</b></h4>
-                                </center>
-                            </div>
-
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">BST non payer</button></a>
-                                    <a href="#validation"><button class="w3-button w3-yellow">BST payé</button></a>
-                                    <a href="#validation"><button class="w3-button">OR Non payer</button></a>
-                                    <a href="#validation"><button class="w3-button">OR payé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du Liste BST non payer  contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered">
+                            <table class="w3-table w3-bordered" id="myTable">
                                 <tr class="w3-light-grey">
                                     <th>destination</th>
-                                    <th>motif</th>
                                     <th>date_bse</th>
                                     <th>matricule</th>
                                     <th>duree_mission</th>
                                     <th>nom_detenteur</th>
-                                    <th>prenom_detenteur</th>
-                                    <th>fonction_detenteur</th>
-                                    <th>nom_chaufeur</th>
-                                    <th>prenom_chaufeur</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
 
-                                <tr>
                                     {% for validation_accepte_non_paye_or in validation_accepte_non_paye_or %}
+                                <tr>
                                         <td>{{ validation_accepte_non_paye_or.destination }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.motif }}</td>
                                         <td>{{ validation_accepte_non_paye_or.dateBse | date('m-d-Y') }}</td>
                                         <td>{{ validation_accepte_non_paye_or.matricule }}</td>
                                         <td>{{ validation_accepte_non_paye_or.dureeMission }}</td>
                                         <td>{{ validation_accepte_non_paye_or.nomDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.prenomDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.fonctionDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.nomChaufeur }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.prenomChafeur }}</td>
-                                    {% endfor %}
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                        </td>
                                 </tr>
+                                    {% endfor %}
                             </table>
                         </div>
-                    </div>
 </div>
-</div>
-                    
-                    
-                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -428,7 +332,7 @@ class="w3-button">Ordre de routel</button>
                                             
                                         <h6>Bonjour !</h6>
                                         <p>{{ app.user.prenom | upper() }}</br>
-                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                        <span class="w3-opaModal">{{ app.user.userIdentifier }}</span></p>
                                         <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
                                         <a href="{{ path('app_logout') }}">
                                             <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
@@ -469,7 +373,7 @@ class="w3-button">Ordre de routel</button>
                                                 <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
                                         </div>
                                         <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
-                                        <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
+                                        <p class='w3-margin-bottom w3-text-blue w3-opaModal'>Régle | Condition d'utilisation</p>
                                     </center>
                                 </div>
                             </div>
@@ -485,19 +389,19 @@ class="w3-button">Ordre de routel</button>
 
                 {# bare de navigation pour le missionnaire #}
                 <div class="w3-col w3-yellow" id="nav">
-                    <h1 class="w3-opacity h5 mb-3 font-weight-normal">
-                        <i class="fa fa-user-circle w3-opacity"></i>
+                    <h1 class="w3-opaModal h5 mb-3 font-weight-normal">
+                        <i class="fa fa-user-circle w3-opaModal"></i>
                         {{ app.user.userIdentifier }}
                     </h1>
                     <a href="{{path('app_home_page')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-home w3-opacity"></i> 
+                            <i class="fa fa-home w3-opaModal"></i> 
                             Acceuil
                         </button>
                     </a>
                     <a href="{{path('user_index')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
+                            <i class="fa fa-users w3-opaModal"></i> 
                             Missionnaire
                         </button>
                     </a>
@@ -545,19 +449,19 @@ class="w3-button">Ordre de routel</button>
 
                 {# bare de navigation pour l'utilisateur simple #}
                 <div class="w3-col w3-yellow" id="nav">
-                    <h1 class="w3-opacity h5 mb-3 font-weight-normal">
-                        <i class="fa fa-user-circle w3-opacity"></i>
+                    <h1 class="w3-opaModal h5 mb-3 font-weight-normal">
+                        <i class="fa fa-user-circle w3-opaModal"></i>
                         {{ app.user.userIdentifier }}
                     </h1>
                     <a href="{{path('app_home_page')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-home w3-opacity"></i> 
+                            <i class="fa fa-home w3-opaModal"></i> 
                             Acceuil
                         </button>
                     </a>
                     <a href="{{path('user_index')}}">
                         <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
+                            <i class="fa fa-users w3-opaModal"></i> 
                             Missionnaire
                         </button>
                     </a>
@@ -597,5 +501,67 @@ class="w3-button">Ordre de routel</button>
             </div>
 
         {% endif %}
+
+
+<script>
+function openModal(modaName) {
+  var i;
+  var x = document.getElementsByClassName("Modal");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(modaName).style.display = "block";  
+  if(modaName === 'TousPayement')
+  {
+    document.getElementById('tous').style.background = "blue"; 
+    document.getElementById('bst').style.background = "white"; 
+    document.getElementById('ordreRoute').style.background = "white"; 
+  }
+  else if(modaName === 'payerBst')
+  {
+    document.getElementById('tous').style.background = "white"; 
+    document.getElementById('bst').style.background = "blue"; 
+    document.getElementById('ordreRoute').style.background = "white"; 
+  }
+  else if(modaName === 'payerOr')
+  {
+    document.getElementById('tous').style.background = "white"; 
+    document.getElementById('bst').style.background = "white"; 
+    document.getElementById('ordreRoute').style.background = "blue"; 
+  }else{
+
+  }
+}
+
+
+
+{# script pour le bare de recherche #}
+            function myFunction(idTable, idInput) {
+                var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+                input = document.getElementById(idInput);
+                filter = input.value.toUpperCase(); // Valeur à rechercher
+                table = document.getElementById(idTable);
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i < tr.length; i++) { // Commence après l'en-tête
+                    td0 = tr[i].getElementsByTagName("td")[0]; // Colonne matricule
+                    td1 = tr[i].getElementsByTagName("td")[1]; // Colonne nom
+                    td2 = tr[i].getElementsByTagName("td")[2]; // Colonne prenom
+                    td3 = tr[i].getElementsByTagName("td")[3]; // Colonne fonction
+
+                    txtValue0 = td0 ? td0.textContent || td0.innerText : ""; // Texte de la colonne matricule
+                    txtValue1 = td1 ? td1.textContent || td1.innerText : ""; // Texte de la colonne nom
+                    txtValue2 = td2 ? td2.textContent || td2.innerText : ""; // Texte de la colonne prenom
+                    txtValue3 = td3 ? td3.textContent || td3.innerText : ""; // Texte de la colonne fonction
+
+                    // Vérifie si le filtre correspond à la colonne ,matricule ou nom ou prenom
+                    if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Affiche la ligne
+                    } else {
+                        tr[i].style.display = "none"; // Masque la ligne
+                    }
+                }
+            }
+</script>
     </body>
 </html>
