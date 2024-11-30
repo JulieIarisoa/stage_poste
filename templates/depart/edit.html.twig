@@ -67,13 +67,13 @@
         {{ form_row(departModifier.date_depart_missionnaire, { 'label': 'Date de départ', 'attr': {'class': 'w3-input w3-border w3-margin-bottom'} }) }}
 
         {{ form_row(departModifier.heure_depart_missionnaire, { 'label': 'Heure de départ', 'attr': {'class': 'w3-input w3-border'} }) }}
-   
+
         </div>
         <!-- Submit Button -->
         <button type="submit" class="w3-btn w3-indigo w3-half" id="envoyer" disabled><i class="fas fa-save"></i>  Register</button>
     <a href="{{ path('payment_index') }}">
         <input type="button" class="w3-btn w3-red w3-half" value="Retour"></a>
-
+   {{ form_end(departModifier) }}
 
 
 <script>
