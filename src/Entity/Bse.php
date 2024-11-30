@@ -83,6 +83,9 @@ class Bse
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $etat = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_payement_bst = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -360,6 +363,18 @@ class Bse
     public function setEtat(?string $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getDatePayementBst(): ?\DateTimeInterface
+    {
+        return $this->date_payement_bst;
+    }
+
+    public function setDatePayementBst(?\DateTimeInterface $date_payement_bst): static
+    {
+        $this->date_payement_bst = $date_payement_bst;
 
         return $this;
     }

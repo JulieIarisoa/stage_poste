@@ -43,9 +43,6 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
-            .afficher_pas{
-                display: none;
-            }
 
 
     </style>
@@ -103,11 +100,11 @@
 
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="afficher_pas">
-                {{ form_row(or_bst.etat_payment_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-half">
+                {{ form_row(or_bst.etat_payment_or, { 'label': 'etat_payment_or', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
-            <div class="afficher_pas">
-                {{ form_row(or_bst.etat_payment_bst, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-half">
+                {{ form_row(or_bst.etat_payment_bst, { 'label': 'etat_payment_bst', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 

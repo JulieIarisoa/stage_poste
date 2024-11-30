@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Bse;
 use App\Entity\User;
 use App\Form\BstOrType;
-use App\Form\BsePayeType;
+use App\Form\BstPayeType;
 use App\Form\BstOrValideType;
 use \Twig\Environment;
 use App\Service\PdfGeneratorService;
@@ -97,6 +97,26 @@ class BstController extends AbstractController
         return $this->render('bst/edit.html.twig', [
             'form' => $form->createView(),
             'bst' => $bst,
+        ]);
+    }
+
+
+    #[Route("/bst/{id}/paye", name: "bst_paye")]
+    public function paye(Request $request, Bse $bse): Response
+    {
+        $form = $this->createForm(BstPayeType::class, $bse);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bst updated successfully.');
+
+            return $this->redirectToRoute('payement_index');
+        }
+
+        return $this->render('bst/paye.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

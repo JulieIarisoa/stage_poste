@@ -54,6 +54,9 @@ bst_show:
 bst_edit:
     path: /bst/{id}/edit
     controller: App\Controller\BstController::edit
+bst_paye:
+    path: /bst/{id}/paye
+    controller: App\Controller\BstController::paye
 
 
 #route vers OR:Ordre de route

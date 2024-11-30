@@ -43,10 +43,6 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
-            .afficher_pas{
-                display: none;
-            }
-
 
     </style>
 </head>
@@ -95,7 +91,7 @@
 
 
             <!-- Fifth Row: Email and Password -->
-            <div class="afficher_pas">
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
                 <div class="w3-third">
                     {{ form_row(nouveau_or.etat_validation_or, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border'} }) }}
                 </div>
