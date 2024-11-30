@@ -122,39 +122,28 @@
                     </a>
                 </div>
 
-                {# bare d'icon #}
-                <div class="w3-container w3-cell w3-mobile  w3-display-topright w3-margin">
-                    <div  class="w3-center">
-                        <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
-                        <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
-                        <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
-                    </div>
-                </div>
 
-                <div>
-                    {# premier contenue #}
-                    <div class="contenue1 w3-container content-wrapper" id="creation">
-                        {# Entete du premier contenue #}
+
+
+                <div class="w3-container content-wrapper">
+
+<div class="w3-bar  w3-padding">
+  <button class="w3-bar-item w3-button w3-blue" onclick="openModal('Creation')" id="tous">Creation</button>
+  <button class="w3-bar-item w3-button" onclick="openModal('Validation')" id="bst">Validation</button>
+  <button class="w3-bar-item w3-button" onclick="openModal('Refuse')" id="ordreRoute">Refuse</button>
+   <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
+  <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                        <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
+                        <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                        <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                    </div>
+</div>
+
+<div id="Creation" class="w3-container w3-display-container Modal">
+                    {# liste Ordre de route deja paye #}
+                    <div>
+                        {# Corp du Liste Ordre de route deja paye   contenue #}
                         <div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Création d'un ordre de route avec ou sans BST</b></h4>
-                                </center>
-                            </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button w3-yellow">Création</button></a>
-                                    <a href="#validation"><button class="w3-button">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button ">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du premier contenue #}
-                        <div id="creation" class="w3-container Mission">
                             <table class="w3-table w3-bordered"  id="myTable">
                                     <tr class="w3-light-grey">
                                         <th>Matricule</th>
@@ -189,30 +178,11 @@
                             </table>
                         </div>
                     </div>
+</div>
 
-                    {# deuxieme contenue #}
-                    <div class="contenue2 w3-container content-wrapper" id="validation">
-                        {# Entete du deuxième contenue #}
+<div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
+                        {# Corp du Liste BST non payer  contenue #}
                         <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Validation d'un ordre de route avec ou sans BST</b></h4>
-                                </center>
-                            </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">Création</button></a>
-                                    <a href="#validation"><button class="w3-button w3-yellow">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myRecherche('myTableAttente','myInputAttente',0)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du deuxieme contenue #}
-                        <div id="validation" class="w3-container Mission">
                             <table  class="w3-table w3-bordered" id="myTableAttente">
                                 <tr class="w3-light-grey">
                                     <th>Destination</th>
@@ -253,31 +223,10 @@
                                 {% endfor %}
                             </table>
                         </div>
-                    </div>
+</div>
 
-                    {# troisième contenue #}
-                    <div class="contenue3 w3-container content-wrapper" id="refuse">
-                        {# Entete du troisieme contenue #}
+<div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
                         <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Ordre de route avec ou sans BST refusé</b></h4>
-                                </center>
-                            </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">Création</button></a>
-                                    <a href="#validation"><button class="w3-button">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button w3-yellow">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par motif..." id="myInputRefuse" onkeyup="myRecherche('myTableRefuse','myInputRefuse',0)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du troisieme contenue #}
-                        <div id="refuse" class="w3-container Mission">
                             <table  class="w3-table w3-bordered" id="myTableRefuse">
                                 <tr class="w3-light-grey">
                                     <th>Destination</th>
@@ -320,8 +269,91 @@
                                 {% endfor %}
                             </table>
                         </div>
+</div>
+
+
+
+{#
+                <div>
+                    {# premier contenue }
+                    <div class="contenue1 w3-container content-wrapper" id="creation">
+                        {# Entete du premier contenue }
+                        <div>
+                            <div class="w3-row-padding w3-margin-bottom">
+                                <center>
+                                    <h4 class="w3-text-indigo" ><b>Création d'un ordre de route avec ou sans BST</b></h4>
+                                </center>
+                            </div>
+                            <div class="w3-row-padding w3-margin-bottom">
+                                <div  class="w3-twothird">
+                                    <a href="#creation"><button class="w3-button w3-yellow">Création</button></a>
+                                    <a href="#validation"><button class="w3-button">Validation</button></a>
+                                    <a href="#refuse"><button class="w3-button ">Refusé</button></a>
+                                </div>
+                                <div  class="w3-third">
+                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {# Corp du premier contenue }
+                        <div id="creation" class="w3-container Mission">
+                        </div>
                     </div>
-                </div>
+
+                    {# deuxieme contenue }
+                    <div class="contenue2 w3-container content-wrapper" id="validation">
+                        {# Entete du deuxième contenue }
+                        <div>
+                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
+                                <center>
+                                    <h4 class="w3-text-indigo" ><b>Validation d'un ordre de route avec ou sans BST</b></h4>
+                                </center>
+                            </div>
+                            <div class="w3-row-padding w3-margin-bottom">
+                                <div  class="w3-twothird">
+                                    <a href="#creation"><button class="w3-button">Création</button></a>
+                                    <a href="#validation"><button class="w3-button w3-yellow">Validation</button></a>
+                                    <a href="#refuse"><button class="w3-button">Refusé</button></a>
+                                </div>
+                                <div  class="w3-third">
+                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myRecherche('myTableAttente','myInputAttente',0)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {# Corp du deuxieme contenue }
+                        <div id="validation" class="w3-container Mission">
+                        </div>
+                    </div>
+
+                    {# troisième contenue }
+                    <div class="contenue3 w3-container content-wrapper" id="refuse">
+                        {# Entete du troisieme contenue }
+                        <div>
+                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
+                                <center>
+                                    <h4 class="w3-text-indigo" ><b>Ordre de route avec ou sans BST refusé</b></h4>
+                                </center>
+                            </div>
+                            <div class="w3-row-padding w3-margin-bottom">
+                                <div  class="w3-twothird">
+                                    <a href="#creation"><button class="w3-button">Création</button></a>
+                                    <a href="#validation"><button class="w3-button">Validation</button></a>
+                                    <a href="#refuse"><button class="w3-button w3-yellow">Refusé</button></a>
+                                </div>
+                                <div  class="w3-third">
+                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par motif..." id="myInputRefuse" onkeyup="myRecherche('myTableRefuse','myInputRefuse',0)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {# Corp du troisieme contenue }
+                        <div id="refuse" class="w3-container Mission">
+                            
+                        </div>
+                    </div>
+                </div>#}
 
 
                     {# modal profile pour l'administrateur #}
@@ -525,6 +557,37 @@
         {% endif %}
 
         <script>
+function openModal(modaName) {
+  var i;
+  var x = document.getElementsByClassName("Modal");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(modaName).style.display = "block";  
+  if(modaName === 'Creation')
+  {
+    document.getElementById('tous').style.background = "blue"; 
+    document.getElementById('bst').style.background = "white"; 
+    document.getElementById('ordreRoute').style.background = "white"; 
+  }
+  else if(modaName === 'Validation')
+  {
+    document.getElementById('tous').style.background = "white"; 
+    document.getElementById('bst').style.background = "blue"; 
+    document.getElementById('ordreRoute').style.background = "white"; 
+  }
+  else if(modaName === 'Refuse')
+  {
+    document.getElementById('tous').style.background = "white"; 
+    document.getElementById('bst').style.background = "white"; 
+    document.getElementById('ordreRoute').style.background = "blue"; 
+  }else{
+
+  }
+}
+
+
+
             {# script pour le bare de recherche #}
             function myRecherche(idTable, idInput) {
                 var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
