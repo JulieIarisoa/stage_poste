@@ -132,7 +132,6 @@
             <button class="w3-bar-item w3-button" onclick="openModal('Validation')" id="bst">Validation</button>
             <button class="w3-bar-item w3-button" onclick="openModal('Refuse')" id="ordreRoute">Refuse</button>
             <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
-            <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
                                     <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
                                     <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
                                     <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
@@ -142,6 +141,7 @@
             <div id="Creation" class="w3-container w3-display-container Modal">
                                 {# liste Ordre de route deja paye #}
                                 <div>
+                                    <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher ..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
                                     {# Corp du Liste Ordre de route deja paye   contenue #}
                                     <div>
                                         <table class="w3-table w3-bordered"  id="myTable">
@@ -183,7 +183,8 @@
             <div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
                                     {# Corp du Liste BST non payer  contenue #}
                                     <div>
-                                        <table  class="w3-table w3-bordered" id="myTableAttente">
+                                    <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher ..."id="myInput1" onkeyup="myFunction('myTable1','myInput1',2)">
+                                        <table  class="w3-table w3-bordered" id="myTable1">
                                             <tr class="w3-light-grey">
                                                 <th>Destination</th>
                                                 <th>Motif</th>
@@ -233,7 +234,8 @@
 
             <div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
                                     <div>
-                                        <table  class="w3-table w3-bordered" id="myTableRefuse">
+                                    <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher ..."id="myInput2" onkeyup="myFunction('myTable2','myInput2',2)">
+                                        <table  class="w3-table w3-bordered" id="myTable2">
                                             <tr class="w3-light-grey">
                                                 <th>Destination</th>
                                                 <th>Motif</th>
@@ -1523,39 +1525,39 @@
         {% endif %}
 
         <script>
-function openModal(modaName) {
-  var i;
-  var x = document.getElementsByClassName("Modal");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  document.getElementById(modaName).style.display = "block";  
-  if(modaName === 'Creation')
-  {
-    document.getElementById('tous').style.background = "blue"; 
-    document.getElementById('bst').style.background = "white"; 
-    document.getElementById('ordreRoute').style.background = "white"; 
-  }
-  else if(modaName === 'Validation')
-  {
-    document.getElementById('tous').style.background = "white"; 
-    document.getElementById('bst').style.background = "blue"; 
-    document.getElementById('ordreRoute').style.background = "white"; 
-  }
-  else if(modaName === 'Refuse')
-  {
-    document.getElementById('tous').style.background = "white"; 
-    document.getElementById('bst').style.background = "white"; 
-    document.getElementById('ordreRoute').style.background = "blue"; 
-  }else{
+            function openModal(modaName) {
+            var i;
+            var x = document.getElementsByClassName("Modal");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";  
+            }
+            document.getElementById(modaName).style.display = "block";  
+            if(modaName === 'Creation')
+            {
+                document.getElementById('tous').style.background = "blue"; 
+                document.getElementById('bst').style.background = "white"; 
+                document.getElementById('ordreRoute').style.background = "white"; 
+            }
+            else if(modaName === 'Validation')
+            {
+                document.getElementById('tous').style.background = "white"; 
+                document.getElementById('bst').style.background = "blue"; 
+                document.getElementById('ordreRoute').style.background = "white"; 
+            }
+            else if(modaName === 'Refuse')
+            {
+                document.getElementById('tous').style.background = "white"; 
+                document.getElementById('bst').style.background = "white"; 
+                document.getElementById('ordreRoute').style.background = "blue"; 
+            }else{
 
-  }
-}
+            }
+            }
 
 
 
             {# script pour le bare de recherche #}
-            function myRecherche(idTable, idInput) {
+            function myFunction(idTable, idInput) {
                 var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
                 input = document.getElementById(idInput);
                 filter = input.value.toUpperCase(); // Valeur à rechercher
