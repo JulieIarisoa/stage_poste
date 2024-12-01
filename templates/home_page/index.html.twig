@@ -208,14 +208,14 @@
                                         <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
                                     </div>
                                 </div>
-                                <div>
-                                    <button  class="w3-center">
-                                        Rapport (1 mois) 
-                                    </button>
+                                <div  class="w3-center">
+                                    <a href="{{path('pdf_allRapportmois')}}">
+                                        <button class="w3-btn w3-yellow w3-margin-top">BSE 1 mois</button></br>
+                                    </a>
                                 </div>
-                                <div>
-                                    <a href="{{path('pdf_stat')}}">
-                                        <button class="w3-btn w3-yellow w3-margin">Etat (6mois)</button></br>
+                                <div  class="w3-center">
+                                    <a href="{{path('pdf_etatBse6mois')}}">
+                                        <button class="w3-btn w3-yellow w3-margin-top">Etat BSE 6 mois</button></br>
                                     </a>
                                 </div>
                             </div>

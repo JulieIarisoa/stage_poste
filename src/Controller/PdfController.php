@@ -208,6 +208,32 @@ class PdfController extends AbstractController
         ]);
     }
 
+
+    #[Route('/output-pdf-allrapport1mois', name: 'pdf_allRapportmois')]
+    public function outputAllRapport1Mois(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/AllRapport1Mois.html.twig',);
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
+    }
+
+
+    #[Route('/output-pdf-etatBse6mois', name: 'pdf_etatBse6mois')]
+    public function outputEtatBse6mois(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        $htmlContent = $twig->render('pdf/etatBse6mois.html.twig',);
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf',
+        ]);
+    }
+
     /**
  * Prépare les données pour un graphique à partir d'une entité donnée.
  *
