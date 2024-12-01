@@ -199,12 +199,13 @@ class PdfController extends AbstractController
     #[Route('/output-pdf-or', name: 'pdf_or')]
     public function outputOr(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
     {
-        $htmlContent = $twig->render('pdf/orpdf.html.twig',);
+
+        $htmlContent = $twig->render('pdf/orpdf.html.twig');
 
         $content = $pdfGeneratorService->output($htmlContent);
 
         return new Response($content, 200, [
-            'content-type' => 'application/pdf',
+            'content-type' => 'application/pdf'
         ]);
     }
 
@@ -212,7 +213,15 @@ class PdfController extends AbstractController
     #[Route('/output-pdf-allrapport1mois', name: 'pdf_allRapportmois')]
     public function outputAllRapport1Mois(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
     {
-        $htmlContent = $twig->render('pdf/AllRapport1Mois.html.twig',);
+        $date_1moi_2 = new \DateTime(); 
+        $date_1moi_1 = new \DateTime(); 
+        $date_1moi_1 = $date_1moi_1->modify('-1 month');
+
+        $bseEntreDeuxDate = $this->BseRepository->bseEntreDeuxDate($date_1moi_1->format('d/m/Y'), $date_1moi_2->format('d/m/Y'));
+        
+        $htmlContent = $twig->render('pdf/AllRapport1Mois.html.twig',[
+            'bseEntreDeuxDate' => $bseEntreDeuxDate,
+        ]);
 
         $content = $pdfGeneratorService->output($htmlContent);
 

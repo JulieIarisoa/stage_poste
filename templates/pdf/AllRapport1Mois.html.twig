@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Acceuil</title>
+        <link rel="stylesheet" href="{{ asset('assets/w3.css')}}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        
+         <style>
+         *{
+            font-size: 92%;
+         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    </head>
+    <body>
+    {% if bseEntreDeuxDate is defined and bseEntreDeuxDate is not empty %}
+    <center><h1>LISTE DES TOUS LES MISSIONS DANS UN MOIS: </h1></center>
+    <table>
+        <thead>
+            <tr>
+                <th>Date BSE</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Destination</th>
+                <th>Motif</th>
+                <th>OR</th>
+                <th>Bst</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set somDepenseOr = 0 %}
+            {% set somDepenseBst = 0 %}
+            {% set depenseTotal = 0 %}
+            {% for item in bseEntreDeuxDate %}
+                <tr>
+                    <td>{{ item.dateBse|date('d/m/Y') }}</td>
+                    <td>{{ item.nom | upper }}</td>
+                    <td>{{ item.prenom }}</td>
+                    <td>{{ item.destination }}</td>
+                    <td>{{ item.motif }}</td>
+                    <td>{{ item.sommeOr }}</td>
+                    <td>{{ item.depenseBst }}</td>
+                    {% set depense = item.sommeOr + item.depenseBst %}
+                    {% set somDepenseOr = somDepenseOr + item.sommeOr%}
+                    {% set somDepenseBst = somDepenseBst + item.depenseBst%}
+                    {% set depenseTotal = depenseTotal + (item.sommeOr + item.depenseBst) %}
+                    <td>{{ depense }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><b>Montant ordre de route : </b>{{ somDepenseOr }} Ariary</p>
+    <p><b>Montant BST : </b>{{ somDepenseBst }} Ariary</p>
+    <p><b>Montant total: </b>{{ depenseTotal }} Ariary</p>
+{% else %}
+    <p>Aucune donnée à afficher pour la période sélectionnée.</p>
+{% endif %}

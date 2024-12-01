@@ -47,6 +47,63 @@ class BseRepository extends ServiceEntityRepository
             }
     }
 
+
+    public function bseEntreDeuxDate($date1, $date2): array
+    {
+        // Vérification et conversion des dates
+        $startDate = \DateTime::createFromFormat('d/m/Y', $date1);
+        $endDate = \DateTime::createFromFormat('d/m/Y', $date2);
+    
+        if (!$startDate || !$endDate) {
+            throw new \InvalidArgumentException('Les dates fournies ne respectent pas le format attendu (d/m/Y).');
+        }
+    
+        // Création du QueryBuilder
+        $qb = $this->createQueryBuilder('b')
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            ->select(
+                'm.nom AS nom', 
+                'm.prenom AS prenom', 
+                'm.matricule AS matricule', 
+                'm.fonction AS fonction', 
+                'o.date_bse AS dateBse', 
+                'o.destination AS destination', 
+                'o.motif AS motif', 
+                'o.duree_mission AS dureeMission', 
+                'o.lieu_depart_missionnaire AS lieuDepartMissionnaire', 
+                'o.heure_depart_missionnaire AS heureDepartMissionnaire', 
+                'o.date_depart_missionnaire AS dateDepartMissionnaire', 
+                'o.lieu_bse AS lieuBse', 
+                'o.etat AS etat',
+                'o.id',
+                'o.depense_bst AS depenseBst',
+                'SUM(o.duree_mission * m.taux_journalier) as sommeOr',
+            )
+            ->where('o.date_bse BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->groupBy(
+                'm.nom, m.prenom, m.matricule, m.fonction, 
+                 o.date_bse, o.destination, o.motif, 
+                 o.duree_mission, o.lieu_depart_missionnaire, 
+                 o.heure_depart_missionnaire, o.date_depart_missionnaire, 
+                 o.lieu_bse, o.etat,o.id'
+            )
+            ->orderBy('o.date_bse', 'ASC');
+        try {
+            // Récupération des résultats sous forme de tableau
+            return $qb->getQuery()->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            // Aucun résultat trouvé
+            return [];
+        } catch (\Exception $e) {
+            // Gestion des autres erreurs
+            // Ajouter un log si nécessaire
+            throw $e; // Lancer une exception pour faciliter le débogage
+        }
+    }
+    
     /*public function departMissionnaire(): array
     {
         // Construction de la requête
