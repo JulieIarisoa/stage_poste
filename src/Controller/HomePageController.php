@@ -103,19 +103,8 @@ class HomePageController extends AbstractController
     $total_credit = $somme_credit->getQuery()->getSingleScalarResult();
 
     $credit_restant = $total_credit - $depense;
-    /*$date_renouvellement = $this->entityManager->createQueryBuilder();
-    $date_renouvellement->select('c.date_renouvellement')
-                ->from(Credit::class, 'c')
-                ->orderBy('c.id', 'DESC')  // Applique l'ordre par id DESC
-                ->setMaxResults(1);
-    $date_renouvel = $date_renouvellement->getQuery()->getSingleScalarResult();*/
 
 
-    // Récupérer toutes les données des entités
-    //$bseData = $this->entityManager->getRepository(Bse::class)->findAll();
-    //$paymentData = $this->entityManager->getRepository(Payment::class)->findAll();
-
-    // Récupérer les utilisateurs et les crédits
     $user = $this->entityManager->getRepository(User::class)->findAll();
     $credit = $this->entityManager->getRepository(Credit::class)->findAll();
 
@@ -133,32 +122,11 @@ class HomePageController extends AbstractController
         ->orderBy('d.date_bse','ASC')
         ->setParameter('startDate', $date_6moi1)
         ->setParameter('endDate', $date_6moi2);
-
-    // Execute the query to get the data array
     $queryResult = $dataBse->getQuery()->getResult();  
-    
-   /* $date_6moi2 = new \DateTime(); 
-    $date_6moi1 = new \DateTime(); 
-    $date_6moi1 = $date_6moi1->modify('-6 month');// Date actuelle - 6 mois
-    
-    $dataBse = $this->entityManager->createQueryBuilder();
-    $dataBse->select('SUBSTRING(d.date_bse, 1, 7) AS dateBse, COUNT(d.id) AS total')
-        ->from(Bse::class, 'd')
-        ->where('d.date_bse BETWEEN :startDate AND :endDate')
-        ->groupBy('dateBse') // Regroupe par mois (année-mois)
-        ->orderBy('dateBse', 'ASC')
-        ->setParameter('startDate', $date_6moi1) // Formate pour la requête
-        ->setParameter('endDate', $date_6moi2); // Formate pour la requête
-    
-    $queryResult = $dataBse->getQuery()->getResult();*/
-    
+   
 
 // Now pass the result (array) to the prepareChartData function
     $dataBse = $this->prepareChartData($queryResult, 'dateBse', 'total');
-
-    //$dataBst = $this->prepareChartData($bstData, 'dateBst', 'Id');  // Exemple : ajustez les clés en fonction des données réelles
-    //$dataOrdreRoute = $this->prepareChartData($ordreRouteData, 'NumOr', 'DureeDeplacement');
-    //$dataPayment = $this->prepareChartData($paymentData, 'TauxPayer', 'Id');  // Exemple : ajustez en fonction de vos données
 
     return $this->render('home_page/index.html.twig', [
         'controller_name' => 'HomePageController',
