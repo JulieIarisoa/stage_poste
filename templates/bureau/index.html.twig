@@ -262,74 +262,8 @@
             {# contenue pour le missionnaire#}
             <div class="w3-row">
 
-                {# bare de navigation pour le missionnaire #}
+                {# bare de navigation pour l'administrateur #}
                 <div class="w3-col w3-yellow" id="nav">
-                    <h1 class="w3-opacity h5 mb-3 font-weight-normal">
-                        <i class="fa fa-user-circle w3-opacity"></i>
-                        {{ app.user.userIdentifier }}
-                    </h1>
-                    <a href="{{path('app_home_page')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-home w3-opacity"></i> 
-                            Acceuil
-                        </button>
-                    </a>
-                    <a href="{{path('user_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
-                            Missionnaire
-                        </button>
-                    </a>
-                    <a href="{{path('bse_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-briefcase"></i>
-                            Mission
-                        </button>
-                    </a>
-                    <a href="{{path('payment_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-dollar-sign"></i> 
-                            Payement
-                        </button>
-                    </a>
-                    <a href="{{path('bureau_index')}}">
-                        <button class="w3-button w3-block w3-left-align" id="active">
-                            <i class="fas fa-building"></i>
-                            Agence
-                        </button>
-                    </a>
-                    <a href="{{path('bureau_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-sync"></i>
-                            Renouveller credit
-                        </button>
-                    </a>
-                    <a href="{{ path('app_logout') }}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Se deconnecter
-                        </button>
-                    </a>
-                </div>
-
-                <div class="w3-container content-wrapper"></div>
-            </div>
-
-
-        {# Vérifiez si l'utilisateur a le rôle Payeur #}
-        {% elseif is_granted('ROLE_PAYEUR') %}
-        {# Vérifiez si l'utilisateur a le rôle USER #}
-        {% elseif is_granted('ROLE_USER') %}
-
-            {# contenue pour l'utilisateur simple #}
-            <div class="w3-row">
-
-                {# bare de navigation pour l'utilisateur simple #}
-                <div class="w3-col w3-yellow" id="nav">
-                    <h1 class="w3-opacity h5 mb-3 font-weight-normal">
-                        <i class="fa fa-user-circle w3-opacity"></i>
-                        {{ app.user.userIdentifier }}
-                    </h1>
                     <a href="{{path('app_home_page')}}">
                         <button class="w3-button w3-block w3-left-align">
                             <i class="fa fa-home w3-opacity"></i> 
@@ -374,7 +308,487 @@
                     </a>
                 </div>
 
-                <div class="w3-container content-wrapper"></div>
+                {# bare d'icon #}
+                <div class="w3-container w3-cell w3-mobile  w3-display-topright w3-margin">
+                    <div  class="w3-center">
+                        <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
+                        <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                        <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                    </div>
+                </div>
+
+
+                <div class="w3-container content-wrapper">
+                    <div class="w3-row-padding w3-margin-bottom">
+                        <div  class="w3-quarter">
+                            <a href="{{path('bureau_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add bureau</button></a>
+                        </div>
+                        <div  class="w3-half">
+                            <input class="w3-input w3-border w3-padding  " type="text" placeholder="Rechercher ..." id="myInput" onkeyup="myFunction('myTable','myInput')">
+                        </div>
+                    </div>
+                    <table  class="w3-table w3-bordered" id="myTable">
+                        <tr class="w3-light-grey">
+                            <th>Code postale</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th>Matricule chef agence</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for bureau in bureau %}
+                            <tr>
+                                <td>{{ bureau.codePoste   }}</td>
+                                <td>{{ bureau.adresse }}</td>
+                                <td>{{ bureau.telephone }}</td>
+                                <td>{{ bureau.matricule }}</td>
+                                <td>
+                                    <a href="{{ path('bureau_edit', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('bureau_delete', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Supprimer</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+
+
+                    {# modal profile pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="profile" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        {% if app.user.sexe == 'Femme' %}
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+                                        {% elseif app.user.sexe == 'Homme' %}
+                                           <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+
+                                        {% endif %}
+                                            
+                                        <h6>Bonjour !</h6>
+                                        <p>{{ app.user.prenom | upper() }}</br>
+                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
+                                        <a href="{{ path('app_logout') }}">
+                                            <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
+                                        </a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal notification pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="notify" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('notify').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Aucun notification!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal bars pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="treebars" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('treebars').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
+                                        <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+
+        {# Vérifiez si l'utilisateur a le rôle Payeur #}
+        {% elseif is_granted('ROLE_PAYEUR') %}
+            <div class="w3-row">
+
+                {# bare de navigation pour l'administrateur #}
+                <div class="w3-col w3-yellow" id="nav">
+                    <a href="{{path('app_home_page')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fa fa-home w3-opacity"></i> 
+                            Acceuil
+                        </button>
+                    </a>
+                    <a href="{{path('user_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fa fa-users w3-opacity"></i> 
+                            Missionnaire
+                        </button>
+                    </a>
+                    <a href="{{path('bse_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-briefcase"></i>
+                            Mission
+                        </button>
+                    </a>
+                    <a href="{{path('payment_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-dollar-sign"></i> 
+                            Payement
+                        </button>
+                    </a>
+                    <a href="{{path('bureau_index')}}">
+                        <button class="w3-button w3-block w3-left-align" id="active">
+                            <i class="fas fa-building"></i>
+                            Agence
+                        </button>
+                    </a>
+                    <a href="{{path('credit_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-sync"></i>
+                            Renouveller credit
+                        </button>
+                    </a>
+                    <a href="{{ path('app_logout') }}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Se deconnecter
+                        </button>
+                    </a>
+                </div>
+
+                {# bare d'icon #}
+                <div class="w3-container w3-cell w3-mobile  w3-display-topright w3-margin">
+                    <div  class="w3-center">
+                        <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
+                        <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                        <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                    </div>
+                </div>
+
+
+                <div class="w3-container content-wrapper">
+                    <div class="w3-row-padding w3-margin-bottom">
+                        <div  class="w3-quarter">
+                            <a href="{{path('bureau_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add bureau</button></a>
+                        </div>
+                        <div  class="w3-half">
+                            <input class="w3-input w3-border w3-padding  " type="text" placeholder="Rechercher ..." id="myInput" onkeyup="myFunction('myTable','myInput')">
+                        </div>
+                    </div>
+                    <table  class="w3-table w3-bordered" id="myTable">
+                        <tr class="w3-light-grey">
+                            <th>Code postale</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th>Matricule chef agence</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for bureau in bureau %}
+                            <tr>
+                                <td>{{ bureau.codePoste   }}</td>
+                                <td>{{ bureau.adresse }}</td>
+                                <td>{{ bureau.telephone }}</td>
+                                <td>{{ bureau.matricule }}</td>
+                                <td>
+                                    <a href="{{ path('bureau_edit', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('bureau_delete', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Supprimer</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+
+
+                    {# modal profile pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="profile" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        {% if app.user.sexe == 'Femme' %}
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+                                        {% elseif app.user.sexe == 'Homme' %}
+                                           <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+
+                                        {% endif %}
+                                            
+                                        <h6>Bonjour !</h6>
+                                        <p>{{ app.user.prenom | upper() }}</br>
+                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
+                                        <a href="{{ path('app_logout') }}">
+                                            <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
+                                        </a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal notification pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="notify" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('notify').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Aucun notification!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal bars pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="treebars" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('treebars').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
+                                        <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        {# Vérifiez si l'utilisateur a le rôle USER #}
+        {% elseif is_granted('ROLE_USER') %}
+
+            {# contenue pour l'utilisateur simple #}
+            <div class="w3-row">
+
+                {# bare de navigation pour l'administrateur #}
+                <div class="w3-col w3-yellow" id="nav">
+                    <a href="{{path('app_home_page')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fa fa-home w3-opacity"></i> 
+                            Acceuil
+                        </button>
+                    </a>
+                    <a href="{{path('user_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fa fa-users w3-opacity"></i> 
+                            Missionnaire
+                        </button>
+                    </a>
+                    <a href="{{path('bse_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-briefcase"></i>
+                            Mission
+                        </button>
+                    </a>
+                    <a href="{{path('payment_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-dollar-sign"></i> 
+                            Payement
+                        </button>
+                    </a>
+                    <a href="{{path('bureau_index')}}">
+                        <button class="w3-button w3-block w3-left-align" id="active">
+                            <i class="fas fa-building"></i>
+                            Agence
+                        </button>
+                    </a>
+                    <a href="{{path('credit_index')}}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-sync"></i>
+                            Renouveller credit
+                        </button>
+                    </a>
+                    <a href="{{ path('app_logout') }}">
+                        <button class="w3-button w3-block w3-left-align">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Se deconnecter
+                        </button>
+                    </a>
+                </div>
+
+                {# bare d'icon #}
+                <div class="w3-container w3-cell w3-mobile  w3-display-topright w3-margin">
+                    <div  class="w3-center">
+                        <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
+                        <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                        <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                    </div>
+                </div>
+
+
+                <div class="w3-container content-wrapper">
+                    <div class="w3-row-padding w3-margin-bottom">
+                        <div  class="w3-quarter">
+                            <a href="{{path('bureau_new')}}"><button class="w3-button w3-blue"><i class="fas fa-plus"></i><i class="fas fa-building"></i>   Add bureau</button></a>
+                        </div>
+                        <div  class="w3-half">
+                            <input class="w3-input w3-border w3-padding  " type="text" placeholder="Rechercher ..." id="myInput" onkeyup="myFunction('myTable','myInput')">
+                        </div>
+                    </div>
+                    <table  class="w3-table w3-bordered" id="myTable">
+                        <tr class="w3-light-grey">
+                            <th>Code postale</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th>Matricule chef agence</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for bureau in bureau %}
+                            <tr>
+                                <td>{{ bureau.codePoste   }}</td>
+                                <td>{{ bureau.adresse }}</td>
+                                <td>{{ bureau.telephone }}</td>
+                                <td>{{ bureau.matricule }}</td>
+                                <td>
+                                    <a href="{{ path('bureau_edit', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('bureau_delete', {id: bureau.id, id: bureau.id}) }}"><boutton class="w3-button w3-red w3-hover-yellow">Supprimer</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+
+
+                    {# modal profile pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="profile" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        {% if app.user.sexe == 'Femme' %}
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+                                        {% elseif app.user.sexe == 'Homme' %}
+                                           <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                <!-- Icône positionnée -->
+                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                </a>
+                                            </div>
+
+                                        {% endif %}
+                                            
+                                        <h6>Bonjour !</h6>
+                                        <p>{{ app.user.prenom | upper() }}</br>
+                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
+                                        <a href="{{ path('app_logout') }}">
+                                            <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
+                                        </a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal notification pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="notify" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('notify').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Aucun notification!</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# modal bars pour l'administrateur #}
+                    <div class="Modal">
+                        <div id="treebars" class="w3-modal">
+                            <div  class="w3-modal-content w3-animate-top">
+                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                    <span onclick="document.getElementById('treebars').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                    <center>
+                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                <!-- Image -->
+                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
+                                        </div>
+                                        <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
+                                        <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
 
         {% endif %}
