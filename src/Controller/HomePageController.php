@@ -14,15 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\DBAL\Connection;
 
 class HomePageController extends AbstractController
 {
     private $entityManager;
+    private $connection;
 
-    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository, Connection $connection)
     {
         $this->entityManager = $entityManager;
         $this->BseRepository = $BseRepository;
+        $this->connection = $connection;
     }
     
     #[Route('/page', name: 'app_home_page')]
@@ -110,8 +113,8 @@ class HomePageController extends AbstractController
 
     // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
     
-    $date_6moi2 = new \DateTime(); 
-    $date_6moi1 = new \DateTime(); 
+    $date_6moi2 = new \DateTime();
+    $date_6moi1 = new \DateTime();
     $date_6moi1 = $date_6moi1->modify('-6 month');
 
     $dataBse = $this->entityManager->createQueryBuilder();
@@ -122,8 +125,25 @@ class HomePageController extends AbstractController
         ->orderBy('d.date_bse','ASC')
         ->setParameter('startDate', $date_6moi1)
         ->setParameter('endDate', $date_6moi2);
+
+    // Execute the query to get the data array
     $queryResult = $dataBse->getQuery()->getResult();  
-   
+    
+   /* $date_6moi2 = new \DateTime(); 
+    $date_6moi1 = new \DateTime(); 
+    $date_6moi1 = $date_6moi1->modify('-6 month');// Date actuelle - 6 mois
+    
+    $dataBse = $this->entityManager->createQueryBuilder();
+    $dataBse->select('SUBSTRING(d.date_bse, 1, 7) AS dateBse, COUNT(d.id) AS total')
+        ->from(Bse::class, 'd')
+        ->where('d.date_bse BETWEEN :startDate AND :endDate')
+        ->groupBy('dateBse') // Regroupe par mois (année-mois)
+        ->orderBy('dateBse', 'ASC')
+        ->setParameter('startDate', $date_6moi1) // Formate pour la requête
+        ->setParameter('endDate', $date_6moi2); // Formate pour la requête
+    
+    $queryResult = $dataBse->getQuery()->getResult();*/
+    
 
 // Now pass the result (array) to the prepareChartData function
     $dataBse = $this->prepareChartData($queryResult, 'dateBse', 'total');
