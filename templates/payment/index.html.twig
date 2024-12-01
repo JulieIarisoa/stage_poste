@@ -164,6 +164,7 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
+                                                <th></th>
                                             </tr>
 
                                             <tr>
@@ -183,6 +184,9 @@
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
                                                     </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Facture</button></a>
+                                                    </td>
                                                 {% endfor %}
                                             </tr>
                                             <tr>
@@ -201,6 +205,9 @@
                                                     </td>
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Facture</button></a>
                                                     </td>
                                                 {% endfor %}
                                             </tr>

@@ -86,7 +86,6 @@
     <body>
         {# Vérifiez si l'utilisateur a le rôle ADMIN #}
         {% if is_granted('ROLE_ADMIN') %}
-
             {# Contenue pour l'administrateur #}
             <div class="w3-row">
 
@@ -209,6 +208,16 @@
                                         <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
                                     </div>
                                 </div>
+                                <div>
+                                    <button  class="w3-center">
+                                        Rapport (1 mois) 
+                                    </button>
+                                </div>
+                                <div>
+                                    <a href="{{path('pdf_stat')}}">
+                                        <button class="w3-btn w3-yellow w3-margin">Etat (6mois)</button></br>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,9 +241,6 @@
                                         <button class="w3-btn w3-indigo"></button><label>  BSE  -50% </label></br>
                                         <button class="w3-btn w3-green"></button><label>  BSE  -75% </label></br>
                                         <button class="w3-btn w3-yellow"></button><label>  BSE +75% </label></br></br>
-                                        <a href="{{path('pdf_stat')}}">
-                                            <button class="w3-btn w3-yellow w3-margin-bottom">Imprimer</button></br>
-                                        </a>
                                     </center>
                                 </div>
                             </div>
@@ -370,7 +376,10 @@
 
         {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
         {% elseif is_granted('ROLE_MISSIONNAIRE') %}
-
+            Générer PDF: or/bst ny mission nataony eo aby ny liste ny mission rehetra izay nataony: misy hioe génere zao
+            Enregistrer Information de départ du missionnaire1
+            Voir état validation2
+            Voir Liste mission
             {# contenue pour le missionnaire#}
            
             {# Contenue pour l'administrateur #}
@@ -658,7 +667,12 @@
 
         {# Vérifiez si l'utilisateur a le rôle Payeur #}
         {% elseif is_granted('ROLE_PAYEUR') %}
-
+            Rechercher utilisateur3
+            Payer BST1
+            Payer OR1
+            Générer PDF: facture sy or/bst paye
+            Voir état validation1
+            Voir Liste pour payement
             {# Contenue pour l'administrateur #}
             <div class="w3-row">
 
@@ -942,6 +956,12 @@
 
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
+            Rechercher utilisateur3
+            Demander BSE1
+            Générer PDF: Or/bst en attente de validation, rapport tous les mission dans  mois
+            Enregistrer Information de départ du missionnaire.2
+            Voir état validation.2
+            Voir Liste mission, demande, etc.
 
             {# contenue pour l'utilisateur simple #}
             

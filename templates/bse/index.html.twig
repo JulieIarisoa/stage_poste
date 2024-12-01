@@ -214,9 +214,15 @@
                                                         <td>
                                                             <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
                                                         </td>
+                                                        <td>
+                                                            <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer non valide</button></a>
+                                                        </td>
                                                     {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
                                                         <td>
                                                             <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer non valider</button></a>
                                                         </td>
                                                     {% endif %}
                                                 </tr>
