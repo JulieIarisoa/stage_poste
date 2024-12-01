@@ -65,7 +65,9 @@
         <!-- First Row: Matricule, Nom, Prenom -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-                {{ form_row(registrationForm.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerMatricule(this)'} }) }}
+                <p id="validateMatricule" style="font-size: 10px; color: blue;"></p>
             </div>
             <div class="w3-third">
                 {{ form_row(registrationForm.nom, { 'label': 'Nom', 'attr': {'class': 'w3-input w3-border', 
@@ -103,10 +105,14 @@
                 <p id="validationC" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.email, { 'label': 'Email', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.email, { 'label': 'Email', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerEmail(this)'} }) }}
+                <p id="validateEmail" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.plainPassword, { 'label': 'Password', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.plainPassword, { 'label': 'Password', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerPassword(this)'} }) }}
+                <p id="validatePassword" style="font-size: 10px;"></p>
             </div>
         </div>
 
@@ -118,10 +124,14 @@
                 <p id="validateFonction" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerAdresse(this)'} }) }}
+                <p id="validateAdresse" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerNbEnfant(this)'} }) }}
+                <p id="validateNbEnfant" style="font-size: 10px;"></p>
             </div>
         </div>
 
@@ -194,7 +204,6 @@
             display.style.color = 'red';
         }
     }
-
 
 
     // Fonction controle le champ nom
@@ -270,6 +279,101 @@
         }
     }
 
+
+    // Fonction controle le champ adresse
+    function controllerAdresse(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateAdresse');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre adresse !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+    // Fonction controle le champ Email
+    function controllerEmail(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateEmail');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Email !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ Matricule
+    function controllerMatricule(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateMatricule');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Matricule !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ Password
+    function controllerPassword(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validatePassword');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Password !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }
+        else if (value.length > 8) {
+            // Limiter à 8 caractères
+            value = value.slice(0, 8);
+            input.value = value; 
+            display.textContent = 'Le mot de pass ne depasse pas de 8 caractére.';
+            display.style.color = 'red';
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ NbEnfant
+    function controllerNbEnfant(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateNbEnfant');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre NbEnfant !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
 </script>
 
 
