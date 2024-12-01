@@ -35,7 +35,9 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $security->login($user, SecurityAuthenticator::class, 'main');
+            $this->addFlash('success', 'Bse created successfully.');
+
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('registration/register.html.twig', [
