@@ -113,7 +113,9 @@
         <!-- Fourth Row: Fonction, Taux journalier -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-                {{ form_row(registrationForm.fonction, { 'label': 'Fonction', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.fonction, { 'label': 'Fonction', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerFonction(this)'} }) }}
+                <p id="validateFonction" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
                 {{ form_row(registrationForm.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
@@ -227,6 +229,31 @@
         const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
         if (value=='') {
             display.textContent = 'Veuillez saisir votre prénom !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ fonction
+    function controllerFonction(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateFonction');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre fonction ou indice !';
             display.style.color = 'red';
             btn.setAttribute('disabled', true);
         }else if (!regex.test(value)) {
