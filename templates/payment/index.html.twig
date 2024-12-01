@@ -141,7 +141,6 @@
             <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">payerBst</button>
             <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">payerOr</button>
             <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
-            <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
                                     <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
                                     <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
                                     <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
@@ -153,7 +152,8 @@
                                 <div>
                                     {# Corp du Liste Ordre de route deja paye   contenue #}
                                     <div>
-                                        <table class="w3-table w3-bordered">
+                                        <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                                        <table class="w3-table w3-bordered" id="myTable">
                                             <tr  class="w3-light-grey">
                                                 <th>destination</th>
                                                 <th>motif</th>
@@ -219,7 +219,8 @@
             <div id="payerBst" class="w3-container w3-display-container Modal" style="display:none">
                                     {# Corp du Liste BST non payer  contenue #}
                                     <div>
-                                        <table class="w3-table w3-bordered" id="myTable">
+                                        <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..."id="myInput1" onkeyup="myFunction('myTable1','myInput1',2)">
+                                        <table class="w3-table w3-bordered" id="myTable1">
                                             <tr class="w3-light-grey">
                                                 <th>Matricule</th>
                                                 <th>Duree mission</th>
@@ -255,7 +256,8 @@
 
             <div id="payerOr" class="w3-container w3-display-container Modal" style="display:none">
                                     <div>
-                                        <table class="w3-table w3-bordered" id="myTable">
+                                        <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher un missionnaire..."id="myInput2" onkeyup="myFunction('myTable2','myInput2',2)">
+                                        <table class="w3-table w3-bordered" id="myTable2">
                                             <tr class="w3-light-grey">
                                                 <th>destination</th>
                                                 <th>date_bse</th>
@@ -826,6 +828,35 @@
 
 
 <script>
+
+            {# script pour le bare de recherche #}
+            function myFunction(idTable, idInput) {
+                var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
+                input = document.getElementById(idInput);
+                filter = input.value.toUpperCase(); // Valeur à rechercher
+                table = document.getElementById(idTable);
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i < tr.length; i++) { // Commence après l'en-tête
+                    td0 = tr[i].getElementsByTagName("td")[0]; // Colonne matricule
+                    td1 = tr[i].getElementsByTagName("td")[1]; // Colonne nom
+                    td2 = tr[i].getElementsByTagName("td")[2]; // Colonne prenom
+                    td3 = tr[i].getElementsByTagName("td")[3]; // Colonne fonction
+
+                    txtValue0 = td0 ? td0.textContent || td0.innerText : ""; // Texte de la colonne matricule
+                    txtValue1 = td1 ? td1.textContent || td1.innerText : ""; // Texte de la colonne nom
+                    txtValue2 = td2 ? td2.textContent || td2.innerText : ""; // Texte de la colonne prenom
+                    txtValue3 = td3 ? td3.textContent || td3.innerText : ""; // Texte de la colonne fonction
+
+                    // Vérifie si le filtre correspond à la colonne ,matricule ou nom ou prenom
+                    if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1 || txtValue3.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Affiche la ligne
+                    } else {
+                        tr[i].style.display = "none"; // Masque la ligne
+                    }
+                }
+            }
+
         function openModal(modaName) {
         var i;
         var x = document.getElementsByClassName("Modal");
