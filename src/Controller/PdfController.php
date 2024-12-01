@@ -234,7 +234,15 @@ class PdfController extends AbstractController
     #[Route('/output-pdf-etatBse6mois', name: 'pdf_etatBse6mois')]
     public function outputEtatBse6mois(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
     {
-        $htmlContent = $twig->render('pdf/etatBse6mois.html.twig',);
+        $date_6moi_2 = new \DateTime(); 
+        $date_6moi_1 = new \DateTime(); 
+        $date_6moi_1 = $date_6moi_1->modify('-6 month');
+
+        $bseEntreDeuxDate = $this->BseRepository->bseEntreDeuxDate($date_6moi_1->format('d/m/Y'), $date_6moi_2->format('d/m/Y'));
+        
+        $htmlContent = $twig->render('pdf/etatBse6mois.html.twig',[
+            'bseEntreDeuxDate' => $bseEntreDeuxDate,
+        ]);
 
         $content = $pdfGeneratorService->output($htmlContent);
 
