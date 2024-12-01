@@ -61,7 +61,16 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('cin', TextType::class)
             ->add('date_cin', DateType::class)
-            ->add('taux_journalier', NumberType::class)
+            ->add('taux_journalier', ChoiceType::class, [
+                'choices' => [
+                    '60 000 Ariary' => '60 000',
+                    '35 000 Ariary' => '35 000',
+                    '30 000 Ariary' => '30 000',
+                    '20 000 Ariary' => '20 000',
+                ],
+                'multiple' => false,
+                'expanded' => false,  
+            ])
             ->add('titre', ChoiceType::class, [
                 'choices' => [
                     'Madame' => 'Madame',
