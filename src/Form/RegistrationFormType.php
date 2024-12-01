@@ -60,7 +60,6 @@ class RegistrationFormType extends AbstractType
                 'expanded' => false,  
             ])
             ->add('cin', TextType::class)
-            ->add('date_cin', DateType::class)
             ->add('taux_journalier', ChoiceType::class, [
                 'choices' => [
                     '60 000 Ariary' => '60 000',
@@ -99,10 +98,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER',
-                    'Other' => 'ROLE_MISSIONNAIRE',
-                    'Payeur' => 'ROLE_PAYEUR',
+                    'Detenteur de compte  ' => 'ROLE_ADMIN',
+                    'Service comptable  ' => 'ROLE_USER',
+                    'Missionnaire  ' => 'ROLE_MISSIONNAIRE',
+                    'Payeur  ' => 'ROLE_PAYEUR',
                 ],
                 'multiple' => true, // Permettre la sélection multiple
                 'expanded' => true,  // Utiliser des boutons radio

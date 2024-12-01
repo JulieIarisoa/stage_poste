@@ -81,29 +81,32 @@
 
         <!-- Second Row: Titre, Sexe, Situation familiale -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-third">
+            <div class="w3-quarter">
                 {{ form_row(registrationForm.titre, { 'label': 'Titre', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
-            <div class="w3-third">
+            <div class="w3-quarter">
                 {{ form_row(registrationForm.sexe, { 'label': 'Sexe', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
-            <div class="w3-third">
+            <div class="w3-quarter">
                 {{ form_row(registrationForm.situation_familiale, { 'label': 'Situation familiale', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-quarter">
+                {{ form_row(registrationForm.taux_journalier, { 'label': 'Taux journalier', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 
         <!-- Third Row: CIN, Date CIN, Roles -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-        <p id="live-display" style="font-weight: bold; color: blue;"></p>
                 {{ form_row(registrationForm.cin, { 'label': 'CIN', 'attr': {'class': 'w3-input w3-border', 
                     'onkeyup': 'valideCin(this)'} }) }}
-            </div>
-            <div class="w3-third">
-                {{ form_row(registrationForm.date_cin, { 'label': 'Date CIN', 'attr': {'class': 'w3-input w3-border'} }) }}
+                <p id="validationC" style="font-size: 10px;"></p>
             </div>
             <div class="w3-third">
                 {{ form_row(registrationForm.email, { 'label': 'Email', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-third">
+                {{ form_row(registrationForm.plainPassword, { 'label': 'Password', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 
@@ -113,31 +116,20 @@
                 {{ form_row(registrationForm.fonction, { 'label': 'Fonction', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.taux_journalier, { 'label': 'Taux journalier', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.plainPassword, { 'label': 'Password', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 
         <!-- Fifth Row: address and nombre enfant -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-half">
-                {{ form_row(registrationForm.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-half">
-                {{ form_row(registrationForm.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-        </div>
-
-
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-half">
-                {{ form_row(registrationForm.roles, { 'label': 'Rôles', 'attr': {'class': ''} }) }}
-            </div>
-            <div class="w3-half">
+            <div class="w3-quarter">
                 {{ form_row(registrationForm.agreeTerms, { 'label': 'Remember me','attr': {'class': 'w3-check'} }) }}
+            </div>
+            <div class="w3-treequarter">
+                {{ form_row(registrationForm.roles, { 'label': 'Rôles', 'attr': {'class': ''} }) }}
             </div>
         </div>
 
@@ -154,7 +146,7 @@
 <script>
     // Fonction appelée à chaque onkeyup
     function valideCin(input) {
-        const display = document.getElementById('live-display');
+        const display = document.getElementById('validationC');
         let value = input.value.trim(); // Supprime les espaces au début et à la fin
 
         // Vérifie si la valeur contient des caractères non numériques ou des espaces
@@ -170,8 +162,22 @@
             // Limiter à 12 caractères
             value = value.slice(0, 12);
             input.value = value; // Met à jour la valeur dans le champ de saisie
-            display.textContent = 'Le CIN ne peut pas dépasser 12 chiffres.';
-            display.style.color = 'red';
+            
+            if (value.length >= 6 && value[5] !== '1' && value[5] !== '2') {
+                // Si le sixième caractère n'est pas 1 ou 2, supprimer tout après le cinquième caractère
+                value = value.slice(0, 5); // Garde uniquement les 5 premiers caractères
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Le sixième chiffre doit être 1 ou 2.';
+                display.style.color = 'red';
+            } else{
+                display.textContent = 'Le numéro CIN ne depasse pas de 12 chiffres.';
+                display.style.color = 'red';
+            }
+        }
+        // Vérifie si la longueur du CIN dépasse 12 caractères
+        else if (value == '') {
+                display.textContent = 'Veillez saisir votre numéro CIN.';
+                display.style.color = 'red';
         }
         // Vérifie que le sixième caractère est bien 1 ou 2
         else if (value.length >= 6 && value[5] !== '1' && value[5] !== '2') {
@@ -182,8 +188,8 @@
             display.style.color = 'red';
         } else {
             // Affiche la valeur saisie
-            display.textContent = `${value}`;
-            display.style.color = 'blue';
+            display.textContent = ` Incompete`;
+            display.style.color = 'red';
         }
     }
 
@@ -196,7 +202,7 @@
         let value = input.value.trim(); // Supprime les espaces au début et à la fin
         const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
         if (value=='') {
-            display.textContent = 'Veuillez remplir le champ !';
+            display.textContent = 'Veuillez saisir votre nom !';
             display.style.color = 'red';
             btn.setAttribute('disabled', true);
         }else if (!regex.test(value)) {
@@ -220,7 +226,7 @@
         let value = input.value.trim(); // Supprime les espaces au début et à la fin
         const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
         if (value=='') {
-            display.textContent = 'Veuillez remplir le champ !';
+            display.textContent = 'Veuillez saisir votre prénom !';
             display.style.color = 'red';
             btn.setAttribute('disabled', true);
         }else if (!regex.test(value)) {

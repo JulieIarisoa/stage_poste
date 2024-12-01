@@ -61,9 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $titre = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_cin = null;
-
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $address = null;
 
@@ -264,17 +261,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateCin(): ?\DateTimeInterface
-    {
-        return $this->date_cin;
-    }
-
-    public function setDateCin(?\DateTimeInterface $date_cin): static
-    {
-        $this->date_cin = $date_cin;
-
-        return $this;
-    }
 
     public function getAddress(): ?string
     {
