@@ -136,151 +136,151 @@
                 <div class="w3-container content-wrapper">
 
 
-<div class="w3-bar  w3-padding">
-  <button class="w3-bar-item w3-button w3-blue" onclick="openModal('TousPayement')" id="tous">TousPayement</button>
-  <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">payerBst</button>
-  <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">payerOr</button>
-   <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
-  <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
-                        <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
-                        <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
-                        <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
-                    </div>
-</div>
+            <div class="w3-bar  w3-padding">
+            <button class="w3-bar-item w3-button w3-blue" onclick="openModal('TousPayement')" id="tous">TousPayement</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">payerBst</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">payerOr</button>
+            <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
+            <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                                    <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
+                                    <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                                    <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                                </div>
+            </div>
 
-<div id="TousPayement" class="w3-container w3-display-container Modal">
-                    {# liste Ordre de route deja paye #}
-                    <div>
-                        {# Corp du Liste Ordre de route deja paye   contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered">
-                                <tr  class="w3-light-grey">
-                                    <th>destination</th>
-                                    <th>motif</th>
-                                    <th>date_bse</th>
-                                    <th>matricule</th>
-                                    <th>duree_mission</th>
-                                    <th>nom_detenteur</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+            <div id="TousPayement" class="w3-container w3-display-container Modal">
+                                {# liste Ordre de route deja paye #}
+                                <div>
+                                    {# Corp du Liste Ordre de route deja paye   contenue #}
+                                    <div>
+                                        <table class="w3-table w3-bordered">
+                                            <tr  class="w3-light-grey">
+                                                <th>destination</th>
+                                                <th>motif</th>
+                                                <th>date_bse</th>
+                                                <th>matricule</th>
+                                                <th>duree_mission</th>
+                                                <th>nom_detenteur</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
 
-                                <tr>
-                                    {% for payment_all_or in payment_all_or %}
-                                        <td>{{ payment_all_or.destination }}</td>
-                                        <td>{{ payment_all_or.motif }}</td>
-                                        <td>{{ payment_all_or.dateBse | date('m-d-Y') }}</td>
-                                        <td>{{ payment_all_or.matricule }}</td>
-                                        <td>{{ payment_all_or.dureeMission }}</td>
-                                        <td>{{ payment_all_or.nomDetenteur }}</td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    {% for payment_all_bst in payment_all_bst %}
-                                        <td>{{ payment_all_bst.destination }}</td>
-                                        <td>{{ payment_all_bst.motif }}</td>
-                                        <td>{{ payment_all_bst.dateBse | date('m-d-Y') }}</td>
-                                        <td>{{ payment_all_bst.matricule }}</td>
-                                        <td>{{ payment_all_bst.dureeMission }}</td>
-                                        <td>{{ payment_all_bst.nomDetenteur }}</td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-</div>
+                                            <tr>
+                                                {% for payment_all_or in payment_all_or %}
+                                                    <td>{{ payment_all_or.destination }}</td>
+                                                    <td>{{ payment_all_or.motif }}</td>
+                                                    <td>{{ payment_all_or.dateBse | date('m-d-Y') }}</td>
+                                                    <td>{{ payment_all_or.matricule }}</td>
+                                                    <td>{{ payment_all_or.dureeMission }}</td>
+                                                    <td>{{ payment_all_or.nomDetenteur }}</td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                            <tr>
+                                                {% for payment_all_bst in payment_all_bst %}
+                                                    <td>{{ payment_all_bst.destination }}</td>
+                                                    <td>{{ payment_all_bst.motif }}</td>
+                                                    <td>{{ payment_all_bst.dateBse | date('m-d-Y') }}</td>
+                                                    <td>{{ payment_all_bst.matricule }}</td>
+                                                    <td>{{ payment_all_bst.dureeMission }}</td>
+                                                    <td>{{ payment_all_bst.nomDetenteur }}</td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+            </div>
 
-<div id="payerBst" class="w3-container w3-display-container Modal" style="display:none">
-                        {# Corp du Liste BST non payer  contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered" id="myTable">
-                                <tr class="w3-light-grey">
-                                    <th>Matricule</th>
-                                    <th>Duree mission</th>
-                                    <th>Destination</th>
-                                    <th>Detenteur</th>
-                                    <th>Création BSE</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+            <div id="payerBst" class="w3-container w3-display-container Modal" style="display:none">
+                                    {# Corp du Liste BST non payer  contenue #}
+                                    <div>
+                                        <table class="w3-table w3-bordered" id="myTable">
+                                            <tr class="w3-light-grey">
+                                                <th>Matricule</th>
+                                                <th>Duree mission</th>
+                                                <th>Destination</th>
+                                                <th>Detenteur</th>
+                                                <th>Création BSE</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
 
-                                <tr>
-                                    {% for validation_accepte_non_paye_bst in validation_accepte_non_paye_bst %}
-                                        <td>{{ validation_accepte_non_paye_bst.matricule }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.dureeMission }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.destination }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.nomDetenteur }}</td>
-                                        <td>{{ validation_accepte_non_paye_bst.dateBse | date('m-d-Y') }}</td>
-                                        <td>
-                                            <a href="{{ path('bse_show', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
-                                        </td>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                        </div>
-</div>
+                                            <tr>
+                                                {% for validation_accepte_non_paye_bst in validation_accepte_non_paye_bst %}
+                                                    <td>{{ validation_accepte_non_paye_bst.matricule }}</td>
+                                                    <td>{{ validation_accepte_non_paye_bst.dureeMission }}</td>
+                                                    <td>{{ validation_accepte_non_paye_bst.destination }}</td>
+                                                    <td>{{ validation_accepte_non_paye_bst.nomDetenteur }}</td>
+                                                    <td>{{ validation_accepte_non_paye_bst.dateBse | date('m-d-Y') }}</td>
+                                                    <td>
+                                                        <a href="{{ path('bse_show', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bst_paye', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        </table>
+                                    </div>
+            </div>
 
-<div id="payerOr" class="w3-container w3-display-container Modal" style="display:none">
-                        <div>
-                            <table class="w3-table w3-bordered" id="myTable">
-                                <tr class="w3-light-grey">
-                                    <th>destination</th>
-                                    <th>date_bse</th>
-                                    <th>matricule</th>
-                                    <th>duree_mission</th>
-                                    <th>nom_detenteur</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+            <div id="payerOr" class="w3-container w3-display-container Modal" style="display:none">
+                                    <div>
+                                        <table class="w3-table w3-bordered" id="myTable">
+                                            <tr class="w3-light-grey">
+                                                <th>destination</th>
+                                                <th>date_bse</th>
+                                                <th>matricule</th>
+                                                <th>duree_mission</th>
+                                                <th>nom_detenteur</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
 
-                                    {% for validation_accepte_non_paye_or in validation_accepte_non_paye_or %}
-                                <tr>
-                                        <td>{{ validation_accepte_non_paye_or.destination }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.dateBse | date('m-d-Y') }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.matricule }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.dureeMission }}</td>
-                                        <td>{{ validation_accepte_non_paye_or.nomDetenteur }}</td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
-                                        </td>
-                                </tr>
-                                    {% endfor %}
-                            </table>
-                        </div>
-</div>
+                                                {% for validation_accepte_non_paye_or in validation_accepte_non_paye_or %}
+                                            <tr>
+                                                    <td>{{ validation_accepte_non_paye_or.destination }}</td>
+                                                    <td>{{ validation_accepte_non_paye_or.dateBse | date('m-d-Y') }}</td>
+                                                    <td>{{ validation_accepte_non_paye_or.matricule }}</td>
+                                                    <td>{{ validation_accepte_non_paye_or.dureeMission }}</td>
+                                                    <td>{{ validation_accepte_non_paye_or.nomDetenteur }}</td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Payer</button></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Imprimer</button></a>
+                                                    </td>
+                                            </tr>
+                                                {% endfor %}
+                                        </table>
+                                    </div>
+            </div>
 
 
 
@@ -436,6 +436,8 @@
             </div>
 
 
+        {# Vérifiez si l'utilisateur a le rôle Payeur #}
+        {% elseif is_granted('ROLE_PAYEUR') %}
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
 
@@ -499,38 +501,38 @@
 
 
 <script>
-function openModal(modaName) {
-  var i;
-  var x = document.getElementsByClassName("Modal");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  document.getElementById(modaName).style.display = "block";  
-  if(modaName === 'TousPayement')
-  {
-    document.getElementById('tous').style.background = "blue"; 
-    document.getElementById('bst').style.background = "white"; 
-    document.getElementById('ordreRoute').style.background = "white"; 
-  }
-  else if(modaName === 'payerBst')
-  {
-    document.getElementById('tous').style.background = "white"; 
-    document.getElementById('bst').style.background = "blue"; 
-    document.getElementById('ordreRoute').style.background = "white"; 
-  }
-  else if(modaName === 'payerOr')
-  {
-    document.getElementById('tous').style.background = "white"; 
-    document.getElementById('bst').style.background = "white"; 
-    document.getElementById('ordreRoute').style.background = "blue"; 
-  }else{
+        function openModal(modaName) {
+        var i;
+        var x = document.getElementsByClassName("Modal");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+        }
+        document.getElementById(modaName).style.display = "block";  
+        if(modaName === 'TousPayement')
+        {
+            document.getElementById('tous').style.background = "blue"; 
+            document.getElementById('bst').style.background = "white"; 
+            document.getElementById('ordreRoute').style.background = "white"; 
+        }
+        else if(modaName === 'payerBst')
+        {
+            document.getElementById('tous').style.background = "white"; 
+            document.getElementById('bst').style.background = "blue"; 
+            document.getElementById('ordreRoute').style.background = "white"; 
+        }
+        else if(modaName === 'payerOr')
+        {
+            document.getElementById('tous').style.background = "white"; 
+            document.getElementById('bst').style.background = "white"; 
+            document.getElementById('ordreRoute').style.background = "blue"; 
+        }else{
 
-  }
-}
+        }
+        }
 
 
 
-{# script pour le bare de recherche #}
+    {# script pour le bare de recherche #}
             function myFunction(idTable, idInput) {
                 var input, filter, table, tr, td1, td2, i, txtValue1, txtValue2;
                 input = document.getElementById(idInput);

@@ -198,6 +198,8 @@
             </div>
 
 
+        {# Vérifiez si l'utilisateur a le rôle Payeur #}
+        {% elseif is_granted('ROLE_PAYEUR') %}
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
 

@@ -127,153 +127,153 @@
 
                 <div class="w3-container content-wrapper">
 
-<div class="w3-bar  w3-padding">
-  <button class="w3-bar-item w3-button w3-blue" onclick="openModal('Creation')" id="tous">Creation</button>
-  <button class="w3-bar-item w3-button" onclick="openModal('Validation')" id="bst">Validation</button>
-  <button class="w3-bar-item w3-button" onclick="openModal('Refuse')" id="ordreRoute">Refuse</button>
-   <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
-  <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
-                        <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
-                        <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
-                        <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
-                    </div>
-</div>
+            <div class="w3-bar  w3-padding">
+            <button class="w3-bar-item w3-button w3-blue" onclick="openModal('Creation')" id="tous">Creation</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('Validation')" id="bst">Validation</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('Refuse')" id="ordreRoute">Refuse</button>
+            <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
+            <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                                    <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
+                                    <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                                    <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                                </div>
+            </div>
 
-<div id="Creation" class="w3-container w3-display-container Modal">
-                    {# liste Ordre de route deja paye #}
-                    <div>
-                        {# Corp du Liste Ordre de route deja paye   contenue #}
-                        <div>
-                            <table class="w3-table w3-bordered"  id="myTable">
-                                    <tr class="w3-light-grey">
-                                        <th>Matricule</th>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Fonction</th>
-                                        <th>Taux Journalier</th>
-                                        <th>Titre</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                {% for user in user %}
-                                    <tr class="">
-                                        <td>{{ user.matricule }}</td>
-                                        <td>{{ user.nom }}</td>
-                                        <td>{{ user.prenom }}</td>
-                                        <td>{{ user.fonction }}</td>
-                                        <td>{{ user.tauxJournalier }}</td>
-                                        <td>{{ user.titre }}</td>
-                                        <td>
-                                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR</boutton></a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR/BST</boutton></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-</div>
+            <div id="Creation" class="w3-container w3-display-container Modal">
+                                {# liste Ordre de route deja paye #}
+                                <div>
+                                    {# Corp du Liste Ordre de route deja paye   contenue #}
+                                    <div>
+                                        <table class="w3-table w3-bordered"  id="myTable">
+                                                <tr class="w3-light-grey">
+                                                    <th>Matricule</th>
+                                                    <th>Nom</th>
+                                                    <th>Prenom</th>
+                                                    <th>Fonction</th>
+                                                    <th>Taux Journalier</th>
+                                                    <th>Titre</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            {% for user in user %}
+                                                <tr class="">
+                                                    <td>{{ user.matricule }}</td>
+                                                    <td>{{ user.nom }}</td>
+                                                    <td>{{ user.prenom }}</td>
+                                                    <td>{{ user.fonction }}</td>
+                                                    <td>{{ user.tauxJournalier }}</td>
+                                                    <td>{{ user.titre }}</td>
+                                                    <td>
+                                                        <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR</boutton></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR/BST</boutton></a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+            </div>
 
-<div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
-                        {# Corp du Liste BST non payer  contenue #}
-                        <div>
-                            <table  class="w3-table w3-bordered" id="myTableAttente">
-                                <tr class="w3-light-grey">
-                                    <th>Destination</th>
-                                    <th>Motif</th>
-                                    <th>Création mission</th>
-                                    <th>Matricule</th>
-                                    <th>Durée mission</th>
-                                    <th>Création mission</th>
-                                    <th>Payment OR</th>
-                                    <th>Validation OR</th>
-                                    <th>Etat</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                {% for bse_validation_attente in bse_validation_attente %}
-                                    <tr>
-                                        <td>{{ bse_validation_attente.destination }}</td>
-                                        <td>{{ bse_validation_attente.motif }}</td>
-                                        <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
-                                        <td>{{ bse_validation_attente.matricule }}</td>
-                                        <td>{{ bse_validation_attente.dureeMission }}</td>
-                                        <td>{{ bse_validation_attente.lieuBse}}</td>
-                                        <td>{{ bse_validation_attente.etatPaymentOr }}</td>
-                                        <td>{{ bse_validation_attente.etatValidationOr }}</td>
-                                        <td>{{ bse_validation_attente.depenseBst }}</td>
-                                        <td>{{ bse_validation_attente.etat }}</td>
+            <div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
+                                    {# Corp du Liste BST non payer  contenue #}
+                                    <div>
+                                        <table  class="w3-table w3-bordered" id="myTableAttente">
+                                            <tr class="w3-light-grey">
+                                                <th>Destination</th>
+                                                <th>Motif</th>
+                                                <th>Création mission</th>
+                                                <th>Matricule</th>
+                                                <th>Durée mission</th>
+                                                <th>Création mission</th>
+                                                <th>Payment OR</th>
+                                                <th>Validation OR</th>
+                                                <th>Etat</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            {% for bse_validation_attente in bse_validation_attente %}
+                                                <tr>
+                                                    <td>{{ bse_validation_attente.destination }}</td>
+                                                    <td>{{ bse_validation_attente.motif }}</td>
+                                                    <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
+                                                    <td>{{ bse_validation_attente.matricule }}</td>
+                                                    <td>{{ bse_validation_attente.dureeMission }}</td>
+                                                    <td>{{ bse_validation_attente.lieuBse}}</td>
+                                                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
+                                                    <td>{{ bse_validation_attente.etatValidationOr }}</td>
+                                                    <td>{{ bse_validation_attente.depenseBst }}</td>
+                                                    <td>{{ bse_validation_attente.etat }}</td>
 
-                                        {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
-                                            <td>
-                                                <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
-                                            </td>
-                                        {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
-                                            <td>
-                                                <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
-                                            </td>
-                                        {% endif %}
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-</div>
+                                                    {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
+                                                        <td>
+                                                            <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                                                        </td>
+                                                    {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
+                                                        <td>
+                                                            <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                                                        </td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+            </div>
 
-<div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
-                        <div>
-                            <table  class="w3-table w3-bordered" id="myTableRefuse">
-                                <tr class="w3-light-grey">
-                                    <th>Destination</th>
-                                    <th>Motif</th>
-                                    <th>Création mission</th>
-                                    <th>Matricule</th>
-                                    <th>Durée mission</th>
-                                    <th>Nom detenteur</th>
-                                    <th>Prenom detenteur</th>
-                                    <th>Fonction Detenteur</th>
-                                    <th>Création mission</th>
-                                    <th>Validation OR</th>
-                                    <th>Etat</th>
-                                    <th></th>
-                                </tr>
-                                {% for validation_refuse in validation_refuse %}
-                                    <tr>
-                                        <td>{{ validation_refuse.destination }}</td>
-                                        <td>{{ validation_refuse.motif }}</td>
-                                        <td>{{ validation_refuse.dateBse|date('Y-m-d') }}</td>
-                                        <td>{{ validation_refuse.matricule }}</td>
-                                        <td>{{ validation_refuse.dureeMission }}</td>
-                                        <td>{{ validation_refuse.nomDetenteur }}</td>
-                                        <td>{{ validation_refuse.prenomDetenteur }}</td>
-                                        <td>{{ validation_refuse.fonctionDetenteur }}</td>
-                                        <td>{{ validation_refuse.lieuBse}}</td>
-                                        <td>{{ validation_refuse.etatValidationOr }}</td>
-                                        <td>{{ validation_refuse.etat }}</td>
-                                        
-                                    {% if (validation_refuse.etat == 'Ordre de route sans BST') %}
-                                        <td>
-                                            <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                        </td>
-                                    {% elseif (validation_refuse.etat == 'Ordre de route avec BST')%}
-                                        <td>
-                                            <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                        </td>
-                                    {% endif %}
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-</div>
+            <div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
+                                    <div>
+                                        <table  class="w3-table w3-bordered" id="myTableRefuse">
+                                            <tr class="w3-light-grey">
+                                                <th>Destination</th>
+                                                <th>Motif</th>
+                                                <th>Création mission</th>
+                                                <th>Matricule</th>
+                                                <th>Durée mission</th>
+                                                <th>Nom detenteur</th>
+                                                <th>Prenom detenteur</th>
+                                                <th>Fonction Detenteur</th>
+                                                <th>Création mission</th>
+                                                <th>Validation OR</th>
+                                                <th>Etat</th>
+                                                <th></th>
+                                            </tr>
+                                            {% for validation_refuse in validation_refuse %}
+                                                <tr>
+                                                    <td>{{ validation_refuse.destination }}</td>
+                                                    <td>{{ validation_refuse.motif }}</td>
+                                                    <td>{{ validation_refuse.dateBse|date('Y-m-d') }}</td>
+                                                    <td>{{ validation_refuse.matricule }}</td>
+                                                    <td>{{ validation_refuse.dureeMission }}</td>
+                                                    <td>{{ validation_refuse.nomDetenteur }}</td>
+                                                    <td>{{ validation_refuse.prenomDetenteur }}</td>
+                                                    <td>{{ validation_refuse.fonctionDetenteur }}</td>
+                                                    <td>{{ validation_refuse.lieuBse}}</td>
+                                                    <td>{{ validation_refuse.etatValidationOr }}</td>
+                                                    <td>{{ validation_refuse.etat }}</td>
+                                                    
+                                                {% if (validation_refuse.etat == 'Ordre de route sans BST') %}
+                                                    <td>
+                                                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                    </td>
+                                                {% elseif (validation_refuse.etat == 'Ordre de route avec BST')%}
+                                                    <td>
+                                                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                    </td>
+                                                {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+            </div>
 
 
 
-{#
+            {#
                 <div>
                     {# premier contenue }
                     <div class="contenue1 w3-container content-wrapper" id="creation">
@@ -495,6 +495,8 @@
             </div>
 
 
+        {# Vérifiez si l'utilisateur a le rôle Payeur #}
+        {% elseif is_granted('ROLE_PAYEUR') %}
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
 
