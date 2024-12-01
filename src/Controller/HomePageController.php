@@ -14,15 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\DBAL\Connection;
 
 class HomePageController extends AbstractController
 {
     private $entityManager;
+    private $connection;
 
-    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository, Connection $connection)
     {
         $this->entityManager = $entityManager;
         $this->BseRepository = $BseRepository;
+        $this->connection = $connection;
     }
     
     #[Route('/page', name: 'app_home_page')]
@@ -121,22 +124,31 @@ class HomePageController extends AbstractController
 
     // Préparer les données pour les graphiques// Example of fetching Bse data (assuming you have an entity called 'Bse')
     
-    $date_6moi2 = new \DateTime(); 
-    $date_6moi1 = new \DateTime(); 
+    $date_6moi2 = new \DateTime();
+    $date_6moi1 = new \DateTime();
     $date_6moi1 = $date_6moi1->modify('-6 month');
 
-    $dataBse = $this->entityManager->createQueryBuilder();
-    $dataBse->select(' d.date_bse as dateBse, COUNT(d.id) AS total')
-        ->from(Bse::class, 'd')
-        ->where('d.date_bse BETWEEN :startDate AND :endDate')
-        ->groupBy('d.date_bse')
-        ->orderBy('d.date_bse','ASC')
-        ->setParameter('startDate', $date_6moi1)
-        ->setParameter('endDate', $date_6moi2);
+    // Requête SQL
+    $sql = "SELECT YEAR(d.date_bse) AS year, MONTH(d.date_bse) AS month, COUNT(d.id) AS total
+            FROM bse d
+            WHERE d.date_bse BETWEEN :startDate AND :endDate
+            GROUP BY year, month
+            ORDER BY year, month ASC";
 
-    // Execute the query to get the data array
-    $queryResult = $dataBse->getQuery()->getResult();  
-    
+    // Paramètres
+    $params = [
+        'startDate' => $date_6moi1->format('Y-m-d'),  // Assurez-vous que la date est au bon format
+        'endDate' => $date_6moi2->format('Y-m-d'),  // Assurez-vous que la date est au bon format
+    ];
+
+    // Exécution de la requête
+    $stmt = $this->connection->prepare($sql);
+    $stmt->execute($params);
+
+    // Récupérer les résultats
+    $queryResult = $stmt->fetchAll(); 
+
+    // Traitement des résultats (si nécessaire)
    /* $date_6moi2 = new \DateTime(); 
     $date_6moi1 = new \DateTime(); 
     $date_6moi1 = $date_6moi1->modify('-6 month');// Date actuelle - 6 mois
