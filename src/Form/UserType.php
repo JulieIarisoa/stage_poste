@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -54,10 +53,10 @@ class UserType extends AbstractType
             ->add('cin', TextType::class)
             ->add('taux_journalier', ChoiceType::class, [
                 'choices' => [
-                    '60 000 Ariary' => '60 000',
-                    '35 000 Ariary' => '35 000',
-                    '30 000 Ariary' => '30 000',
-                    '20 000 Ariary' => '20 000',
+                    '60 000 Ariary' => 60000,
+                    '35 000 Ariary' => 35000,
+                    '30 000 Ariary' => 30000,
+                    '20 000 Ariary' => 20000,
                 ],
                 'multiple' => false,
                 'expanded' => false,  

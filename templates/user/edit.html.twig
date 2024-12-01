@@ -20,7 +20,7 @@
                 background: #f6f5f7;
                 font-family:'monserrat', sans-serif;
                 min-height: 100%;
-                margin: 5%;
+                margin: 2%;
             }
             a{
                 text-decoration: none;
@@ -48,83 +48,323 @@
 
     </style>
 </head>
-<body>
+<body class="w3-light-grey">
+
+{% block body %}
     <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('user_index')}}" class="fa fa-times w3-display-topright"></a>
-            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Edit User</h4>
+        <div class="w3-display-container w3-amber">
+            <a href="{{path('user_index')}}" class="fa fa-times w3-display-topright">
+            </a>
+            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>     S'inscrire</h4>
         </div>
 
-        {# Démarrer le formulaire avec une classe CSS pour la mise en page #}
+        {{ form_errors(utilisateur) }}
+
         {{ form_start(utilisateur) }}
 
-            {# Champ de formulaire pour le matricule, le nom et prenom avec personnalisation de l'étiquette et des attributs #}
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(utilisateur.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.nom, { 'label': 'Nom', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.prenom, { 'label': 'Prénom', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+        <!-- First Row: Matricule, Nom, Prenom -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-third">
+                {{ form_row(utilisateur.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerMatricule(this)'} }) }}
+                <p id="validateMatricule" style="font-size: 10px; color: blue;"></p>
             </div>
-
-
-            {# Champ de formulaire pour le fonction, l'email et taux journalier avec personnalisation de l'étiquette et des attributs #}
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(utilisateur.fonction, { 'label': 'Fonction', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.email, { 'label': 'Email', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.taux_journalier, { 'label': 'Taux journalier', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+            <div class="w3-third">
+                {{ form_row(utilisateur.nom, { 'label': 'Nom', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerNom(this)'} }) }}
+                <p id="validateCode" style="font-size: 10px; color: blue;"></p>
             </div>
-
-
-            {# Champ de formulaire pour le titre, la situation familiale et le sexe avec personnalisation de l'étiquette et des attributs #}
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(utilisateur.titre, { 'label': 'Titre', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.situation_familiale, { 'label': 'Situation familiale', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(utilisateur.sexe, { 'label': 'Sexe', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+            <div class="w3-third">
+                {{ form_row(utilisateur.prenom, { 'label': 'Prenom', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerPrenom(this)'} }) }}
+                <p id="validatePrenom" style="font-size: 10px; color: blue;"></p>
             </div>
+        </div>
 
-
-            {# Champ de formulaire pour le date cin et numéro cin avec personnalisation de l'étiquette et des attributs #}
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-half">
-                    {{ form_row(utilisateur.cin, { 'label': 'Numéro CIN', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+        <!-- Second Row: Titre, Sexe, Situation familiale -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-quarter">
+                {{ form_row(utilisateur.titre, { 'label': 'Titre', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
-
-            <!-- Fifth Row: address and nombre enfant -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-half">
-                    {{ form_row(utilisateur.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-half">
-                    {{ form_row(utilisateur.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+            <div class="w3-quarter">
+                {{ form_row(utilisateur.sexe, { 'label': 'Sexe', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
+            <div class="w3-quarter">
+                {{ form_row(utilisateur.situation_familiale, { 'label': 'Situation familiale', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-quarter">
+                {{ form_row(utilisateur.taux_journalier, { 'label': 'Taux journalier', 'attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+        </div>
+
+        <!-- Third Row: CIN, Date CIN, Roles -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-third">
+                {{ form_row(utilisateur.cin, { 'label': 'CIN', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'valideCin(this)'} }) }}
+                <p id="validationC" style="font-size: 10px;"></p>
+            </div>
+            <div class="w3-third">
+                {{ form_row(utilisateur.email, { 'label': 'Email', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerEmail(this)'} }) }}
+                <p id="validateEmail" style="font-size: 10px;"></p>
+            </div>
+            <div class="w3-third">
+                {{ form_row(utilisateur.fonction, { 'label': 'Fonction', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerFonction(this)'} }) }}
+                <p id="validateFonction" style="font-size: 10px;"></p>
+            </div>
+        </div>
+
+        <!-- Fourth Row: Fonction, Taux journalier -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-half">
+                {{ form_row(utilisateur.address, { 'label': 'Addresse', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerAdresse(this)'} }) }}
+                <p id="validateAdresse" style="font-size: 10px;"></p>
+            </div>
+            <div class="w3-half">
+                {{ form_row(utilisateur.nombre_enfant, { 'label': 'Nombre d\'enfant','attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerNbEnfant(this)'} }) }}
+                <p id="validateNbEnfant" style="font-size: 10px;"></p>
+            </div>
+        </div>
 
 
-            {# Bouton de soumission du formulaire et bouton de retour avec un style #}
-            <button type="submit" class="w3-btn w3-indigo w3-half">Modifier</button>
-            <a href="{{ path('user_index') }}" class="w3-btn w3-blue w3-half">
-                <i class="fa fa-arrow-left"></i> Retourner 
-            </a>
-
-        {# Fermer le formulaire #}
+        <!-- Submit Button -->
+        <button type="submit" class="w3-btn w3-green w3-half" ><i class="fas fa-save"></i>  Register</button>
+        <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
+        
         {{ form_end(utilisateur) }}
     </div>
+{% endblock %}
+
+
+
+<script>
+    // Fonction appelée à chaque onkeyup
+    function valideCin(input) {
+        const display = document.getElementById('validationC');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        // Vérifie si la valeur contient des caractères non numériques ou des espaces
+        if (isNaN(value) || /\s/.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des chiffres.';
+            display.style.color = 'red';
+        }
+        // Vérifie si la longueur du CIN dépasse 12 caractères
+        else if (value.length > 12) {
+            // Limiter à 12 caractères
+            value = value.slice(0, 12);
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            
+            if (value.length >= 6 && value[5] !== '1' && value[5] !== '2') {
+                // Si le sixième caractère n'est pas 1 ou 2, supprimer tout après le cinquième caractère
+                value = value.slice(0, 5); // Garde uniquement les 5 premiers caractères
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Le sixième chiffre doit être 1 ou 2.';
+                display.style.color = 'red';
+            } else{
+                display.textContent = 'Le numéro CIN ne depasse pas de 12 chiffres.';
+                display.style.color = 'red';
+            }
+        }
+        // Vérifie si la longueur du CIN dépasse 12 caractères
+        else if (value == '') {
+                display.textContent = 'Veillez saisir votre numéro CIN.';
+                display.style.color = 'red';
+        }
+        // Vérifie que le sixième caractère est bien 1 ou 2
+        else if (value.length >= 6 && value[5] !== '1' && value[5] !== '2') {
+            // Si le sixième caractère n'est pas 1 ou 2, supprimer tout après le cinquième caractère
+            value = value.slice(0, 5); // Garde uniquement les 5 premiers caractères
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Le sixième chiffre doit être 1 ou 2.';
+            display.style.color = 'red';
+        } else {
+            // Affiche la valeur saisie
+            display.textContent = ` Incompete`;
+            display.style.color = 'red';
+        }
+    }
+
+
+    // Fonction controle le champ nom
+    function controllerNom(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateCode');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre nom !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+    // Fonction controle le champ nom
+    function controllerPrenom(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validatePrenom');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre prénom !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ fonction
+    function controllerFonction(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateFonction');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre fonction ou indice !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ adresse
+    function controllerAdresse(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateAdresse');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre adresse !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+    // Fonction controle le champ Email
+    function controllerEmail(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateEmail');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Email !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ Matricule
+    function controllerMatricule(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateMatricule');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Matricule !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ Password
+    function controllerPassword(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validatePassword');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre Password !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }
+        else if (value.length > 8) {
+            // Limiter à 8 caractères
+            value = value.slice(0, 8);
+            input.value = value; 
+            display.textContent = 'Le mot de pass ne depasse pas de 8 caractére.';
+            display.style.color = 'red';
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+
+    // Fonction controle le champ NbEnfant
+    function controllerNbEnfant(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateNbEnfant');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+        if (value=='') {
+            display.textContent = 'Veuillez saisir votre NbEnfant !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+</script>
+
+
 </body>
+</html>
+
+
+ {#<form action="{{ path('registration_submit') }}" method="POST">#}
