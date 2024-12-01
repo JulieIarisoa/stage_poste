@@ -956,12 +956,6 @@
 
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
-            Rechercher utilisateur3
-            Demander BSE1
-            Générer PDF: Or/bst en attente de validation, rapport tous les mission dans  mois
-            Enregistrer Information de départ du missionnaire.2
-            Voir état validation.2
-            Voir Liste mission, demande, etc.
 
             {# contenue pour l'utilisateur simple #}
             
@@ -1085,6 +1079,16 @@
                                         <i class="fa fa-bell w3-opacity"  onclick="document.getElementById('notify').style.display='block'"></i>
                                         <i class="fa fa-user-circle w3-opacity w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
                                         <i class="fa fa-bars w3-opacity w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                                    </div>
+                                    <div>
+                                        <button  class="w3-center">
+                                            Rapport (1 mois) 
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <a href="{{path('pdf_stat')}}">
+                                            <button class="w3-btn w3-yellow w3-margin">Etat (6mois)</button></br>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
