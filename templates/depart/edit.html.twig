@@ -101,32 +101,4 @@ const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
         }
     }
 
-    // Fonction controle le champ telephone
-    function controleNumTele(input) {
-        const btn = document.getElementById('envoyer'); 
-        const display = document.getElementById('validateTele');
-        let value = input.value.trim(); // Supprime les espaces au début et à la fin
-
-        // Vérifie si la valeur contient des caractères non numériques ou des espaces
-        
-        if (value=='') {
-            display.textContent = 'Veuillez remplir le champ !';
-            display.style.color = 'red';
-            btn.setAttribute('disabled', true);
-        }else if (!/^[a-zA-Z]$/.test(char)) {
-            // Supprime tous les caractères non numériques
-            value = value.replace(/[^a-zA-Z]/g, '');//supprimer tous les caractére qui ne sont pas une lettre
-            input.value = value; // Met à jour la valeur dans le champ de saisie
-            display.textContent = 'Veuillez entrer uniquement des chiffres.';
-            display.style.color = 'red';
-            btn.setAttribute('disabled', true);
-        }else {
-            // Affiche la valeur saisie
-            display.textContent = `Validation ok`;
-            display.style.color = 'green';
-            btn.removeAttribute('disabled');
-        }
-    }
-
-
 </script>

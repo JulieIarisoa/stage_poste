@@ -68,10 +68,14 @@
                 {{ form_row(registrationForm.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.nom, { 'label': 'Nom', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.nom, { 'label': 'Nom', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerNom(this)'} }) }}
+                <p id="validateCode" style="font-size: 10px; color: blue;"></p>
             </div>
             <div class="w3-third">
-                {{ form_row(registrationForm.prenom, { 'label': 'Prenom', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(registrationForm.prenom, { 'label': 'Prenom', 'attr': {'class': 'w3-input w3-border', 
+                    'onkeyup': 'controllerPrenom(this)'} }) }}
+                <p id="validatePrenom" style="font-size: 10px; color: blue;"></p>
             </div>
         </div>
 
@@ -138,7 +142,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w3-btn w3-green w3-half"><i class="fas fa-save"></i>  Register</button>
+        <button type="submit" class="w3-btn w3-green w3-half" ><i class="fas fa-save"></i>  Register</button>
         <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
         
         {{ form_end(registrationForm) }}
@@ -182,6 +186,57 @@
             display.style.color = 'blue';
         }
     }
+
+
+
+    // Fonction controle le champ nom
+    function controllerNom(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validateCode');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez remplir le champ !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
+    // Fonction controle le champ nom
+    function controllerPrenom(input) {
+        const btn = document.getElementById('envoyer'); 
+        const display = document.getElementById('validatePrenom');
+        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+        if (value=='') {
+            display.textContent = 'Veuillez remplir le champ !';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else if (!regex.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des lettres.';
+            display.style.color = 'red';
+            btn.setAttribute('disabled', true);
+        }else {// remplace tous les chiffre
+            display.textContent = `Validate ok!`;
+            display.style.color = 'green';
+            btn.removeAttribute('disabled');
+        }
+    }
+
 </script>
 
 
