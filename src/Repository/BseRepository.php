@@ -161,6 +161,53 @@ class BseRepository extends ServiceEntityRepository
             }
     }
 
+
+
+
+
+
+
+
+    public function depart(): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            ->select(
+                'm.nom AS nom', 
+                'm.prenom AS prenom', 
+                'm.matricule AS matricule', 
+                'm.fonction AS fonction', 
+                'o.date_bse AS dateBse', 
+                'o.destination AS destination', 
+                'o.motif AS motif', 
+                'o.duree_mission AS dureeMission', 
+                'o.lieu_depart_missionnaire AS lieuDepartMissionnaire', 
+                'o.heure_depart_missionnaire AS heureDepartMissionnaire', 
+                'o.date_depart_missionnaire AS dateDepartMissionnaire', 
+                'o.lieu_bse AS lieuBse', 
+                'o.etat AS etat',
+                'o.id',
+                'o.depense_bst AS depenseBst'
+            )
+            ->where('o.etat_validation = :etat')
+            ->andWhere('o.lieu_depart_missionnaire = :lieu')
+            ->setParameter('etat', 'accepte')
+            ->setParameter('lieu', null)
+            ->orderBy('o.date_bse', 'ASC');
+        try {
+            // Récupération des résultats sous forme de tableau
+            return $qb->getQuery()->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            // Aucun résultat trouvé
+            return [];
+        } catch (\Exception $e) {
+            // Gestion des autres erreurs
+            // Ajouter un log si nécessaire
+            throw $e; // Lancer une exception pour faciliter le débogage
+        }
+    }
+
     /*public function departMissionnaire(): array
     {
         // Construction de la requête

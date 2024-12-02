@@ -9,20 +9,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\BseRepository;
 
 class DepartController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository )
     {
         $this->entityManager = $entityManager;
+        $this->BseRepository = $BseRepository;
     }
 
     #[Route('/depart', name: 'app_depart')]
     public function index(): Response
     {
-        $Depart = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','lieu_depart_missionnaire' => Null]);
+        //$Depart = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','lieu_depart_missionnaire' => Null]);
+        $Depart = $this->BseRepository->depart();
+    
         return $this->render('depart/index.html.twig', [
             'depart' => $Depart,
         ]);
