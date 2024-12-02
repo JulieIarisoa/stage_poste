@@ -186,29 +186,20 @@
                                     <input class="w3-input w3-border w3-bar-item  w3-margin-right w3-margin-bottom" type="text" placeholder="Rechercher ..."id="myInput1" onkeyup="myFunction('myTable1','myInput1',2)">
                                         <table  class="w3-table w3-bordered" id="myTable1">
                                             <tr class="w3-light-grey">
+                                                <th>Création</th>
                                                 <th>Destination</th>
-                                                <th>Motif</th>
-                                                <th>Création mission</th>
                                                 <th>Matricule</th>
-                                                <th>Durée mission</th>
-                                                <th>Création mission</th>
-                                                <th>Payment OR</th>
-                                                <th>Validation OR</th>
+                                                <th>Durée</th>
                                                 <th>Etat</th>
                                                 <th></th>
                                                 <th></th>
                                             </tr>
                                             {% for bse_validation_attente in bse_validation_attente %}
                                                 <tr>
-                                                    <td>{{ bse_validation_attente.destination }}</td>
-                                                    <td>{{ bse_validation_attente.motif }}</td>
                                                     <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
+                                                    <td>{{ bse_validation_attente.destination }}</td>
                                                     <td>{{ bse_validation_attente.matricule }}</td>
                                                     <td>{{ bse_validation_attente.dureeMission }}</td>
-                                                    <td>{{ bse_validation_attente.lieuBse}}</td>
-                                                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
-                                                    <td>{{ bse_validation_attente.etatValidationOr }}</td>
-                                                    <td>{{ bse_validation_attente.depenseBst }}</td>
                                                     <td>{{ bse_validation_attente.etat }}</td>
 
                                                     {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
