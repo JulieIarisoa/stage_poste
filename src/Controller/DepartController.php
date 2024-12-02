@@ -22,7 +22,7 @@ class DepartController extends AbstractController
     #[Route('/depart', name: 'app_depart')]
     public function index(): Response
     {
-        $Depart = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','lieu_depart_missionnaire' => Null]);
+        $Depart = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','lieu_depart_missionnaire' => Null]);
         return $this->render('depart/index.html.twig', [
             'depart' => $Depart,
         ]);

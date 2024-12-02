@@ -150,19 +150,17 @@
                     </div>
                     <table  class="w3-table w3-bordered" id="myTable">
                         <tr class="w3-light-grey">
-                            <th>Lieu</th>
-                            <th>Heure</th>
-                            <th>Date</th>
                             <th>Matricule</th>
+                            <th>Destination</th>
+                            <th>Création BSE</th>
                             <th></th>
                             <th></th>
                         </tr>
                         {% for depart in depart %}
                             <tr>
-                                <td>{{ depart.lieuDepartMissionnaire   }}</td>
-                                <td>{#{ depart.heureDepartMissionnaire | datetime('h:m:ss') }#}</td>
-                                <td>{{ depart.dateDepartMissionnaire | date('d-m-Y') }}</td>
                                 <td>{{ depart.matricule }}</td>
+                                <td>{{ depart.destination }}</td>
+                                <td>{{ depart.dateDepartMissionnaire | date('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ path('depart_edit', {id: depart.id, id: depart.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Depart</button></a>
                                 </td>
