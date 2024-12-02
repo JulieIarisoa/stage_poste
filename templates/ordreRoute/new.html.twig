@@ -47,70 +47,92 @@
     </style>
 </head>
 <body>
-    <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <h1> SOMME depense {{ somme }}</h1>
-            <h1> {{ depense_or }}</h1>
-            <h1> {{ depense_bst }}</h1>
-            <h1> {{ total_credit }}</h1>
-            <a href="{{path('bse_index')}}" class="fa fa-times w3-display-topright">
-            </a>
-            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Créer Ordre de route</h4>
+            <!--h1> SOMME depense </h1>
+            <h1> SOMME depense or {#{ depense_or }}</h1>
+            <h1> SOMME depense bst {{ depense_bst }}</h1>
+            <h1> Taux journalier de l'utilisateur {{ Taux }}</h1>
+            <h1> Somme credit {{ sommeCredit }}</h1>
+            <h1> Somme depense {{ depense }}</h1>
+            <h1> restant {{ restant }#}</h1-->
+            {% set depense = depense_or + depense_bst %}
+            {% set restant = sommeCredit - depense %}
+
+
+
+    {% if restant <= depense or restant < Taux %}
+        <div class="w3-panel w3-half  w3-card-4 w3-border-red">
+            <div class="w3-display-topmiddle w3-border-left w3-card-4 w3-border-red w3-pale-red w3-padding">
+                <a href="{{path('bse_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-padding-16">
+                    <i class="fa fa-plus w3-opacity"></i> Création d'un ordre de route sans bon spécial de transport
+                </h4>
+                <p> Le credit ouvert pour les avances autorisées est insuffisant veillez informer le détenteur de compte pour la renouvellement du credit. </p>
+                <input type="submit" class="w3-btn w3-red w3-quarter w3-margin-bottom" value="Informer">
+            </div>
         </div>
 
 
-    {% if somme < total_credit  %}
-
-        {{ form_errors(nouveau_or) }}
-        {{ form_start(nouveau_or) }}
-
-            <!-- Fifth Row: Email and Password -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
+    {% elseif restant >depense and restant >= Taux %}
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+                <a href="{{path('bse_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-plus w3-opacity"></i> Créer un ordre de route sans BST
+                </h4>
             </div>
 
+            {{ form_errors(nouveau_or) }}
+            {{ form_start(nouveau_or) }}
 
-            <!-- Fifth Row: Email and Password -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.date_bse, { 'label': 'Date de création', 'attr': {'class': 'w3-input w3-border'} }) }}
+                <!-- Fifth Row: Email and Password -->
+                <div class="w3-row-padding  w3-opacity">
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
                 </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-            </div>
 
 
-            <!-- Fifth Row: Email and Password -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.etat_validation_or, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border'} }) }}
+                <!-- Fifth Row: Email and Password -->
+                <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.date_bse, { 'label': 'Date de création', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
                 </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.etat_payment_or, { 'label': 'Etat de payement','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-                <div class="w3-third">
-                    {{ form_row(nouveau_or.etat, { 'label': 'Type','attr': {'class': 'w3-input w3-border'} }) }}
-                </div>
-            </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
-            <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
-        {{ form_end(nouveau_or) }}
 
-    {% elseif somme >total_credit  %}
-            <p>somme > total_credit </p>
+                <!-- Fifth Row: Email and Password -->
+                <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.etat_validation_or, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.etat_payment_or, { 'label': 'Etat de payement','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                    <div class="w3-third">
+                        {{ form_row(nouveau_or.etat, { 'label': 'Etat','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
+                <input type="reset" class="w3-btn w3-pale-red w3-half" value="Annuler">
+            {{ form_end(nouveau_or) }}
+        </div>
     {% endif %}
 </body>
