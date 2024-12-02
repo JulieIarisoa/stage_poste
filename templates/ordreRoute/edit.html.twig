@@ -51,25 +51,28 @@
     </style>
 </head>
 <body>
-    <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('ordreRoute_index')}}" class="fa fa-times w3-display-topright">
-            </a>
-            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Modifier un ordre de route</h4>
-        </div>
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+                <a href="{{path('bse_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-pen w3-opacity"></i> Modification d'un ordre de route
+                </h4>
+            </div>
     {{ form_errors(edit_refuse) }}
     {{ form_start(edit_refuse) }}
 
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-half">
-                {{ form_row(edit_refuse.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-third">
+                {{ form_row(edit_refuse.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
-            <div class="w3-half">
-                {{ form_row(edit_refuse.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-third">
+                {{ form_row(edit_refuse.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
-            <div class="w3-half">
-                {{ form_row(edit_refuse.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-third">
+                {{ form_row(edit_refuse.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
         </div>
 
@@ -77,13 +80,13 @@
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-                {{ form_row(edit_refuse.date_bse, { 'label': 'Date de création', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.date_bse, { 'label': 'Date de modification', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(edit_refuse.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(edit_refuse.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
         </div>
 
