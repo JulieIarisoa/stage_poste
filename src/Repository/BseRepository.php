@@ -160,6 +160,7 @@ class BseRepository extends ServiceEntityRepository
                 return 0.0;
             }
     }
+
     /*public function departMissionnaire(): array
     {
         // Construction de la requête
