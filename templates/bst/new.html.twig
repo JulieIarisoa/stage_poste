@@ -48,69 +48,101 @@
     </style>
 </head>
 <body>
-    <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('bse_index')}}" class="fa fa-times w3-display-topright">
-            </a>
-            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Ordre de route avec BST</h4>
-        </div>
-    {{ form_errors(or_bst) }}
-    {{ form_start(or_bst) }}
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-third">
-                {{ form_row(or_bst.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-        </div>
+            <!--h1> SOMME depense </h1>
+            <h1> SOMME depense or {#{ depense_or }}</h1>
+            <h1> SOMME depense bst {{ depense_bst }}</h1>
+            <h1> Taux journalier de l'utilisateur {{ Taux }}</h1>
+            <h1> Somme credit {{ sommeCredit }}</h1>
+            <h1> Somme depense {{ depense }}</h1>
+            <h1> restant {{ restant }#}</h1-->
+            {% set depense = depense_or + depense_bst %}
+            {% set restant = sommeCredit - depense %}
 
 
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-third">
-                {{ form_row(or_bst.date_bse, { 'label': 'date_bse', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.lieu_bse, { 'label': 'lieu_bse', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.duree_mission, { 'label': 'duree_mission','attr': {'class': 'w3-input w3-border'} }) }}
+
+    {% if restant <= depense or restant < Taux %}
+        <div class="w3-panel w3-half  w3-card-4 w3-border-red">
+            <div class="w3-display-topmiddle w3-border-left w3-card-4 w3-border-red w3-pale-red w3-padding">
+                <a href="{{path('bse_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-padding-16">
+                    <i class="fa fa-plus w3-opacity"></i> Création d'un ordre de route avec bon spécial de transport
+                </h4>
+                <p> Le credit ouvert pour les avances autorisées est insuffisant veillez informer le détenteur de compte pour la renouvellement du credit. </p>
+                <input type="submit" class="w3-btn w3-red w3-quarter w3-margin-bottom" value="Informer">
             </div>
         </div>
 
 
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-third">
-                {{ form_row(or_bst.etat, { 'label': 'etat', 'attr': {'class': 'w3-input w3-border'} }) }}
+    {% elseif restant >depense and restant >= Taux %}
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+                <a href="{{path('bse_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-plus w3-opacity"></i> Créer un ordre de route avec BST
+                </h4>
             </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.etat_validation_or, { 'label': 'etat_validation_or', 'attr': {'class': 'w3-input w3-border'} }) }}
+        {{ form_errors(or_bst) }}
+        {{ form_start(or_bst) }}
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding  w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
             </div>
-            <div class="w3-third">
-                {{ form_row(or_bst.etat_validation_bst, { 'label': 'etat_validation_bst','attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-        </div>
 
 
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-half">
-                {{ form_row(or_bst.etat_payment_or, { 'label': 'etat_payment_or', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.date_bse, { 'label': 'date_bse', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.lieu_bse, { 'label': 'lieu_bse', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.duree_mission, { 'label': 'duree_mission','attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
             </div>
-            <div class="w3-half">
-                {{ form_row(or_bst.etat_payment_bst, { 'label': 'etat_payment_bst', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-        </div>
 
-        
-        <!-- Submit Button -->
-        <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
-        <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
-    {{ form_end(or_bst) }}
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat, { 'label': 'etat', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat_validation_or, { 'label': 'etat_validation_or', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat_validation_bst, { 'label': 'etat_validation_bst','attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+            </div>
+
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                <div class="w3-half">
+                    {{ form_row(or_bst.etat_payment_or, { 'label': 'etat_payment_or', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+                <div class="w3-half">
+                    {{ form_row(or_bst.etat_payment_bst, { 'label': 'etat_payment_bst', 'attr': {'class': 'w3-input w3-border'} }) }}
+                </div>
+            </div>
+
+            
+            <!-- Submit Button -->
+            <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
+            <input type="reset" class="w3-btn w3-red w3-half" value="Annuler">
+        {{ form_end(or_bst) }}
+    {% endif %}
 </body>

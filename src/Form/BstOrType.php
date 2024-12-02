@@ -16,26 +16,35 @@ class BstOrType extends AbstractType
         $builder
             ->add('destination', TextType::class)
             ->add('motif', TextType::class)
-            ->add('date_bse', DateType::class)
+            ->add('date_bse', DateType::class, [
+                'data'=> new \DateTime(),
+                'attr'=> ['readonly'=> true],
+            ])
             ->add('lieu_bse', TextType::class)
             ->add('duree_mission', NumberType::class)
             ->add('matricule', NumberType::class,[
                     'data' => $options['id'],
+                    'attr'=> ['readonly'=> true],
                 ])
             ->add('etat_validation_or', TextType::class,[
-                'data' => 'en_attente'
+                'data' => 'en_attente',
+                'attr'=> ['readonly'=> true],
             ])
             ->add('etat_validation_bst', TextType::class,[
-                'data' => 'en_attente'
+                'data' => 'en_attente',
+                'attr'=> ['readonly'=> true],
             ])
             ->add('etat_payment_or', TextType::class,[
-                'data' => 'en_attente'
+                'data' => 'en_attente',
+                'attr'=> ['readonly'=> true],
             ])
             ->add('etat_payment_bst', TextType::class,[
-                'data' => 'en_attente'
+                'data' => 'en_attente',
+                'attr'=> ['readonly'=> true],
             ])
             ->add('etat', TextType::class,[
-                'data' => 'Ordre de route avec BST'
+                'data' => 'Ordre de route avec BST',
+                'attr'=> ['readonly'=> true],
             ]);
     }
 
