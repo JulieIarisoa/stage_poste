@@ -368,6 +368,12 @@
             display.textContent = 'Veuillez saisir votre NbEnfant !';
             display.style.color = 'red';
             btn.setAttribute('disabled', true);
+        } else if (isNaN(value) || /\s/.test(value)) {
+            // Supprime tous les caractères non numériques
+            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+            input.value = value; // Met à jour la valeur dans le champ de saisie
+            display.textContent = 'Veuillez entrer uniquement des chiffres.';
+            display.style.color = 'red';
         }else {// remplace tous les chiffre
             display.textContent = `Validate ok!`;
             display.style.color = 'green';
