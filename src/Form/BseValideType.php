@@ -20,7 +20,7 @@ class BseValideType extends AbstractType
             'data'=> new \DateTime(),
             'attr'=> ['readonly'=> true],
         ])
-        ->add('etat_validation_or', ChoiceType::class, [
+        ->add('etat_validation', ChoiceType::class, [
             'choices' => [
                 'Accepter' => 'accepte',
                 'Refuser' => 'refuse',

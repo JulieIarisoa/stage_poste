@@ -83,6 +83,9 @@ class Bse
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_validation = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $etat_validation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -361,6 +364,18 @@ class Bse
     public function setDateValidation(?\DateTimeInterface $date_validation): static
     {
         $this->date_validation = $date_validation;
+
+        return $this;
+    }
+
+    public function getEtatValidation(): ?string
+    {
+        return $this->etat_validation;
+    }
+
+    public function setEtatValidation(?string $etat_validation): static
+    {
+        $this->etat_validation = $etat_validation;
 
         return $this;
     }

@@ -22,10 +22,10 @@ class BstOrValideType extends AbstractType
             ->add('matricule', NumberType::class,[
                     'data' => $options['id'],
                 ])
-            ->add('etat_validation_or', TextType::class,[
+            ->add('etat_validation', TextType::class,[
                 'data' => 'en_attente'
             ])
-            ->add('etat_validation_bst', TextType::class,[
+            ->add('etat_validation', TextType::class,[
                 'data' => 'en_attente'
             ])
             ->add('etat_payment_or', TextType::class,[

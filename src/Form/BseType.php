@@ -26,7 +26,7 @@ class BseType extends AbstractType
                     'data' => $options['id'],
                     'attr' => ['readonly' => true],
                 ])
-            ->add('etat_validation_or', TextType::class,[
+            ->add('etat_validation', TextType::class,[
                 'data' => 'en_attente',
                 'attr' => ['readonly'=>true],
             ])

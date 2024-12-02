@@ -25,7 +25,7 @@ class BseTypeModifier extends AbstractType
             ->add('matricule', NumberType::class,[
                     'attr' => ['readonly' => true],
                 ])
-            ->add('etat_validation_or', TextType::class,[
+            ->add('etat_validation', TextType::class,[
                 'data' => 'en_attente',
                 'attr' => ['readonly'=>true],
             ])
