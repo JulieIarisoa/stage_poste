@@ -16,6 +16,10 @@ class BseValideType extends AbstractType
     {
         $builder
         ->add('detenteur', TextType::class)
+        ->add('date_validation', DateType::class, [
+            'data'=> new \DateTime(),
+            'attr'=> ['readonly'=> true],
+        ])
         ->add('etat_validation_or', ChoiceType::class, [
             'choices' => [
                 'Accepter' => 'accepte',
