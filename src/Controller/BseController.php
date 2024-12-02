@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bse;
 use App\Entity\User;
 use App\Form\BseType;
+use App\Form\BseTypeModifier;
 use App\Form\BsePayeType;
 use App\Form\BseValideType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -131,7 +132,7 @@ class BseController extends AbstractController
     #[Route("/bse/{id}/edit", name: "bse_edit")]
     public function edit(Request $request, Bse $bse): Response
     {
-        $form = $this->createForm(BseType::class, $bse);
+        $form = $this->createForm(BseTypeModifier::class, $bse);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
