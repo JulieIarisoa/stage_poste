@@ -11,8 +11,10 @@ use \Twig\Environment;
 use App\Service\PdfGeneratorService;
 use App\Entity\Bst;
 use App\Entity\Employe;
+use App\Repository\BseRepository;
 use App\Form\BstType;
 use App\Form\BstValideType;
+use App\Entity\Credit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +25,10 @@ class BstController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository)
     {
         $this->entityManager = $entityManager;
+        $this->BseRepository = $BseRepository;
     }
 
     #[Route('/bst', name: 'bst_index')]
@@ -55,7 +58,24 @@ class BstController extends AbstractController
     #[Route("/bst/new", name: "bst_new")]
     public function new(Request $request): Response
     {
+        $depense_or = $this->BseRepository->totalDepense();
+        $depense_bst = $this->BseRepository->totalDepenseBst();
+        $credit = $this->entityManager->createQueryBuilder();
+        $credit->select('SUM(d.credit_initial)')
+                     ->from(Credit::class, 'd');
+        $sommeCredit = $credit->getQuery()->getSingleScalarResult();
+
+
         $id = $request->get('id');
+        $utilisateur = $this->entityManager->createQueryBuilder();
+        $utilisateur->select('c.taux_journalier AS tauxJournalier')
+                     ->from(User::class, 'c')
+                     ->where('c.matricule =:matricule')
+                     ->setParameter('matricule', $id);
+        $Taux = $utilisateur->getQuery()->getSingleScalarResult();
+
+    
+
         $bse = new Bse();
         $form = $this->createForm(BstOrType::class, $bse, ['id' => $id]);
 
@@ -71,6 +91,11 @@ class BstController extends AbstractController
 
         return $this->render('bst/new.html.twig', [
             'or_bst' => $form->createView(),
+            'nouveau_or' => $form->createView(),
+            'depense_or' => $depense_or,
+            'depense_bst' => $depense_bst,
+            'Taux' => $Taux,
+            'sommeCredit' => $sommeCredit,
         ]);
     }
 
