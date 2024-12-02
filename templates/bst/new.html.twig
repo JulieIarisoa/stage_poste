@@ -125,27 +125,20 @@
 
             <!-- Fifth Row: Email and Password -->
             <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-third">
+                <div class="w3-quarter">
                     {{ form_row(or_bst.etat, { 'label': 'Etat', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-third">
-                    {{ form_row(or_bst.etat_validation_or, { 'label': 'Etat validation or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                <div class="w3-quarter">
+                    {{ form_row(or_bst.etat_validation, { 'label': 'Etat validation or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-third">
-                    {{ form_row(or_bst.etat_validation_bst, { 'label': 'Etat validation bst','attr': {'class': 'w3-input w3-border w3-round'} }) }}
-                </div>
-            </div>
-
-
-            <!-- Fifth Row: Email and Password -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-half">
+                <div class="w3-quarter">
                     {{ form_row(or_bst.etat_payment_or, { 'label': 'Etat payment or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-half">
+                <div class="w3-quarter">
                     {{ form_row(or_bst.etat_payment_bst, { 'label': 'Etat payment bst', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
             </div>
+
 
             <!-- Submit Button -->
             <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
