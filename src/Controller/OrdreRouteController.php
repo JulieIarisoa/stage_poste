@@ -59,6 +59,14 @@ class OrdreRouteController extends AbstractController
     #[Route("/bse/new", name: "ordreRoute_new")]
     public function new(Request $request): Response
     {
+
+        $depense_or = $this->BseRepository->totalDepense();
+        $depense_bst = $this->BseRepository->totalDepenseBst();
+
+
+
+
+
         $id = $request->get('id');
         $bse = new Bse();
         $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
@@ -81,7 +89,9 @@ class OrdreRouteController extends AbstractController
         return $this->render('ordreRoute/new.html.twig', [
             'nouveau_or' => $form->createView(),
             'somme' => $somme,
-            'total_credit' => $total_credit
+            'total_credit' => $total_credit,
+            'depense_or' => $depense_or,
+            'depense_bst' => $depense_bst,
         ]);
     }
 
