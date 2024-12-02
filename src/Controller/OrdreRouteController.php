@@ -62,6 +62,7 @@ class OrdreRouteController extends AbstractController
 
         $depense_or = $this->BseRepository->totalDepense();
         $depense_bst = $this->BseRepository->totalDepenseBst();
+        $credit = $this->entityManager->getRepository(Credit::class)->findAll();
 
 
 
@@ -70,10 +71,12 @@ class OrdreRouteController extends AbstractController
         $id = $request->get('id');
         $bse = new Bse();
         $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
+        
         $somme_credit = $this->entityManager->createQueryBuilder();
         $somme_credit->select('SUM(c.credit_initial)')
                      ->from(Credit::class, 'c');
         $total_credit = $somme_credit->getQuery()->getSingleScalarResult();
+
         $somme = $this->BseRepository->orDeuxDate('21/10/2024', '21/11/2024');
 
         $form->handleRequest($request);
