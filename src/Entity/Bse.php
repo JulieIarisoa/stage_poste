@@ -56,12 +56,6 @@ class Bse
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $etat_payment_bst = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $etat_validation_or = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $etat_validation_bst = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $code_postale_payement_or = null;
 
@@ -260,29 +254,6 @@ class Bse
         return $this;
     }
 
-    public function getEtatValidationOr(): ?string
-    {
-        return $this->etat_validation_or;
-    }
-
-    public function setEtatValidationOr(?string $etat_validation_or): static
-    {
-        $this->etat_validation_or = $etat_validation_or;
-
-        return $this;
-    }
-
-    public function getEtatValidationBst(): ?string
-    {
-        return $this->etat_validation_bst;
-    }
-
-    public function setEtatValidationBst(?string $etat_validation_bst): static
-    {
-        $this->etat_validation_bst = $etat_validation_bst;
-
-        return $this;
-    }
 
     public function getCodePostalePayementOr(): ?int
     {
