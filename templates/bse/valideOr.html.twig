@@ -77,9 +77,7 @@
                 <p><b>Somme total engagée:</b> {{ ordre }} Ariary</p>
             </div>
             <div class="w3-third">
-                {{ form_row(valide.nom_detenteur, { 'label': 'Nom detenteur', 'attr': {'class': 'w3-input w3-border'} }) }}
-                {{ form_row(valide.prenom_detenteur, { 'label': 'Prenom detenteur','attr': {'class': 'w3-input w3-border'} }) }}
-                {{ form_row(valide.fonction_detenteur, { 'label': 'Fonction detenteur', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(valide.detenteur, { 'label': 'Nom detenteur', 'attr': {'class': 'w3-input w3-border'} }) }}
                 {{ form_row(valide.etat_validation_or, { 'label': 'Validation', 'attr': {'class': 'w3-input w3-border'} }) }}
                 {{ form_row(valide.etat_payment_or, { 'label': 'Payment','attr': {'class': 'w3-input w3-border'} }) }}
             </div>

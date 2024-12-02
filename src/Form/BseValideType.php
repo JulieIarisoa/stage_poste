@@ -15,9 +15,7 @@ class BseValideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('nom_detenteur', TextType::class)
-        ->add('prenom_detenteur', TextType::class)
-        ->add('fonction_detenteur', TextType::class)
+        ->add('detenteur', TextType::class)
         ->add('etat_validation_or', ChoiceType::class, [
             'choices' => [
                 'Accepter' => 'accepte',

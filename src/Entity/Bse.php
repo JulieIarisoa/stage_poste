@@ -30,15 +30,6 @@ class Bse
     private ?int $duree_mission = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $nom_detenteur = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $prenom_detenteur = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $fonction_detenteur = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
     private ?string $lieu_depart_missionnaire = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
@@ -85,6 +76,9 @@ class Bse
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_payement_bst = null;
+
+    #[ORM\Column(length: 8, nullable: true)]
+    private ?string $detenteur = null;
 
     public function getId(): ?int
     {
@@ -151,41 +145,6 @@ class Bse
         return $this;
     }
 
-    public function getNomDetenteur(): ?string
-    {
-        return $this->nom_detenteur;
-    }
-
-    public function setNomDetenteur(?string $nom_detenteur): static
-    {
-        $this->nom_detenteur = $nom_detenteur;
-
-        return $this;
-    }
-
-    public function getPrenomDetenteur(): ?string
-    {
-        return $this->prenom_detenteur;
-    }
-
-    public function setPrenomDetenteur(?string $prenom_detenteur): static
-    {
-        $this->prenom_detenteur = $prenom_detenteur;
-
-        return $this;
-    }
-
-    public function getFonctionDetenteur(): ?string
-    {
-        return $this->fonction_detenteur;
-    }
-
-    public function setFonctionDetenteur(?string $fonction_detenteur): static
-    {
-        $this->fonction_detenteur = $fonction_detenteur;
-
-        return $this;
-    }
 
     public function getLieuDepartMissionnaire(): ?string
     {
@@ -375,6 +334,18 @@ class Bse
     public function setDatePayementBst(?\DateTimeInterface $date_payement_bst): static
     {
         $this->date_payement_bst = $date_payement_bst;
+
+        return $this;
+    }
+
+    public function getDetenteur(): ?string
+    {
+        return $this->detenteur;
+    }
+
+    public function setDetenteur(?string $detenteur): static
+    {
+        $this->detenteur = $detenteur;
 
         return $this;
     }
