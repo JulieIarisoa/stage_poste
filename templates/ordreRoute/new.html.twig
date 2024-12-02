@@ -221,27 +221,27 @@
         }
 
           // Fonction controle le champ DureeMission
-    function controllerDureeMission(input) {
-        const btn = document.getElementById('envoyer'); 
-        const display = document.getElementById('validateDureeMission');
-        let value = input.value.trim(); // Supprime les espaces au début et à la fin
+        function controllerDureeMission(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateDureeMission');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
 
-        if (value=='') {
-            display.textContent = 'Veuillez saisir la duree de votre mission !';
-            display.style.color = 'red';
-            btn.setAttribute('disabled', true);
-        }else if (isNaN(value) || /\s/.test(value)) {
-            // Supprime tous les caractères non numériques
-            value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
-            input.value = value; // Met à jour la valeur dans le champ de saisie
-            display.textContent = 'Veuillez entrer uniquement des chiffres.';
-            display.style.color = 'red';
-        }else {// remplace tous les chiffre
-            display.textContent = `Validate ok!`;
-            display.style.color = 'green';
-            btn.removeAttribute('disabled');
+            if (value=='') {
+                display.textContent = 'Veuillez saisir la duree de votre mission !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (isNaN(value) || /\s/.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des chiffres.';
+                display.style.color = 'red';
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
         }
-    }
     </script>
 
 </body>
