@@ -1,0 +1,66 @@
+
+    <body>
+        <center>
+            <h2>
+                <u>FACTURE</u>
+            </h2>
+        </center>
+
+            {% for item in facture %}
+                <p>
+                    <p>{{ item.datePayement_or|date('d/m/Y') }}</p>
+                    <p>{{ item.payeur_or | upper }}</p>
+                    <p>{{ item.payeur_bst }}</p>
+                    <p>{{ item.etat_validation }}</p>
+                    <p>{{ item.detenteur }}</p>
+                    <p>{{ item.idTransport }}</p>
+                </p>
+                <p>
+                    <p>{{ item.date_payement_bst|date('d/m/Y') }}</p>
+                    <p>{{ item.depense_bst | upper }}</p>
+                    <p>{{ item.code_postale_payment_bst }}</p>
+                    <p>{{ item.code_postale_payement_or }}</p>
+                    <p>{{ item.etat_payment_bst }}</p>
+                </p>
+
+                <p>
+                    <p>{{ item.depenseBst }}</p>
+                    <p>{{ item.prenom_chafeur | upper }}</p>
+                    <p>{{ item.nom_chaufeur }}</p>
+                    <p>{{ item.tel_transporteur }}</p>
+                    <p>{{ item.etat_payment_or }}</p>
+                </p>
+
+                <p>
+                    <p>{{ item.lieuDepartMissionnaire}}</p>
+                    <p>{{ item.dateDepartMissionnaire |date('d/m/Y') }}</p>
+                    <p>{{ item.etat }}</p>
+                    <p>{{ item.id }}</p>
+                </p>
+
+                <p>
+                    <p>{{ item.dateBse|date('d/m/Y') }}</p>
+                    <p>{{ item.destination | upper }}</p>
+                    <p>{{ item.motif }}</p>
+                    <p>{{ item.destination }}</p>
+                    <p>{{ item.dureeMission }}</p>
+                </p>
+ 
+                <p>
+                    <p>{{ item.address }}</p>
+                    <p>{{ item.titre | upper }}</p>
+                    <p>{{ item.fonction }}</p>
+                    <p>{{ item.tauxJournalier }}</p>
+                    <p>{{ item.matricule }}</p>
+                </p>
+ 
+                <p>
+                    <p>{{ item.cin}}</p>
+                    <p>{{ item.sexe | upper }}</p>
+                    <p>{{ item.prenom }}</p>
+                    <p>{{ item.nom }}</p>
+                    <p>{{ item.email }}</p>
+                </p>
+
+            {% endfor %}
+    </body>

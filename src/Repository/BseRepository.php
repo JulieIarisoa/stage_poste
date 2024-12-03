@@ -236,6 +236,68 @@ class BseRepository extends ServiceEntityRepository
             }
     }
 
+
+
+
+    public function facture($id): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            ->select(
+                'm.email AS email', 
+                'm.nom AS nom', 
+                'm.prenom AS prenom', 
+                'm.sexe AS sexe', 
+                'm.cin AS cin', 
+                'm.matricule AS matricule',
+                'm.taux_journalier AS tauxJournalier', 
+                'm.fonction AS fonction', 
+                'm.titre AS titre', 
+                'm.address AS address', 
+                'o.date_bse AS dateBse', 
+                'o.destination AS destination', 
+                'o.motif AS motif', 
+                'o.duree_mission AS dureeMission', 
+                'o.lieu_depart_missionnaire AS lieuDepartMissionnaire', 
+                'o.heure_depart_missionnaire AS heureDepartMissionnaire', 
+                'o.date_depart_missionnaire AS dateDepartMissionnaire', 
+                'o.lieu_bse AS lieuBse', 
+                'o.etat AS etat',
+                'o.id',
+                'o.depense_bst AS depenseBst',
+                'o.prenom_chafeur AS prenom_chafeur',
+                'o.nom_chaufeur AS nom_chaufeur',
+                'o.tel_transporteur AS tel_transporteur',
+                'o.etat_payment_or AS etat_payment_or',
+                'o.etat_payment_bst AS etat_payment_bst',
+                'o.code_postale_payement_or AS code_postale_payement_or',
+                'o.code_postale_payment_bst AS code_postale_payment_bst',
+                'o.depense_bst AS depense_bst',
+                'o.date_payement_bst AS date_payement_bst',
+                'o.detenteur AS detenteur',
+                'o.etat_validation AS etat_validation',
+                'o.payeur_bst AS payeur_bst',
+                'o.payeur_or AS payeur_or',
+                'o.date_payement_or AS datePayement_or',
+                'o.id_transport AS idTransport',
+            )
+            ->where('o.id = :id')
+            ->setParameter('id', $id);
+        try {
+            // Récupération des résultats sous forme de tableau
+            return $qb->getQuery()->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            // Aucun résultat trouvé
+            return [];
+        } catch (\Exception $e) {
+            // Gestion des autres erreurs
+            // Ajouter un log si nécessaire
+            throw $e; // Lancer une exception pour faciliter le débogage
+        }
+    }
+
+
     /*public function departMissionnaire(): array
     {
         // Construction de la requête
