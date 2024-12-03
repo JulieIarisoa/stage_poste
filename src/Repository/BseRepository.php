@@ -208,6 +208,34 @@ class BseRepository extends ServiceEntityRepository
         }
     }
 
+
+
+    public function Taux($matricule): float
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->innerJoin('App\Entity\Bse', 'o', 'WITH', 'b.matricule = o.matricule')
+            ->innerJoin('App\Entity\User', 'm', 'WITH', 'b.matricule = m.matricule')
+            ->select(
+                'm.taux_journalier AS tauxJ', 
+            )
+            ->where('m.matricule = :id')
+            ->setParameter('id', $matricule);
+        
+            try {
+                // Exécuter la requête et récupérer le résultat
+                $result = $qb->getQuery()->getSingleScalarResult();
+                // Retourner le résultat ou 0 si aucun résultat
+                return $result ? (float)$result : 0.0;
+            } catch (\Doctrine\ORM\NoResultException $e) {
+                // Retourner 0.0 si aucune donnée n'est trouvée
+                return 0.0;
+            } catch (\Exception $e) {
+                // Ajouter un log ou une gestion d'erreur plus spécifique
+                // Log the exception if necessary
+                return 0.0;
+            }
+    }
+
     /*public function departMissionnaire(): array
     {
         // Construction de la requête

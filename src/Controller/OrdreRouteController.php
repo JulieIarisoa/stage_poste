@@ -69,13 +69,7 @@ class OrdreRouteController extends AbstractController
 
 
         $id = $request->get('id');
-        $utilisateur = $this->entityManager->createQueryBuilder();
-        $utilisateur->select('c.taux_journalier AS tauxJournalier')
-                     ->from(User::class, 'c')
-                     ->where('c.matricule =:matricule')
-                     ->setParameter('matricule', $id);
-        $Taux = $utilisateur->getQuery()->getSingleScalarResult();
-
+        $Taux = $this->BseRepository->Taux($id);
 
 
 

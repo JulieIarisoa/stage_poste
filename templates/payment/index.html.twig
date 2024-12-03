@@ -143,9 +143,9 @@
 
 
             <div class="w3-bar  w3-padding">
-            <button class="w3-bar-item w3-button w3-blue" onclick="openModal('TousPayement')" id="tous">TousPayement</button>
-            <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">payerBst</button>
-            <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">payerOr</button>
+            <button class="w3-bar-item w3-button w3-blue" onclick="openModal('TousPayement')" id="tous">Tous Payement</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('payerBst')" id="bst">Payer Bst</button>
+            <button class="w3-bar-item w3-button" onclick="openModal('payerOr')" id="ordreRoute">Payer Or</button>
             <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
                                     <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
                                     <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
@@ -202,7 +202,7 @@
                                                     <td>{{ payment_all_bst.dateBse | date('m-d-Y') }}</td>
                                                     <td>{{ payment_all_bst.matricule }}</td>
                                                     <td>{{ payment_all_bst.dureeMission }}</td>
-                                                    <td>{{ payment_all_bst.nomDetenteur }}</td>
+                                                    <td>{{ payment_all_bst.detenteur }}</td>
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
                                                     </td>
@@ -243,7 +243,7 @@
                                                     <td>{{ validation_accepte_non_paye_bst.matricule }}</td>
                                                     <td>{{ validation_accepte_non_paye_bst.dureeMission }}</td>
                                                     <td>{{ validation_accepte_non_paye_bst.destination }}</td>
-                                                    <td>{{ validation_accepte_non_paye_bst.nomDetenteur }}</td>
+                                                    <td>{{ validation_accepte_non_paye_bst.detenteur }}</td>
                                                     <td>{{ validation_accepte_non_paye_bst.dateBse | date('m-d-Y') }}</td>
                                                     <td>
                                                         <a href="{{ path('bse_show', {id: validation_accepte_non_paye_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
@@ -281,7 +281,7 @@
                                                     <td>{{ validation_accepte_non_paye_or.dateBse | date('m-d-Y') }}</td>
                                                     <td>{{ validation_accepte_non_paye_or.matricule }}</td>
                                                     <td>{{ validation_accepte_non_paye_or.dureeMission }}</td>
-                                                    <td>{{ validation_accepte_non_paye_or.nomDetenteur }}</td>
+                                                    <td>{{ validation_accepte_non_paye_or.detenteur }}</td>
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: validation_accepte_non_paye_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Voir</button></a>
                                                     </td>

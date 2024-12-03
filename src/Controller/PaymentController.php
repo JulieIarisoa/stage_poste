@@ -24,10 +24,10 @@ class PaymentController extends AbstractController
     public function index(): Response
     {
         //$payment = $this->entityManager->getRepository(Payment::class)->findAll();
-        $validation_accepte_non_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat' => 'Ordre de route avec BST']);
-        $validation_accepte_non_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte']);
-        $validation_accepte_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_or' => 'accepte','etat_payment_or' => 'paye']);
-        $validation_accepte_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation_bst' => 'accepte','etat_payment_bst' => 'paye']);
+        $validation_accepte_non_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat' => 'Ordre de route avec BST']);
+        $validation_accepte_non_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte']);
+        $validation_accepte_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_or' => 'paye']);
+        $validation_accepte_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_bst' => 'paye']);
         $payment_all_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_payment_bst' => 'paye']);
         $payment_all_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_payment_or' => 'paye']);
 
