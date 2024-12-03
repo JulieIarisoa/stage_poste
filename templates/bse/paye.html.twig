@@ -43,24 +43,20 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
-            .afficher_pas{
-                display: none;
-            }
-            label{
-                float: left;
-            }
 
 
     </style>
 </head>
 <body>
-    <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('ordreRoute_index')}}" class="fa fa-times w3-display-topright">
-            </a>
-            <h4  class="w3-opacity w3-padding-16"><i class="fa fa-user-plus w3-opacity"></i>    Valider ordre de route</h4>
-        </div>
-    <h1>Paye Bse</h1>
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+                <a href="{{path('payement_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-plus w3-opacity"></i> Payement Ordre de route
+                </h4>
+            </div>
     {{ form_errors(payementOr) }}
     {{ form_start(payementOr) }}
 
@@ -68,16 +64,16 @@
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-half">
-                {{ form_row(payementOr.payeur_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.payeur_or, { 'label': 'Numéro du payeur', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-half">
-                {{ form_row(payementOr.code_postale_payement_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.code_postale_payement_or, { 'label': 'Code postale bureau', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-half">
-                {{ form_row(payementOr.date_payement_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.date_payement_or, { 'label': 'Date de payement', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-half">
-                {{ form_row(payementOr.etat_payment_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.etat_payment_or, { 'label': 'Etat de payement', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 
