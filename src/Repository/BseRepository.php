@@ -280,10 +280,47 @@ class BseRepository extends ServiceEntityRepository
                 'o.payeur_bst AS payeur_bst',
                 'o.payeur_or AS payeur_or',
                 'o.date_payement_or AS datePayement_or',
-                'o.id_transport AS idTransport',
-            )
-            ->where('o.id = :id')
-            ->setParameter('id', $id);
+                'o.id_transport AS idTransport',)
+                ->groupBy(
+                    'm.email', 
+                    'm.nom', 
+                    'm.prenom', 
+                    'm.sexe', 
+                    'm.cin', 
+                    'm.matricule',
+                    'm.taux_journalier', 
+                    'm.fonction', 
+                    'm.titre', 
+                    'm.address', 
+                    'o.date_bse', 
+                    'o.destination', 
+                    'o.motif ', 
+                    'o.duree_mission', 
+                    'o.lieu_depart_missionnaire', 
+                    'o.heure_depart_missionnaire', 
+                    'o.date_depart_missionnaire', 
+                    'o.lieu_bse', 
+                    'o.etat',
+                    'o.id',
+                    'o.depense_bst',
+                    'o.prenom_chafeur',
+                    'o.nom_chaufeur',
+                    'o.tel_transporteur',
+                    'o.etat_payment_or',
+                    'o.etat_payment_bst',
+                    'o.code_postale_payement_or',
+                    'o.code_postale_payment_bst',
+                    'o.depense_bst',
+                    'o.date_payement_bst',
+                    'o.detenteur',
+                    'o.etat_validation',
+                    'o.payeur_bst',
+                    'o.payeur_or ',
+                    'o.date_payement_or',
+                    'o.id_transport',
+                )
+                ->where('o.id = :id')
+                ->setParameter('id', $id);
         try {
             // Récupération des résultats sous forme de tableau
             return $qb->getQuery()->getResult();

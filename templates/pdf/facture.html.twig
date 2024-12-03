@@ -5,62 +5,39 @@
                 <u>FACTURE</u>
             </h2>
         </center>
-
+{% set depenseOr = 0 %}
             {% for item in facture %}
-                <p>
-                    <p>{{ item.datePayement_or|date('d/m/Y') }}</p>
-                    <p>{{ item.payeur_or | upper }}</p>
-                    <p>{{ item.payeur_bst }}</p>
-                    <p>{{ item.etat_validation }}</p>
-                    <p>{{ item.detenteur }}</p>
-                    <p>{{ item.idTransport }}</p>
-                </p>
-                <p>
-                    <p>{{ item.date_payement_bst|date('d/m/Y') }}</p>
-                    <p>{{ item.depense_bst | upper }}</p>
-                    <p>{{ item.code_postale_payment_bst }}</p>
-                    <p>{{ item.code_postale_payement_or }}</p>
-                    <p>{{ item.etat_payment_bst }}</p>
-                </p>
+                <p>Pour : un {{ item.etat }}</p>
+                <p> De {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
+                <p>Fonction/indice :{{ item.fonction }}</p>
+                <p>Numéro CIN : {{ item.cin}}</p>
+                <p>Contact: {{ item.email }}</p>
+                <p>Adresse: {{ item.address }}</p>
+                <p>Taux Journalier: {{ item.tauxJournalier }} Ariary</p>
+                <p>N° matricule: {{ item.matricule }}</p>
+                
+                <p>BST payé le {{ item.date_payement_bst|date('d/m/Y') }}</p>
+                <p>Par : {{ item.payeur_bst }}</p>
 
-                <p>
-                    <p>{{ item.depenseBst }}</p>
-                    <p>{{ item.prenom_chafeur | upper }}</p>
-                    <p>{{ item.nom_chaufeur }}</p>
-                    <p>{{ item.tel_transporteur }}</p>
-                    <p>{{ item.etat_payment_or }}</p>
-                </p>
+                <p>Ordre de route créé le {{ item.dateBse|date('d/m/Y') }}</p>
+                <p>Payé le {{ item.datePayement_or|date('d/m/Y') }}</p>
+                <p>Par :{{ item.payeur_or | upper }}</p>
 
-                <p>
-                    <p>{{ item.lieuDepartMissionnaire}}</p>
-                    <p>{{ item.dateDepartMissionnaire |date('d/m/Y') }}</p>
-                    <p>{{ item.etat }}</p>
-                    <p>{{ item.id }}</p>
-                </p>
+                <p>Validé par le détenteur de compte qui a le numéro matricule {{ item.detenteur }}</p>
+                <p>De se rendre à : {{ item.destination | upper }} - {{ item.lieuDepartMissionnaire}}</p>
+                <p>Motif de voyage : {{ item.motif }}</p>
+                <p>IM transporteur: {{ item.idTransport }}</p>
+                <p>Chauffeur : {{ item.nom_chaufeur | upper }} {{ item.prenom_chafeur  }}</p>
+                <p>Téléphone: {{ item.tel_transporteur }}</p>
+                <p>Départ: {{ item.dateDepartMissionnaire |date('d/m/Y') }}</p>
+                <p>Durée :{{ item.dureeMission }} jours</p>
 
-                <p>
-                    <p>{{ item.dateBse|date('d/m/Y') }}</p>
-                    <p>{{ item.destination | upper }}</p>
-                    <p>{{ item.motif }}</p>
-                    <p>{{ item.destination }}</p>
-                    <p>{{ item.dureeMission }}</p>
-                </p>
- 
-                <p>
-                    <p>{{ item.address }}</p>
-                    <p>{{ item.titre | upper }}</p>
-                    <p>{{ item.fonction }}</p>
-                    <p>{{ item.tauxJournalier }}</p>
-                    <p>{{ item.matricule }}</p>
-                </p>
- 
-                <p>
-                    <p>{{ item.cin}}</p>
-                    <p>{{ item.sexe | upper }}</p>
-                    <p>{{ item.prenom }}</p>
-                    <p>{{ item.nom }}</p>
-                    <p>{{ item.email }}</p>
-                </p>
+                {% set taux = item.tauxJournalier %}
+                {% set duree = item.dureeMission %}
+                {% set depenseOr = taux*duree %}
 
+                <p><center><u>DECOMPTE</u></center></p>
+                <p>BST : {{ item.depense_bst }} Ariary</p>
+                <p>OR : {{ depenseOr }} Ariary</p>
             {% endfor %}
     </body>
