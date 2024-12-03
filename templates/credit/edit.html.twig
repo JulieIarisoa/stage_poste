@@ -71,7 +71,7 @@
         <p id="validateTele" style="font-size: 10px; color: blue;"></p>
         </div>
         <!-- Submit Button -->
-        <button type="submit" class="w3-btn w3-indigo w3-half" id="envoyer" disabled><i class="fas fa-save"></i>  Register</button>
+        <button type="submit" class="w3-btn w3-indigo w3-half" id="envoyer"><i class="fas fa-save"></i>  Register</button>
     <a href="{{ path('credit_index') }}">
         <input type="button" class="w3-btn w3-red w3-half" value="Retour"></a>
     {{ form_end(modifierCredit) }}
@@ -80,7 +80,7 @@
 
 <script>
     // Fonction controle le champ code postale
-    function controlMontant(input) {
+    /*function controlMontant(input) {
         const btn = document.getElementById('envoyer'); 
         const display = document.getElementById('validateCode');
         let value = input.value.trim(); // Supprime les espaces au début et à la fin
@@ -144,7 +144,7 @@
             display.style.color = 'green';
             btn.removeAttribute('disabled');
         }
-    }
+    }*/
 
 
 </script>
