@@ -173,8 +173,8 @@
                                                 <th></th>
                                             </tr>
 
-                                            <tr>
-                                                {% for payment_all_or in payment_all_or %}
+                                            {% for payment_all_or in payment_all_or %}
+                                                <tr>
                                                     <td>{{ payment_all_or.destination }}</td>
                                                     <td>{{ payment_all_or.motif }}</td>
                                                     <td>{{ payment_all_or.dateBse | date('m-d-Y') }}</td>
@@ -193,10 +193,10 @@
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: payment_all_or.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Facture</button></a>
                                                     </td>
-                                                {% endfor %}
-                                            </tr>
-                                            <tr>
-                                                {% for payment_all_bst in payment_all_bst %}
+                                                </tr>
+                                            {% endfor %}
+                                            {% for payment_all_bst in payment_all_bst %}
+                                                <tr>
                                                     <td>{{ payment_all_bst.destination }}</td>
                                                     <td>{{ payment_all_bst.motif }}</td>
                                                     <td>{{ payment_all_bst.dateBse | date('m-d-Y') }}</td>
@@ -215,8 +215,8 @@
                                                     <td>
                                                         <a href="{{ path('bse_paye', {id: payment_all_bst.id}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Facture</button></a>
                                                     </td>
-                                                {% endfor %}
-                                            </tr>
+                                                </tr>
+                                            {% endfor %}
                                         </table>
                                     </div>
                                 </div>
