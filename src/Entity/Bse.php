@@ -80,6 +80,12 @@ class Bse
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $etat_validation = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $payeur_bst = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $payeur_or = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -347,6 +353,30 @@ class Bse
     public function setEtatValidation(?string $etat_validation): static
     {
         $this->etat_validation = $etat_validation;
+
+        return $this;
+    }
+
+    public function getPayeurBst(): ?string
+    {
+        return $this->payeur_bst;
+    }
+
+    public function setPayeurBst(?string $payeur_bst): static
+    {
+        $this->payeur_bst = $payeur_bst;
+
+        return $this;
+    }
+
+    public function getPayeurOr(): ?string
+    {
+        return $this->payeur_or;
+    }
+
+    public function setPayeurOr(?string $payeur_or): static
+    {
+        $this->payeur_or = $payeur_or;
 
         return $this;
     }

@@ -15,8 +15,11 @@ class BstPayeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('payeur_bst', TextType::class)
         ->add('code_postale_payment_bst', TextType::class)
-        ->add('date_payement_bst', DateType::class)
+        ->add('date_payement_bst', DateType::class,[
+            'data' => new \DateTime(),
+        ])
         ->add('etat_payment_bst', TextType::class,[
             'data' => 'paye'
         ]);

@@ -24,7 +24,7 @@ class PaymentController extends AbstractController
     public function index(): Response
     {
         //$payment = $this->entityManager->getRepository(Payment::class)->findAll();
-        $validation_accepte_non_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat' => 'Ordre de route avec BST']);
+        $validation_accepte_non_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat' => 'Ordre de route avec BST','code_postale_payment_bst' => null]);
         $validation_accepte_non_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte']);
         $validation_accepte_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_or' => 'paye']);
         $validation_accepte_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_bst' => 'paye']);
@@ -69,10 +69,10 @@ class PaymentController extends AbstractController
         return $this->render('payment/show.html.twig', ['payment' => $payment]);
     }
 
-    #[Route("/payment/{id}/edit", name: "payment_edit")]
-    public function edit(Request $request, Payment $payment): Response
+    #[Route("/payment/{id}/bst", name: "payment_edit")]
+    public function edit(Request $request, Bse $bse): Response
     {
-        $form = $this->createForm(PaymentType::class, $payment);
+        $form = $this->createForm(BstPayeType::class, $bse);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,7 +83,7 @@ class PaymentController extends AbstractController
             return $this->redirectToRoute('payment_index');
         }
 
-        return $this->render('payment/edit.html.twig', [
+        return $this->render('payment/bst.html.twig', [
             'form' => $form->createView(),
             'payment' => $payment,
         ]);
@@ -99,4 +99,6 @@ class PaymentController extends AbstractController
 
         return $this->redirectToRoute('payment_index');
     }
+
+    
 }

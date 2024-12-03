@@ -141,7 +141,7 @@ class BstController extends AbstractController
         }
 
         return $this->render('bst/paye.html.twig', [
-            'form' => $form->createView(),
+            'payeBst' => $form->createView(),
         ]);
     }
 

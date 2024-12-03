@@ -83,7 +83,9 @@ payment_show:
 payment_edit:
     path: /payment/{id}/edit
     controller: App\Controller\PaymentController::edit
-
+payment_bst:
+    path: /payment/{id}/bst
+    controller: App\Controller\PaymentController::bst
 
 #route vers credit
 credit_new:
