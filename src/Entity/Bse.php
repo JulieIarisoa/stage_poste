@@ -86,6 +86,9 @@ class Bse
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $payeur_or = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_payement_or = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -377,6 +380,18 @@ class Bse
     public function setPayeurOr(?string $payeur_or): static
     {
         $this->payeur_or = $payeur_or;
+
+        return $this;
+    }
+
+    public function getDatePayementOr(): ?\DateTimeInterface
+    {
+        return $this->date_payement_or;
+    }
+
+    public function setDatePayementOr(?\DateTimeInterface $date_payement_or): static
+    {
+        $this->date_payement_or = $date_payement_or;
 
         return $this;
     }

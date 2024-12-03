@@ -15,19 +15,13 @@ class BsePayeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('destination', TextType::class)
-        ->add('motif', TextType::class)
-        ->add('date_bse', DateType::class)
-        ->add('lieu_bse', TextType::class)
-        ->add('duree_mission', NumberType::class)
+        ->add('payeur_or', TextType::class)
+        ->add('code_postale_payement_or', TextType::class)
+        ->add('date_payement_or', DateType::class,[
+            'data' => new \DateTime(),
+        ])
         ->add('etat_payment_or', TextType::class,[
             'data' => 'paye'
-        ])
-        ->add('etat_payment_bst', TextType::class,[
-            'data' => 'paye'
-        ])
-        ->add('etat', TextType::class,[
-            'data' => 'Ordre de route'
         ]);
     }
 

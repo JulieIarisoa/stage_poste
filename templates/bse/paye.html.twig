@@ -64,39 +64,20 @@
     {{ form_errors(payementOr) }}
     {{ form_start(payementOr) }}
 
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="w3-half">
-                {{ form_row(payementOr.destination, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-half">
-                {{ form_row(payementOr.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-half">
-                {{ form_row(payementOr.etat, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-        </div>
 
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-half">
-                {{ form_row(payementOr.lieu_bse, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.payeur_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-half">
-                {{ form_row(payementOr.date_bse, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.code_postale_payement_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-half">
-                {{ form_row(payementOr.duree_mission, { 'label': 'Destination','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(payementOr.date_payement_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
-        </div>
-
-        <!-- Fifth Row: Email and Password -->
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-half">
                 {{ form_row(payementOr.etat_payment_or, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
-            </div>
-            <div class="w3-half">
-                {{ form_row(payementOr.etat_payment_bst, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 
