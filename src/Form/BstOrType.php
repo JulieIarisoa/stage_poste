@@ -45,7 +45,12 @@ class BstOrType extends AbstractType
             ->add('etat', TextType::class,[
                 'data' => 'Ordre de route avec BST',
                 'attr'=> ['readonly'=> true],
-            ]);
+            ])
+            ->add('nom_chaufeur', TextType::class)
+            ->add('prenom_chafeur', TextType::class)
+            ->add('tel_transporteur', TextType::class)
+            ->add('Coperative', TextType::class)
+            ->add('id_transport', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

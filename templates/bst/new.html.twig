@@ -116,25 +116,62 @@
                         <p id="validateCreation" style="font-size: 10px;"></p>
                 </div>
                 <div class="w3-third">
-                    {{ form_row(or_bst.duree_mission, { 'label': 'duree_mission','attr': {'class': 'w3-input w3-border w3-round', 
+                    {{ form_row(or_bst.duree_mission, { 'label': 'Duree mission','attr': {'class': 'w3-input w3-border w3-round', 
                     'onkeyup': 'controllerDureeMission(this)'} }) }}
                 <p id="validateDureeMission" style="font-size: 10px;"></p>
                 </div>
             </div>
 
 
+
             <!-- Fifth Row: Email and Password -->
-            <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                <div class="w3-quarter">
+            <div class="w3-row-padding w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.nom_chaufeur, { 'label': 'Nom chauffeur', 'attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'controllerNomChauffeur(this)'} }) }}
+                <p id="validateNomChauffeur" style="font-size: 10px; color: blue;"></p>
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.prenom_chafeur, { 'label': 'Prenom chaffeur', 'attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'controllerPrenomChauffeur(this)'} }) }}
+                <p id="validatePrenomChauffeur" style="font-size: 10px; color: blue;"></p>
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.tel_transporteur, { 'label': 'Téléphone du transporteur','attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'valideTel(this)'} }) }}
+                <p id="validationTel" style="font-size: 10px;"></p>
+                </div>
+            </div>
+
+
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.Coperative, { 'label': 'Coperative', 'attr': {'class': 'w3-input w3-border w3-round', 
+                        'onkeyup': 'controllerCoperative(this)'} }) }}
+                    <p id="validateCoperative" style="font-size: 10px; color: blue;"></p>
+                </div>
+
+                <div class="w3-third">
+                    {{ form_row(or_bst.id_transport, { 'label': 'IM du trasnsport', 'attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerIm(this)'} }) }}
+                        <p id="validateIm" style="font-size: 10px;"></p>
+                </div>
+                <div class="w3-third">
                     {{ form_row(or_bst.etat, { 'label': 'Etat', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-quarter">
+            </div>
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-margin-bottom w3-opacity">
+                <div class="w3-third">
                     {{ form_row(or_bst.etat_validation, { 'label': 'Etat validation or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-quarter">
+                <div class="w3-third">
                     {{ form_row(or_bst.etat_payment_or, { 'label': 'Etat payment or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
-                <div class="w3-quarter">
+                <div class="w3-third">
                     {{ form_row(or_bst.etat_payment_bst, { 'label': 'Etat payment bst', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                 </div>
             </div>
@@ -238,6 +275,133 @@
                 input.value = value; // Met à jour la valeur dans le champ de saisie
                 display.textContent = 'Veuillez entrer uniquement des chiffres.';
                 display.style.color = 'red';
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ NomChauffeur
+        function controllerNomChauffeur(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateNomChauffeur');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le nom du chauffeur !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ PrenomChauffeur
+        function controllerPrenomChauffeur(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validatePrenomChauffeur');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le prenom du chauffeur !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction appelée à chaque onkeyup
+        function valideTel(input) {
+            const display = document.getElementById('validationTel');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+            // Vérifie si la valeur contient des caractères non numériques ou des espaces
+            if (isNaN(value) || /\s/.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des chiffres.';
+                display.style.color = 'red';
+            }
+            // Vérifie si la longueur du CIN dépasse 12 caractères
+            else if (value.length > 10) {
+                // Limiter à 12 caractères
+                value = value.slice(0, 10);
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Le numéro téléphone ne depasse pas de 10 chiffres.';
+                display.style.color = 'red';
+            }
+            // Vérifie si la longueur du tél dépasse 12 caractères
+            else if (value == '') {
+                    display.textContent = 'Veillez saisir le numéro téléphone.';
+                    display.style.color = 'red';
+            } else {
+                // Affiche la valeur saisie
+                display.textContent = ` Incompete`;
+                display.style.color = 'red';
+            }
+        }
+
+
+        // Fonction controle le champ Coperative
+        function controllerCoperative(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateCoperative');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le nom du coperative !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+
+        // Fonction controle le champ Coperative
+        function controllerIm(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateIm');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir l\'imatricule du transport !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
             }else {// remplace tous les chiffre
                 display.textContent = `Validate ok!`;
                 display.style.color = 'green';

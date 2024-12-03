@@ -89,6 +89,12 @@ class Bse
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_payement_or = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Coperative = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $id_transport = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -392,6 +398,30 @@ class Bse
     public function setDatePayementOr(?\DateTimeInterface $date_payement_or): static
     {
         $this->date_payement_or = $date_payement_or;
+
+        return $this;
+    }
+
+    public function getCoperative(): ?string
+    {
+        return $this->Coperative;
+    }
+
+    public function setCoperative(?string $Coperative): static
+    {
+        $this->Coperative = $Coperative;
+
+        return $this;
+    }
+
+    public function getIdTransport(): ?string
+    {
+        return $this->id_transport;
+    }
+
+    public function setIdTransport(?string $id_transport): static
+    {
+        $this->id_transport = $id_transport;
 
         return $this;
     }
