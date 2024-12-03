@@ -25,7 +25,7 @@ class PaymentController extends AbstractController
     {
         //$payment = $this->entityManager->getRepository(Payment::class)->findAll();
         $validation_accepte_non_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat' => 'Ordre de route avec BST','code_postale_payment_bst' => null]);
-        $validation_accepte_non_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte']);
+        $validation_accepte_non_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','code_postale_payement_or' => null]);
         $validation_accepte_paye_or = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_or' => 'paye']);
         $validation_accepte_paye_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment_bst' => 'paye']);
         $payment_all_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_payment_bst' => 'paye']);
