@@ -125,4 +125,27 @@ class UserController extends AbstractController
 
         return new JsonResponse($results);
     }
+
+
+
+
+    #[Route("/page/{id}/edit", name: "user_edit_missionaire")]
+    public function editMissionnaire(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'User updated successfully.');
+
+            return $this->redirectToRoute('app_home_page');
+        }
+
+        return $this->render('user/editmissionnaire.html.twig', [
+            'utilisateur' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
 }
