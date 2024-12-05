@@ -70,8 +70,7 @@
                 margin-right: 10px;
             }
             #active{
-                background: rgba(0, 0, 0, 0.10);
-                color: black;
+                color: yellow;
             }
             .detail{
                 float: right;
@@ -416,12 +415,14 @@
                     <h3 class="w3-wide w3-text-amber"><b>PAOSITRA MALAGASY</b></h3>
                 </div>
                 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-                    <a href="#" class="w3-bar-item w3-button">Profile</a>
-                    <a href="#" class="w3-bar-item w3-button">Mission</a>
+                <h6 class="w3-text-grey w3-opacity">POUR TOI SEULEMENT</h6>
+                    <a href="#" class="w3-bar-item w3-text-amber w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
+                    <a href="{{path('bse_index')}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Mission</a>
                 </div>
-                <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a> 
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a> 
-                <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
+                <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
+                <a href="#footer" class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Contact</a> 
+                <a href="javascript:void(0)" class="w3-bar-item w3-text-grey  w3-hover-text-amber w3-padding" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-user w3-opacity"></i>  Evaluer</a> 
+                <a href="#footer"  class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Paramètres</a>
             </nav>
 
             <!-- Top menu on small screens -->
