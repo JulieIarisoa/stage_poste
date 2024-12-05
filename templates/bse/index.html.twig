@@ -479,16 +479,18 @@
                     </div> 
 
                     <div class="w3-row w3-padding-16" >
-                        <div class="w3-container w3-half w3-center">
-
-                                    <canvas id="myChartBse" width="400" height="180">BSE</canvas>
+                        <div class="w3-container w3-twothird w3-center">
+                            <canvas id="myChartBse" width="400" height="180">BSE</canvas>
                         </div>
 
-                        <div class="w3-container w3-half">   
-                            <p>Bonjour! Je suis {{app.user.Titre}} {{app.user.nom | upper}} {{app.user.prenom}}, Personnel de la Direction Inter-régional de la Paositra Malagasy Fianarantsoa, assurant la fonction {{app.user.fonction}} de la société. Paositra Malagasy exploitant public du service postale à Madagascar, est un acteur historique clé dans le domaine des services postaux.</p>
-                            <p>Paositra Malagasy, Fianarantsoa</p>
-                                <a class="w3-button w3-amber w3-hover-white w3-hover-text-amber w3-text-black w3-border w3-border-amber w3-round-large" href="{{path('user_edit_missionaire', {id: app.user.id})}}"><i class="fa fa-pen w3-opacity"></i> Modifier le profil</a>
-                                <a class="w3-button w3-amber w3-hover-white w3-hover-text-amber w3-text-black w3-border w3-border-amber w3-round-large" href="{{ path('app_logout') }}">Deconnecter <i class="fa fa-arrow-right w3-opacity"></i></a>
+                        <div class="w3-container w3-third">
+                            <h6 class="w3-center">LEGENDE</h6>
+                            <p class="w3-center">Nombre des missions pendant 6 mois</br> Gouper par 1 mois </p>
+                            <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
+                            <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
+                            <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
+                            <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 25% du total dans 6 mois</span><br>
+                            <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
                         </div>
                     </div>
                 </div>
@@ -1314,64 +1316,60 @@
 
 
             /// Fonction pour générer une couleur en fonction de la valeur
-function getColorForValue(value, total) {
-    const quart = total / 4;
+            function getColorForValue(value, total) {
+                const quart = total / 4;
 
-    if (value <= quart) {
-        return 'red'; // Rouge pour les valeurs très faibles
-    } else if (value > quart && value <= 2 * quart) {
-        return 'green'; // Vert pour les valeurs faibles à moyennes
-    } else if (value > 2 * quart && value <= 3 * quart) {
-        return 'blue'; // Bleu pour les valeurs moyennes
-    } else if (value > 3 * quart && value <= total) {
-        return 'orange'; // Orange pour les valeurs élevées
-    } else {
-        return 'yellow'; // Couleur par défaut
-    }
-}
-
-const dataBsetotal6mois = {{ dataBse6Mois|raw }}; // Vérifiez bien que cette variable est correctement générée côté serveur.
-
-// Fonction générique pour créer un graphique avec des couleurs dynamiques
-function createChart(canvasId, chartData, chartLabel) {
-    const ctx = document.getElementById(canvasId).getContext('2d');
-
-    // Générer les couleurs en fonction des valeurs
-    const total = chartData.values.reduce((sum, val) => sum + val, 0); // Somme totale pour les pourcentages
-    const barColors = chartData.values.map(value => getColorForValue(value, total));
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: chartData.labels, // Labels des barres (ex. mois)
-            datasets: [{
-                label: chartLabel,
-                data: chartData.values,
-                backgroundColor: barColors,
-                borderColor: barColors,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true // L'axe Y commence à 0
+                if (value <= quart) {
+                    return 'red'; // Rouge pour les valeurs très faibles
+                } else if (value > quart && value <= 2 * quart) {
+                    return 'orange'; // Vert pour les valeurs faibles à moyennes
+                } else if (value > 2 * quart && value <= 3 * quart) {
+                    return 'green'; // Bleu pour les valeurs moyennes
+                } else if (value > 3 * quart && value <= total) {
+                    return 'blue'; // Orange pour les valeurs élevées
+                } else {
+                    return 'yellow'; // Couleur par défaut
                 }
             }
-        }
-    });
-}
 
-// Données des graphiques passées depuis Symfony
-const dataBse = {{ dataBse|raw }};
+            const dataBsetotal6mois = {{ dataBse6Mois|raw }}; // Vérifiez bien que cette variable est correctement générée côté serveur.
 
-// Créer les graphiques
-createChart('myChartBse', dataBse, 'BSE - Valeurs');
+            // Fonction générique pour créer un graphique avec des couleurs dynamiques en bar
+            function createChart(canvasId, chartData, chartLabel) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
 
-// Décommentez pour créer d'autres graphiques
-// createChart('myChartBst', dataBst, 'BST - Valeurs');
-// createChart('myChartOrdreRoute', dataOrdreRoute, 'Ordre Route - Valeurs');
-// createChart('myChartPayment', dataPayment, 'Payment - Valeurs');
+                // Générer les couleurs en fonction des valeurs
+                const total = chartData.values.reduce((sum, val) => sum + val, 0); // Somme totale pour les pourcentages
+                const barColors = chartData.values.map(value => getColorForValue(value, total));
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels, // Labels des barres (ex. mois)
+                        datasets: [{
+                            label: chartLabel,
+                            data: chartData.values,
+                            backgroundColor: barColors,
+                            borderColor: barColors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true // L'axe Y commence à 0
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Données des graphiques passées depuis Symfony
+            const dataBse = {{ dataBse|raw }};
+
+            // Créer les graphiques
+            createChart('myChartBse', dataBse, 'BSE - Valeurs');
+
 
 
 
