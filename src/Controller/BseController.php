@@ -101,7 +101,22 @@ class BseController extends AbstractController
 
         // Préparation des données pour le graphique
         $dataBse = $this->prepareChartData($dataBse, 'dateBse', 'total');
-/***************************************************************************** */
+/***************************************************************************** *//////////////
+
+
+
+        $date_6moi2 = new \DateTime();
+        $date_6moi1 = new \DateTime();
+        $date_6moi1 = $date_6moi1->modify('-6 month');
+        $dataBse6Mois = $this->entityManager->createQueryBuilder();
+        $dataBse6Mois->select(' COUNT(d.id) AS total')
+            ->from(Bse::class, 'd')
+            ->where('d.date_bse BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $date_6moi1)
+            ->setParameter('endDate', $date_6moi2);
+        $queryResult = $dataBse6Mois->getQuery()->getResult(); 
+
+
 
         return $this->render('bse/index.html.twig', [
             'bse' => $bse,
@@ -111,6 +126,7 @@ class BseController extends AbstractController
            // 'bse_payment_attente'=>$bse_payment_attente,
            // 'bse_payment_paye'=>$bse_payment_paye,
                         'dataBse' => json_encode($dataBse),
+                        'dataBse6Mois' => json_encode($dataBse6Mois),
         ]);
     }
 
