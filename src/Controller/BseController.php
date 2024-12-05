@@ -25,7 +25,7 @@ class BseController extends AbstractController
     }
 
     #[Route('/bse', name: 'bse_index')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
           $bse = $this->entityManager->getRepository(Bse::class)->findAll();
           
@@ -54,6 +54,7 @@ class BseController extends AbstractController
         $totals = [];
         $dates = [];
 
+        $matricule = $request->get('matricule');
         // Générer les périodes et exécuter les requêtes dans une boucle
         for ($i = 0; $i < 6; $i++) {
             $endDate = (clone $startDate)->modify('+1 month');
@@ -62,8 +63,10 @@ class BseController extends AbstractController
             $totalResult = $queryBuilder->select('COUNT(d.id) AS total')
                 ->from(Bse::class, 'd')
                 ->where('d.date_bse BETWEEN :startDate AND :endDate')
+                ->andWhere('d.matricule =:matricule')
                 ->setParameter('startDate', $startDate)
                 ->setParameter('endDate', $endDate)
+                ->setParameter('matricule', $matricule)
                 ->getQuery()
                 ->getSingleScalarResult();
 
@@ -79,8 +82,10 @@ class BseController extends AbstractController
             ->select('COUNT(d.id) AS total')
             ->from(Bse::class, 'd')
             ->where('d.date_bse BETWEEN :startDate AND :endDate')
+            ->andWhere('d.matricule =:matricule')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $date_now)
+            ->setParameter('matricule', $matricule)
             ->getQuery()
             ->getSingleScalarResult() ?: 0;
         $dates[] = $date_now->format('Y-m-d');
