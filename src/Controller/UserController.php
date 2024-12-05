@@ -129,7 +129,7 @@ class UserController extends AbstractController
 
 
 
-    #[Route("/page/{id}/edit", name: "user_edit_missionaire")]
+    #[Route("/user/{id}/editmissionnaire", name: "user_edit_missionaire")]
     public function editMissionnaire(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
