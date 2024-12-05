@@ -31,6 +31,7 @@ class HomePageController extends AbstractController
     #[Route('/page', name: 'app_home_page')]
     public function index(): Response
     {
+        
         ///Calcule depense dans 1 mos //
         $date_1moi_2 = new \DateTime(); 
         $date_1moi_1 = new \DateTime(); 
