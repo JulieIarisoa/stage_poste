@@ -45,6 +45,59 @@ class BseController extends AbstractController
 
         $user = $this->entityManager->getRepository(User::class)->findAll();
 
+
+
+
+        ////////////////////////////////////////////////* statistique*///////////////
+        $date_now = new \DateTime();
+        $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
+        $totals = [];
+        $dates = [];
+
+        // Générer les périodes et exécuter les requêtes dans une boucle
+        for ($i = 0; $i < 6; $i++) {
+            $endDate = (clone $startDate)->modify('+1 month');
+
+            $queryBuilder = $this->entityManager->createQueryBuilder();
+            $totalResult = $queryBuilder->select('COUNT(d.id) AS total')
+                ->from(Bse::class, 'd')
+                ->where('d.date_bse BETWEEN :startDate AND :endDate')
+                ->setParameter('startDate', $startDate)
+                ->setParameter('endDate', $endDate)
+                ->getQuery()
+                ->getSingleScalarResult();
+
+            $totals[] = $totalResult ?: 0; // Ajouter le total ou 0 par défaut
+            $dates[] = $startDate->format('Y-m-d'); // Formater la date pour l'affichage
+
+            // Préparer la période suivante
+            $startDate = $endDate;
+        }
+
+        // Ajouter le mois actuel
+        $totals[] = $this->entityManager->createQueryBuilder()
+            ->select('COUNT(d.id) AS total')
+            ->from(Bse::class, 'd')
+            ->where('d.date_bse BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $date_now)
+            ->getQuery()
+            ->getSingleScalarResult() ?: 0;
+        $dates[] = $date_now->format('Y-m-d');
+
+        // Création du tableau combiné
+        $dataBse = [];
+        foreach ($dates as $index => $date) {
+            $dataBse[] = [
+                'dateBse' => $date,
+                'total' => $totals[$index],
+            ];
+        }
+
+        // Préparation des données pour le graphique
+        $dataBse = $this->prepareChartData($dataBse, 'dateBse', 'total');
+/***************************************************************************** */
+
         return $this->render('bse/index.html.twig', [
             'bse' => $bse,
             'user' => $user,
@@ -52,6 +105,7 @@ class BseController extends AbstractController
             'validation_refuse'=>$validation_refuse,
            // 'bse_payment_attente'=>$bse_payment_attente,
            // 'bse_payment_paye'=>$bse_payment_paye,
+                        'dataBse' => json_encode($dataBse),
         ]);
     }
 
@@ -228,18 +282,31 @@ class BseController extends AbstractController
 
 
 
-    /*#[Route('/bse/liste', name: 'bse_liste')]
-    public function listBSE(BSERepository $bseRepository): Response
+    /**
+     * Prépare les données pour un graphique à partir d'une entité donnée.
+     *
+     * @param array $data
+     * @param string $labelKey
+     * @param string $valueKey
+     * @return array
+     */
+    public function prepareChartData(array $data, string $labelKey, string $valueKey)
     {
-        // Récupérer les BSE avec OR ou BST
-        $bseWithOrAndBst = $bseRepository->findBseWithOrAndBst();
+        $labels = [];
+        $values = [];
 
-        // Récupérer les BSE sans OR ni BST
-        $bseWithoutOrAndBst = $bseRepository->findBseWithoutOrAndBst();
+        foreach ($data as $item) {
+            // Supposons que item est un objet ou un tableau d'objets. Par exemple, un objet DateTime pour 'dateBse'
+          
+            // Sinon, utilisez la valeur brute
+            $labels[] = $item[$labelKey]; // P
+            // Les valeurs sont supposées être déjà des nombres ou des chaînes, on les ajoute directement
+            $values[] = $item[$valueKey];
+        }
 
-        return $this->render('bse/liste.html.twig', [
-            'bseWithOrAndBst' => $bseWithOrAndBst,
-            'bseWithoutOrAndBst' => $bseWithoutOrAndBst,
-        ]);
-    }*/
+        return [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+    }
 }

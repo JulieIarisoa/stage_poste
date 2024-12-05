@@ -374,39 +374,6 @@
                 {# bare de navigation pour le missionnaire #}
 
         <body class="w3-content" style="max-width:1300px">
-                {#<div class="w3-col " id="nav">
-                    <img src="{{asset('images/logo.png')}}" style="width: 120px;" class="w3-display-topmiddle w3-margin"/>
-                    <a href="{{path('app_home_page')}}">
-                        <button class="w3-button w3-block w3-left-align" id="active">
-                            <i class="fa fa-home w3-opacity"></i> 
-                            Acceuil
-                        </button>
-                    </a>
-                    <a href="">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
-                            Profile
-                        </button>
-                    </a>
-                    <a href="">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-briefcase"></i>
-                            Mission
-                        </button>
-                    </a>
-                    <a href="">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-car"></i>
-                            Depart
-                        </button>
-                    </a>
-                    <a href="">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-dollar-sign"></i> 
-                            Payement
-                        </button>
-                    </a>
-                </div>#}
 
             <!-- Sidebar/menu -->
             <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -417,7 +384,7 @@
                 <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
                 <h6 class="w3-text-grey w3-opacity">POUR TOI SEULEMENT</h6>
                     <a href="#" class="w3-bar-item w3-text-amber w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
-                    <a href="{{path('bse_index')}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Mission</a>
+                    <a href="{{path('bse_index', {matricule: app.user.matricule})}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Mission</a>
                 </div>
                 <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
                 <a href="#footer" class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Contact</a> 
@@ -447,7 +414,7 @@
                             {% if app.user.sexe == 'Femme' %}
                                 <img src="{{asset('images/fprofile.png')}}" style="width: 200px;"/>
                             {% elseif app.user.sexe == 'Homme' %}
-                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;"/>
+                                <img src="{{asset('images/hprofile.png')}}" style="width: 200px;"/>
                             {% endif %}
                                 <h5><b>{{app.user.nom | upper}} {{app.user.prenom}} </b></h5>
                                 <h6 class="w3-opacity w3-margin">E-mail: {{app.user.email}}  </h6>
