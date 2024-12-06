@@ -215,6 +215,25 @@ class PdfController extends AbstractController
     }
 
 
+    #[Route('/output-pdf-bordereau', name: 'pdf_bordereau')]
+    public function outputBordereau(Request $request, Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
+    {
+
+        $id = $request->get('id');
+        $bordereau = $this->BseRepository->facture($id);
+
+        $htmlContent = $twig->render('pdf/bordereau.html.twig',[
+            'bordereau' => $bordereau,
+        ]);
+
+        $content = $pdfGeneratorService->output($htmlContent);
+
+        return new Response($content, 200, [
+            'content-type' => 'application/pdf'
+        ]);
+    }
+
+
     #[Route('/output-pdf-allrapport1mois', name: 'pdf_allRapportmois')]
     public function outputAllRapport1Mois(Environment $twig, PdfGeneratorService $pdfGeneratorService): Response
     {

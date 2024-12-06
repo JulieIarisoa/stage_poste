@@ -1,0 +1,52 @@
+
+    <body>
+        <center>
+            <h2>
+                <u>bordereau</u>
+            </h2>
+        </center>
+{% set depenseOr = 0 %}
+            {% for item in bordereau %}
+                <p>Pour : un {{ item.etat }}</p>
+                <p> De {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
+                <p>Fonction/indice :{{ item.fonction }}</p>
+                <p>Numéro CIN : {{ item.cin}}</p>
+                <p>Contact: {{ item.email }}</p>
+                <p>Adresse: {{ item.address }}</p>
+                <p>Taux Journalier: {{ item.tauxJournalier }} Ariary</p>
+                <p>N° matricule: {{ item.matricule }}</p>
+                
+                <p>Ordre de route créé le {{ item.dateBse|date('d/m/Y') }}</p>
+                <p>Payé le {{ item.datePayement_or|date('d/m/Y') }}</p>
+                <p>Par :{{ item.payeur_or | upper }}</p>
+
+                <p>Validé par le détenteur de compte qui a le numéro matricule {{ item.detenteur }}</p>
+                <p>De se rendre à : {{ item.destination | upper }} - {{ item.lieuDepartMissionnaire}}</p>
+
+
+{% if item.etat == 'Ordre de route avec BST'%}
+                <p>BST payé le {{ item.date_payement_bst|date('d/m/Y') }}</p>
+                <p>Par : {{ item.payeur_bst }}</p>
+
+                <p>Motif de voyage : {{ item.motif }}</p>
+                <p>IM transporteur: {{ item.idTransport }}</p>
+                <p>Chauffeur : {{ item.nom_chaufeur | upper }} {{ item.prenom_chafeur  }}</p>
+                <p>Téléphone: {{ item.tel_transporteur }}</p>
+{% else %}
+                <p>Motif de voyage : {{ item.motif }}</p>
+{% endif %}
+                <p>Départ: {{ item.dateDepartMissionnaire |date('d/m/Y') }}</p>
+                <p>Durée :{{ item.dureeMission }} jours</p>
+                {% set taux = item.tauxJournalier %}
+                {% set duree = item.dureeMission %}
+                {% set depenseOr = taux*duree %}
+
+                <p><center><u>DECOMPTE</u></center></p>
+{% if item.etat == 'Ordre de route avec BST'%}
+                <p>BST : {{ item.depense_bst }} Ariary</p>
+                <p>OR : {{ depenseOr }} Ariary</p>
+{% else %}
+                <p>OR : {{ depenseOr }} Ariary</p>
+{% endif %}
+            {% endfor %}
+    </body>
