@@ -252,6 +252,26 @@ class BseController extends AbstractController
         ]);
     }
 
+    #[Route("/bse/{id}/editMissionnaireAvecBst", name: "bse_edit_missionnaire_Avec_Bst")]
+    public function editMissionnaireAvecBst(Request $request, Bse $bse): Response
+    {
+        $form = $this->createForm(BseTypeModifier::class, $bse);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bse updated successfully.');
+
+            return $this->redirectToRoute('succes_index');
+        }
+
+        return $this->render('ordreRoute/editMissionnaireAvecBst.html.twig', [
+            'edit_refuse' => $form->createView(),
+            'bse' => $bse,
+        ]);
+    }
+
     #[Route("/bse/{id}/delete", name: "bse_delete")]
     public function delete(Bse $bse): Response
     {

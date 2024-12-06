@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceuil</title>
+    <link rel="stylesheet" href="{{ asset('assets/w3.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script><!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+            *{
+                box-sizing: border-box;
+            }
+            body{
+                align-items: center;
+                display: flex;
+                flex-direction:column;
+                background: #f6f5f7;
+                font-family:'monserrat', sans-serif;
+                min-height: 100%;
+                margin: 5%;
+            }
+            a{
+                text-decoration: none;
+                color: grey;
+            }
+            body, h1, h2, h3, h4, h5, h6 {
+                font-family: "Times New Roman", Times, serif;
+            }
+            .w3-display-container {
+                position: relative;  /* Nécessaire pour que le bouton soit correctement positionné */
+            }
+
+            .w3-display-topright {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1000;  /* S'assurer que le bouton est au-dessus des autres éléments */
+            }
+
+            .fa-times {
+                pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
+            }
+            .afficher_pas{
+                display: none;
+            }
+
+
+    </style>
+</head>
+<body>
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+        <a href="{{ path('bse_index', {matricule: app.user.matricule}) }}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-pen w3-opacity"></i> Modification d'un bordereau sans BST
+                </h4>
+            </div>
+    {{ form_errors(edit_refuse) }}
+    {{ form_start(edit_refuse) }}
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="afficher_pas">
+                {{ form_row(edit_refuse.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(edit_refuse.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(edit_refuse.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+        </div>
+
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-third">
+                {{ form_row(edit_refuse.date_bse, { 'label': 'Date de modification', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-third">
+                {{ form_row(edit_refuse.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-third">
+                {{ form_row(edit_refuse.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+        </div>
+
+
+        <!-- Fifth Row: Email and Password -->
+        <div class="afficher_pas">
+            <div class="w3-third">
+                {{ form_row(edit_refuse.etat_validation, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-third">
+                {{ form_row(edit_refuse.etat_payment_or, { 'label': 'Etat de payement','attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+            <div class="w3-third">
+                {{ form_row(edit_refuse.etat, { 'label': 'Type','attr': {'class': 'w3-input w3-border'} }) }}
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"  class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin" ><i class="fas fa-save"></i>  Modifier</button>
+        <input type="reset"  class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin" value="Annuler">
+    {{ form_end(edit_refuse) }}
+
+</body>

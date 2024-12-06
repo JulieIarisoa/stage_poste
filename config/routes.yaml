@@ -52,6 +52,9 @@ bse_show_missionnaire:
 bse_edit_missionnaire:
     path: /bse/{id}/editMissionnaire
     controller: App\Controller\BseController::editMissionnaire
+bse_edit_missionnaire_Avec_Bst:
+    path: /bse/{id}/editMissionnaireAvecBst
+    controller: App\Controller\BseController::editMissionnaireAvecBst
 succes_index:
     path: /succes
     controller: App\Controller\BseController::succes
