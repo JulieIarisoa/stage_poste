@@ -49,6 +49,12 @@ bse_paye:
 bse_show_missionnaire:
     path: /bse_missionnaire/{id}
     controller: App\Controller\BseController::showMissionnaire
+bse_edit_missionnaire:
+    path: /bse/{id}/editMissionnaire
+    controller: App\Controller\BseController::editMissionnaire
+succes_index:
+    path: /succes
+    controller: App\Controller\BseController::succes
 
 #route bst:bon spécial de transport
 bst_new:
