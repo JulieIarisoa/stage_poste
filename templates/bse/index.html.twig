@@ -452,7 +452,8 @@
                         <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
                             <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
                             <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">En cours</a>
-                            <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander BSE</a>
+                            <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR</a>
+                            <a href="{{ path('bst_new', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR/BST</a>
                         </div>
                 </div>
                 <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
@@ -496,7 +497,7 @@
                 </div>
 
 
-                <!-- Subscribe section --><hr>
+                <!-- Liste des missions --><hr>
                 <div class="w3-container">
                     {% for item in Bse_missionnaire %}
                         <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">

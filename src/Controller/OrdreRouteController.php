@@ -71,12 +71,8 @@ class OrdreRouteController extends AbstractController
         $id = $request->get('id');
         $Taux = $this->BseRepository->Taux($id);
 
-
-
-
         $bse = new Bse();
         $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
-
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,6 +85,44 @@ class OrdreRouteController extends AbstractController
         }
 
         return $this->render('ordreRoute/new.html.twig', [
+            'nouveau_or' => $form->createView(),
+            'depense_or' => $depense_or,
+            'depense_bst' => $depense_bst,
+            'Taux' => $Taux,
+            'sommeCredit' => $sommeCredit,
+        ]);
+    }
+
+
+    #[Route("/bse/new_missionnaire", name: "ordreRoute_new_missionnaire")]
+    public function new_missionnaire(Request $request): Response
+    {
+
+        $depense_or = $this->BseRepository->totalDepense();
+        $depense_bst = $this->BseRepository->totalDepenseBst();
+        $credit = $this->entityManager->createQueryBuilder();
+        $credit->select('SUM(d.credit_initial)')
+                     ->from(Credit::class, 'd');
+        $sommeCredit = $credit->getQuery()->getSingleScalarResult();
+
+
+        $id = $request->get('id');
+        $Taux = $this->BseRepository->Taux($id);
+
+        $bse = new Bse();
+        $form = $this->createForm(BseType::class, $bse, ['id' => $id]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($bse);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bse created successfully.');
+
+            return $this->redirectToRoute('succes_index');
+        }
+
+        return $this->render('ordreRoute/new_missionnaire.html.twig', [
             'nouveau_or' => $form->createView(),
             'depense_or' => $depense_or,
             'depense_bst' => $depense_bst,

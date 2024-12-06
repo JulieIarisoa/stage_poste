@@ -78,6 +78,9 @@ bst_paye:
 ordreRoute_new:
     path: /ordreRoute/new
     controller: App\Controller\OrdreRouteController::new
+ordreRoute_new_missionnaire:
+    path: /ordreRoute/new_missionnaire
+    controller: App\Controller\OrdreRouteController::new_missionnaire
 ordreRoute_show:
     path: /ordreRoute/{id}
     controller: App\Controller\OrdreRouteController::show

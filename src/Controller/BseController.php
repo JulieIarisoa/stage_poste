@@ -147,46 +147,7 @@ class BseController extends AbstractController
 
         $form->handleRequest($request);
 
-        
-        
-        /*
-                $taux_journalier = $bse->getTauxJournalier();  // suppose que vous avez ces méthodes dans votre entité
-                $duree_mission = $bse->getDureeMission();
-                $credit_restant = $bse->getCreditRestant();
-
-                // Calculer la somme des dépenses
-                $somme_depense = $taux_journalier * $duree_mission;
-
-                // Vérifier si le solde est suffisant
-                if ($somme_depense > $credit_restant) {
-                    // Si le solde est insuffisant, ajouter un message d'erreur et ne pas persister l'entité
-                    $this->addFlash('error', 'Solde insuffisant pour couvrir la dépense.');
-
-                    // Renvoyer la vue avec le formulaire (vous pouvez ajouter une validation ou autre action)
-                    return $this->render('bse/new.html.twig', [
-                        'form' => $form->createView(),
-                    ]);
-                }
-
-                // Si le formulaire est soumis et valide
-                if ($form->isSubmitted() && $form->isValid()) {
-                    // Persister l'entité
-                    $this->entityManager->persist($bse);
-                    $this->entityManager->flush();
-
-                    // Ajouter un message de succès
-                    $this->addFlash('success', 'Bse created successfully.');
-
-                    // Rediriger vers la route bse_index (ou une autre route appropriée)
-                    return $this->redirectToRoute('bse_index');
-                }
-
-                // Affichage du formulaire dans la vue
-                return $this->render('bse/new.html.twig', [
-                    'form' => $form->createView(),
-                ]);
-            }'
-        }*/
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($bse);
             $this->entityManager->flush();
