@@ -489,7 +489,7 @@
                             <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
                             <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
                             <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
-                            <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 25% du total dans 6 mois</span><br>
+                            <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 100% du total dans 6 mois</span><br>
                             <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
                         </div>
                     </div>
@@ -499,23 +499,216 @@
                 <!-- Subscribe section --><hr>
                 <div class="w3-container">
                     {% for item in Bse_missionnaire %}
-                        <div class="w3-margin">
-                            {{item.dateBse | date('d-m-Y')}}
-                            {{item.destination }}
-                            {{item.motif }}
-                            {{item.etat }}
-                            {{item.dureeMission }}
+                        <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
+                            <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
+                            <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
+                            {{item.dureeMission}} jours.</p>
+                            <p class="w3-">Demande: {{item.etat }}</p>
 
-                            {% if item.etatValidation == 'refuse' %}
-                            <span class="w3-red">{{item.etatValidation }}</span>
+                        {###########################################}
 
-                            {% elseif item.etatValidation == 'accepte' %}
-                            <span class="w3-green">{{item.etatValidation }}</span>
+                            {# sans BST #}
+                            {% if item.etat == 'Ordre de route sans BST' %}
+                                {# sans BST et en attette #}
+                                {% if item.etatValidation == 'en_attente'%}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-yellow">En attette</span>
+                                            <span class="w3-grey">Départ</span>
+                                            <span class="w3-grey">OR non payé</span>
+                                        </div>
 
-                            {% elseif item.etatValidation == 'en_attente' %}
-                            <span class="w3-yellow">{{item.etatValidation }}</span>
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <p>Hello W3.CSS Layout.</p>
+                                        </div>
 
+                                    </div> 
+
+
+                                {# sans BST et refusé #}
+                                {% elseif item.etatValidation == 'refuse'%}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-red">Refusé</span>
+                                            <span class="w3-grey">Départ</span>
+                                            <span class="w3-grey">OR non payé</span>
+                                        </div>
+
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <p>Hello W3.CSS Layout.</p>
+                                        </div>
+
+                                    </div> 
+
+                                
+                                {# sans BST et validé #}
+                                {% elseif item.etatValidation == 'accepte'%}
+                                    {# sans BST et validé et depart non #}
+                                    {% if item.lieuDepartMissionnaire == null %}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-green">Accepté</span>
+                                                <span class="w3-red">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <p>Hello W3.CSS Layout.</p>
+                                            </div>
+
+                                        </div> 
+
+
+                                    {# sans BST et validé et depart ok #}
+                                    {% else %}
+                                        {# sans BST et validé et depart ok et or non payé #}
+                                        {% if item.etatPaymentOr == null %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-green">Départ ok</span>
+                                                    <span class="w3-red">OR non payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <p>Hello W3.CSS Layout.</p>
+                                                </div>
+
+                                            </div> 
+
+                                        {# sans BST et validé et depart ok et or payé #}
+                                        {% else %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-green">Départ ok</span>
+                                                    <span class="w3-green">OR payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <p>Hello W3.CSS Layout.</p>
+                                                </div>
+
+                                            </div> 
+
+                                        {% endif %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {# avec BST #}
+                            {% elseif item.etat == 'Ordre de route avec BST' %}
+                                {# avec BST et en attette #}
+                                {% if item.etatValidation == 'en_attente'%}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-yellow">En attentte</span>
+                                            <span class="w3-grey">Bst non payé</span>
+                                            <span class="w3-grey">Départ non</span>
+                                            <span class="w3-grey">OR non payé</span>
+                                        </div>
+
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <p>Hello W3.CSS Layout.</p>
+                                        </div>
+
+                                    </div> 
+
+                                {# avec BST et refusé #}
+                                {% elseif item.etatValidation == 'refuse'%}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-red">Refusé</span>
+                                            <span class="w3-grey">Bst non payé</span>
+                                            <span class="w3-grey">Départ non</span>
+                                            <span class="w3-grey">OR non payé</span>
+                                        </div>
+
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <p>Hello W3.CSS Layout.</p>
+                                        </div>
+
+                                    </div> 
+
+                                {# avec BST et validé #}
+                                {% elseif item.etatValidation == 'accepte'%}
+
+                                    {# avec BST et validé et bst non payé #}
+                                    {% if item.codePostalePaymentBst == null %}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-green">Accepté</span>
+                                                <span class="w3-red">Bst non payé</span>
+                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <p>Hello W3.CSS Layout.</p>
+                                            </div>
+
+                                        </div> 
+
+                                    {# avec BST et validé et bst payé #}
+                                    {% else %}
+
+                                        {# avec BST et validé et bst payé et depart non #}
+                                        {% if item.lieuDepartMissionnaire == null %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-green">Bst payé</span>
+                                                    <span class="w3-red">Départ non</span>
+                                                    <span class="w3-grey">OR non payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <p>Hello W3.CSS Layout.</p>
+                                                </div>
+
+                                            </div> 
+                                        
+                                        {# avec BST et validé et bst payé et depart ok #}
+                                        {% else %}
+
+                                            {# avec BST et validé et bst payé et depart ok et or non payé #}
+                                            {% if item.etatPaymentOr == null  %}
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Bst payé</span>
+                                                        <span class="w3-green">Départ ok</span>
+                                                        <span class="w3-red">OR non payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <p>Hello W3.CSS Layout.</p>
+                                                    </div>
+
+                                                </div> 
+
+                                            {# avec BST et validé et bst payé et depart ok et or payé #}
+                                            {% else %} 
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Bst payé</span>
+                                                        <span class="w3-green">Départ ok</span>
+                                                        <span class="w3-green">OR payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <p>Hello W3.CSS Layout.</p>
+                                                    </div>
+
+                                                </div> 
+
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
+                            {###################################}
                         </div>
                     {% endfor %}
                 </div>
