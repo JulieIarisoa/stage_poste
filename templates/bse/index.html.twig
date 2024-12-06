@@ -495,20 +495,29 @@
                     </div>
                 </div>
 
+
                 <!-- Subscribe section --><hr>
                 <div class="w3-container">
-                    <div class="w3-half">
-                        <p class=""><b>Nom :</b> {{app.user.nom | upper}}  </p>
-                        <p class=""><b>Prénom :</b> {{app.user.prenom }}  </p>
-                        <p class=""><b>Fonction/indice :</b> {{app.user.fonction }}  </p>
-                        <p class=""><b>E-mail:</b> {{app.user.email}}  </p>
-                    </div>
-                    <div class="w3-half">
-                        <p class=""><b>Adresse:</b> {{app.user.address}}  </p> 
-                        <p class=""><b>N° CIN:</b> {{app.user.cin}}  </p>       
-                        <p class=""><b>Taux journalier:</b> {{app.user.tauxJournalier}} Ariary </p>   
-                        <p class=""><b>Etat:</b> {{app.user.sexe}}, {{app.user.situationFamiliale}} </p>
-                    </div>
+                    {% for item in Bse_missionnaire %}
+                        <div class="w3-margin">
+                            {{item.dateBse | date('d-m-Y')}}
+                            {{item.destination }}
+                            {{item.motif }}
+                            {{item.etat }}
+                            {{item.dureeMission }}
+
+                            {% if item.etatValidation == 'refuse' %}
+                            <span class="w3-red">{{item.etatValidation }}</span>
+
+                            {% elseif item.etatValidation == 'accepte' %}
+                            <span class="w3-green">{{item.etatValidation }}</span>
+
+                            {% elseif item.etatValidation == 'en_attente' %}
+                            <span class="w3-yellow">{{item.etatValidation }}</span>
+
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
   
                 <!-- Footer -->

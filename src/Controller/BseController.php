@@ -116,6 +116,11 @@ class BseController extends AbstractController
             ->setParameter('endDate', $date_6moi2);
         $queryResult = $dataBse6Mois->getQuery()->getResult(); 
 
+/******************************************************************************************* */
+
+    $Bse_missionnaire = $this->entityManager->getRepository(Bse::class)->findBy(['matricule'=>$matricule]);
+
+
 
 
         return $this->render('bse/index.html.twig', [
@@ -127,6 +132,7 @@ class BseController extends AbstractController
            // 'bse_payment_paye'=>$bse_payment_paye,
                         'dataBse' => json_encode($dataBse),
                         'dataBse6Mois' => json_encode($dataBse6Mois),
+                        'Bse_missionnaire' => $Bse_missionnaire
         ]);
     }
 
