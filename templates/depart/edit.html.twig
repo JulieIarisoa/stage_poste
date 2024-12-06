@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +20,7 @@
                 background: #f6f5f7;
                 font-family:'monserrat', sans-serif;
                 min-height: 100%;
-                margin: 2%;
+                margin: 5%;
             }
             a{
                 text-decoration: none;
@@ -42,37 +43,50 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
-
+            .afficher_pas{
+                display: none;
+            }
 
 
     </style>
 </head>
-<body class="w3-light-grey">
-
-    <div class=" w3-animate-zoom w3-quarter w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('user_index')}}" class="fa fa-times w3-display-topright">
-            </a>
-            <h5  class="w3-opacity w3-padding-16 w3-center"><i class="fas fa-car"></i>   Marquer départ</h5>
-        </div>
+<body>
+        <div class=" w3-display-topmiddle w3-card-4 w3-white w3-third">
+            <div class="w3-display-container ">
+        <a href="{{ path('bse_index', {matricule: app.user.matricule}) }}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-pen w3-opacity"></i> Marquer départ
+                </h4>
+            </div>
     {{ form_errors(departModifier) }}
     {{ form_start(departModifier) }}
-        <div class="w3-row-padding w3-margin-bottom w3-opacity">
-        {{ form_row(departModifier.matricule, { 'label': 'Matricule du missionnaire ', 'attr': {'class': 'w3-input w3-border w3-margin-bottom'} }) }}
+        <div class="w3-row-padding  w3-opacity">
+            <div class="w3-third w3-margin-bottom">
+        {{ form_row(departModifier.matricule, { 'label': 'N° du missionnaire ', 'attr': {'class': 'w3-input w3-border w3-round w3-margin-bottom'} }) }}
+            </div>
 
-        {{ form_row(departModifier.lieu_depart_missionnaire, { 'label': 'Lieu de départ ', 'attr': {'class': 'w3-input w3-border', 
+            <div class="w3-twothird">
+        {{ form_row(departModifier.lieu_depart_missionnaire, { 'label': 'Lieu de départ ', 'attr': {'class': 'w3-input w3-border w3-round', 
                     'onkeyup': 'controlLieur(this)'} }) }}
         <p id="validateCode" style="font-size: 10px; color: blue;"></p>
+            </div>
 
-        {{ form_row(departModifier.date_depart_missionnaire, { 'label': 'Date de départ', 'attr': {'class': 'w3-input w3-border w3-margin-bottom'} }) }}
+        </div>
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="w3-twothird">
+        {{ form_row(departModifier.date_depart_missionnaire, { 'label': 'Date de départ', 'attr': {'class': 'w3-input w3-border w3-round w3-margin-bottom'} }) }}
+            </div>
 
-        {{ form_row(departModifier.heure_depart_missionnaire, { 'label': 'Heure de départ', 'attr': {'class': 'w3-input w3-border'} }) }}
+            <div class="w3-third">
+        {{ form_row(departModifier.heure_depart_missionnaire, { 'label': 'Heure de départ', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
 
         </div>
         <!-- Submit Button -->
-        <button type="submit" class="w3-btn w3-indigo w3-half" id="envoyer" disabled><i class="fas fa-save"></i>  Register</button>
-    <a href="{{ path('payment_index') }}">
-        <input type="button" class="w3-btn w3-red w3-half" value="Retour"></a>
+        <button type="submit" class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin"  id="envoyer" ><i class="fas fa-save"></i>  Register</button>
+        <input type="reset"  class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin" value="Annuler">
    {{ form_end(departModifier) }}
 
 

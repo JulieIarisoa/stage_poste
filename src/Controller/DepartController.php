@@ -50,7 +50,7 @@ class DepartController extends AbstractController
 
             $this->addFlash('success', 'depart updated successfully.');
 
-            return $this->redirectToRoute('depart_index');
+            return $this->redirectToRoute('succes_index');
         }
 
         return $this->render('depart/edit.html.twig', [
