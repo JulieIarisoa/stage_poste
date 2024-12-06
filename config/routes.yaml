@@ -72,6 +72,9 @@ bst_edit:
 bst_paye:
     path: /bst/{id}/paye
     controller: App\Controller\BstController::paye
+bst_new_or:
+    path: /bst/new
+    controller: App\Controller\BstController::new
 
 
 #route vers OR:Ordre de route

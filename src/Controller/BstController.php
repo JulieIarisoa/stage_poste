@@ -55,7 +55,9 @@ class BstController extends AbstractController
            // 'bse_payment_paye'=>$bse_payment_paye,
         ]);
     }
-    #[Route("/bst/new", name: "bst_new")]
+
+    /************************Missionnaire creéér avec BSt ******************** */
+    #[Route("/bst/new", name: "bst_new_or")]
     public function new(Request $request): Response
     {
         $depense_or = $this->BseRepository->totalDepense();
@@ -86,10 +88,10 @@ class BstController extends AbstractController
 
             $this->addFlash('success', 'Bse created successfully.');
 
-            return $this->redirectToRoute('bse_index');
+            return $this->redirectToRoute('succes_index');
         }
 
-        return $this->render('bst/new.html.twig', [
+        return $this->render('bst/new_missionnaire.html.twig', [
             'or_bst' => $form->createView(),
             'nouveau_or' => $form->createView(),
             'depense_or' => $depense_or,
@@ -98,6 +100,7 @@ class BstController extends AbstractController
             'sommeCredit' => $sommeCredit,
         ]);
     }
+    
 
     #[Route("/bst/{id}", name: "bst_show")]
     public function show(Bst $bst): Response
