@@ -65,9 +65,6 @@
 
         <!-- Fifth Row: Email and Password -->
         <div class="w3-row-padding w3-margin-bottom w3-opacity">
-            <div class="afficher_pas">
-                {{ form_row(edit_refuse.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
-            </div>
             <div class="w3-half">
                 {{ form_row(edit_refuse.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
             </div>
@@ -92,15 +89,28 @@
 
 
         <!-- Fifth Row: Email and Password -->
-        <div class="afficher_pas">
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
+            <div class="afficher_pas">
+                {{ form_row(edit_refuse.etat_validation, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(edit_refuse.nom_chaufeur, { 'label': 'Nom chaufeur','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+            <div class="w3-half">
+                {{ form_row(edit_refuse.prenom_chafeur, { 'label': 'Prenom chafeur','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+            </div>
+        </div>
+
+
+        <div class="w3-row-padding w3-margin-bottom w3-opacity">
             <div class="w3-third">
-                {{ form_row(edit_refuse.etat_validation, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.tel_transporteur, { 'label': 'Téléphone transporteur','attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(edit_refuse.etat_payment_or, { 'label': 'Etat de payement','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.Coperative, { 'label': 'Coperative','attr': {'class': 'w3-input w3-border'} }) }}
             </div>
             <div class="w3-third">
-                {{ form_row(edit_refuse.etat, { 'label': 'Type','attr': {'class': 'w3-input w3-border'} }) }}
+                {{ form_row(edit_refuse.id_transport, { 'label': 'Imatricule du transporteur','attr': {'class': 'w3-input w3-border'} }) }}
             </div>
         </div>
 

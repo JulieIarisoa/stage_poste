@@ -30,10 +30,6 @@ class BstOrType extends AbstractType
                 'data' => 'en_attente',
                 'attr'=> ['readonly'=> true],
             ])
-            ->add('etat_validation', TextType::class,[
-                'data' => 'en_attente',
-                'attr'=> ['readonly'=> true],
-            ])
             ->add('etat_payment_or', TextType::class,[
                 'data' => 'en_attente',
                 'attr'=> ['readonly'=> true],

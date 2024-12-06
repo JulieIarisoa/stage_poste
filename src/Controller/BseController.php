@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\BseType;
 use App\Form\BseTypeModifier;
 use App\Form\BsePayeType;
+use App\Form\BstOrTypeModifier;
 use App\Form\BseValideType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -255,7 +256,7 @@ class BseController extends AbstractController
     #[Route("/bse/{id}/editMissionnaireAvecBst", name: "bse_edit_missionnaire_Avec_Bst")]
     public function editMissionnaireAvecBst(Request $request, Bse $bse): Response
     {
-        $form = $this->createForm(BseTypeModifier::class, $bse);
+        $form = $this->createForm(BstOrTypeModifier::class, $bse);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
