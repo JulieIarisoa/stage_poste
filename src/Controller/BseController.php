@@ -205,6 +205,11 @@ class BseController extends AbstractController
     {
         return $this->render('bse/show.html.twig', ['bse' => $bse]);
     }
+    #[Route("/bse_missionnaire/{id}", name: "bse_show_missionnaire")]
+    public function showMissionnaire(Bse $bse): Response
+    {
+        return $this->render('bse/showMissionnaire.html.twig', ['bse' => $bse]);
+    }
 
     #[Route("/bse/{id}/edit", name: "bse_edit")]
     public function edit(Request $request, Bse $bse): Response

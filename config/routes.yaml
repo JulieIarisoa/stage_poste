@@ -46,6 +46,9 @@ bse_valide:
 bse_paye:
     path: /bse/{id}/paye
     controller: App\Controller\BseController::paye
+bse_show_missionnaire:
+    path: /bse_missionnaire/{id}
+    controller: App\Controller\BseController::showMissionnaire
 
 #route bst:bon spécial de transport
 bst_new:
