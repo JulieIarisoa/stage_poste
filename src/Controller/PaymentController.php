@@ -53,6 +53,18 @@ class PaymentController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/payment/or', name: 'or_payement')]
+    public function payerOr(): Response
+    {
+
+        return $this->render('payment/payerOr.html.twig', [
+            //'payment' => $payment,
+        ]);
+    }
+
+
     #[Route("/payment/new", name: "payment_new")]
     public function new(Request $request): Response
     {
