@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
     #[Route('/payment', name: 'payment_index')]
     public function index(): Response
     {
-        $Mission = $this->entityManager->getRepository(Bse::class)->findAll();
+        $Mission = $this->BseRepository->payement();
 
         return $this->render('payment/index.html.twig', [
             'Mission' => $Mission,
