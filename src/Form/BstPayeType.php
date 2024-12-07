@@ -22,7 +22,8 @@ class BstPayeType extends AbstractType
         ])
         ->add('etat_payment_bst', TextType::class,[
             'data' => 'paye'
-        ]);
+        ])
+        ->add('depense_bst', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

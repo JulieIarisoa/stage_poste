@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+        <div class=" w3-display-topmiddle w3-card-4 w3-white w3-third">
             <div class="w3-display-container ">
         <a href="{{ path('bst_payement') }}">
                     <span class="w3-button w3-display-topright">&times;</span>
@@ -65,18 +65,23 @@
 
             <!-- Fifth Row: Email and Password -->
             <div class="w3-row-padding  w3-opacity">
-                <div class="w3-half">
-                    {{ form_row(payeBst.payeur_bst, { 'label': 'Matricule du payeur', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
-                </div>
-                <div class="w3-half">
-                    {{ form_row(payeBst.code_postale_payment_bst, { 'label': 'Bureau de payement', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
-                </div>
-                <div class="w3-half">
+                <div class="w3-twothird">
                     {{ form_row(payeBst.date_payement_bst, { 'label': 'Date de payement', 'attr': {'class': 'w3-input w3-border w3-round', 
                             'onkeyup': 'controllerMotif(this)'} }) }}
                         <p id="validateMotif" style="font-size: 10px;"></p>
                 </div>
-                <div class="w3-half">
+                <div class="w3-third">
+                    {{ form_row(payeBst.depense_bst, { 'label': 'Net à payer en ariary','attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerDestination(this)'} }) }}
+                        <p id="validateDestination" style="font-size: 10px;"></p>
+                </div>
+                <div class="w3-third">
+                    {{ form_row(payeBst.payeur_bst, { 'label': 'Matricule du payeur', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-twothird">
+                    {{ form_row(payeBst.code_postale_payment_bst, { 'label': 'Bureau de payement', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="afficher_pas">
                     {{ form_row(payeBst.etat_payment_bst, { 'label': 'Etat payement','attr': {'class': 'w3-input w3-border w3-round', 
                             'onkeyup': 'controllerDestination(this)'} }) }}
                         <p id="validateDestination" style="font-size: 10px;"></p>
