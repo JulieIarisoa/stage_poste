@@ -42,6 +42,17 @@ class PaymentController extends AbstractController
         ]);
     }
 
+
+    
+    #[Route('/payment/bst', name: 'bst_payement')]
+    public function payerBst(): Response
+    {
+
+        return $this->render('payment/payerBst.html.twig', [
+            //'payment' => $payment,
+        ]);
+    }
+
     #[Route("/payment/new", name: "payment_new")]
     public function new(Request $request): Response
     {
