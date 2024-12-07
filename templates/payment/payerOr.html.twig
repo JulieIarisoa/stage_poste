@@ -497,10 +497,12 @@
                         {% for item in list_or %}
                             <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
                                 <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
-                                <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
+                                <p class="w3-margin-top">Ordre de route de {{item.titre}} {{item.nom | upper}} {{item.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
                                 {{item.dureeMission}} jours.</p>
 
                                 <p class="w3-">Demande: {{item.etat }}</p>
+                                {% set depense = (item.tauxJournalier)*(item.dureeMission)%}
+                                <p class="w3-">Net à payer: {{depense }} Ariary</p>
                                 {% if item.etat == 'Ordre de route avec BST' %}
                                     <div class="w3-cell-row">
                                         <div class="w3-container w3-cell w3-mobile">
