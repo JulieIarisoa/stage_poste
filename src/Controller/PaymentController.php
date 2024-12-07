@@ -6,6 +6,7 @@ use App\Entity\Bse;
 use App\Entity\Payment;
 use App\Form\BsePayeType;
 use App\Form\PaymentType;
+use App\Repository\BseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,10 @@ class PaymentController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, BseRepository $BseRepository,)
     {
         $this->entityManager = $entityManager;
+        $this->BseRepository = $BseRepository;
     }
 
     #[Route('/payment', name: 'payment_index')]
@@ -48,7 +50,9 @@ class PaymentController extends AbstractController
     #[Route('/payment/or', name: 'or_payement')]
     public function payerOr(): Response
     {
-        $list_or = $this->entityManager->createQueryBuilder()
+
+        $list_or = $this->BseRepository->payementOr();
+        /*$list_or = $this->entityManager->createQueryBuilder()
         ->select('b')
         ->from(Bse::class, 'b')
         ->where('b.etat_validation = :etat')
@@ -56,7 +60,7 @@ class PaymentController extends AbstractController
         ->andWhere('b.code_postale_payement_or IS NULL')
         ->setParameter('etat', 'accepte')
         ->getQuery()
-        ->getResult();
+        ->getResult();*/
     
 
         return $this->render('payment/payerOr.html.twig', [
