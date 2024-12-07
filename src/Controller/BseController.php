@@ -294,26 +294,6 @@ class BseController extends AbstractController
         ]);
     }
 
-    #[Route("/bse/{id}/paye", name: "bse_paye")]
-    public function paye(Request $request, Bse $bse): Response
-    {
-        $form = $this->createForm(BsePayeType::class, $bse);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-
-            $this->addFlash('success', 'Bse updated successfully.');
-
-            return $this->redirectToRoute('payement_index');
-        }
-
-        return $this->render('bse/paye.html.twig', [
-            'payementOr' => $form->createView(),
-            'bse' => $bse,
-        ]);
-    }
-
 
     #[Route("/succes", name: "succes_index")]
     public function succes(Request $request): Response

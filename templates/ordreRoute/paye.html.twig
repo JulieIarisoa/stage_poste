@@ -43,18 +43,21 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
+            .afficher_pas{
+                display: none;
+            }
 
 
     </style>
 </head>
 <body>
-        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+        <div class=" w3-display-topmiddle w3-card-4 w3-white w3-third">
             <div class="w3-display-container ">
-                <a href="{{path('payement_index')}}">
+        <a href="{{ path('or_payement') }}">
                     <span class="w3-button w3-display-topright">&times;</span>
                 </a>
-                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
-                    <i class="fa fa-plus w3-opacity"></i> Payement Ordre de route
+                <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-pen w3-opacity"></i> Payement ordre de route
                 </h4>
             </div>
     {{ form_errors(payementOr) }}
@@ -77,7 +80,7 @@
             </div>
         </div>
 
-    <button type="submit" class="w3-btn w3-indigo w3-half">Payer</button>
-    <a href="{{ path('payement_index') }}" class="w3-btn w3-red w3-half">Back to list</a>
+    <button type="submit" class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin" >Payer</button>
+    <a href="{{ path('payement_index') }}" class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin">Back to list</a>
     {{ form_end(payementOr) }}
 </body>

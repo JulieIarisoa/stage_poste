@@ -43,9 +43,6 @@ bse_edit:
 bse_valide:
     path: /bse/{id}/valide
     controller: App\Controller\BseController::valide
-bse_paye:
-    path: /bse/{id}/paye
-    controller: App\Controller\BseController::paye
 bse_show_missionnaire:
     path: /bse_missionnaire/{id}
     controller: App\Controller\BseController::showMissionnaire
@@ -90,6 +87,9 @@ ordreRoute_show:
 ordreRoute_edit:
     path: /ordreRoute/{id}/edit
     controller: App\Controller\OrdreRouteController::edit
+OrdreRoute_paye:
+    path: /ordreRoute/{id}/paye
+    controller: App\Controller\PaymentController::paye
 
 #route vers payement
 payement_index:

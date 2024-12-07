@@ -499,28 +499,40 @@
                                 <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
                                 <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
                                 {{item.dureeMission}} jours.</p>
+
                                 <p class="w3-">Demande: {{item.etat }}</p>
-                                <div class="w3-cell-row">
-                                <div class="w3-container w3-cell w3-mobile">
-                                    <span class="w3-green">Accepte</span>
-                                    <span class="w3-green">Départ ok</span>
-                                    <span class="w3-red">OR non payé</span>
-                                </div>
+                                {% if item.etat == 'Ordre de route avec BST' %}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-green">Accepte</span>
+                                            <span class="w3-green">Bst payé</span>
+                                            <span class="w3-green">Départ ok</span>
+                                            <span class="w3-red">OR non payé</span>
+                                        </div>
 
-                                <div class="w3-container  w3-cell w3-mobile">
-                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Payer </a>
-                                </div>
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('OrdreRoute_paye', {id: item.id}) }}">Payer </a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="w3-cell-row">
+                                        <div class="w3-container w3-cell w3-mobile">
+                                            <span class="w3-green">Accepte</span>
+                                            <span class="w3-green">Départ ok</span>
+                                            <span class="w3-red">OR non payé</span>
+                                        </div>
 
+                                        <div class="w3-container  w3-cell w3-mobile">
+                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('OrdreRoute_paye', {id: item.id}) }}">Payer </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
                 </div>
 
 
-                <!-- Liste des missions --><hr>
-                <div class="w3-container">
-                </div>
-  
                 <!-- Footer -->
                 <footer class="w3-padding-32 w3-light-grey w3-small w3-margin w3-center" id="footer">
                     <div class="w3-row-padding">
