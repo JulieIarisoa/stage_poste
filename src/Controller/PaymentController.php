@@ -60,9 +60,19 @@ class PaymentController extends AbstractController
     #[Route('/payment/or', name: 'or_payement')]
     public function payerOr(): Response
     {
+        $list_or = $this->entityManager->createQueryBuilder()
+        ->select('b')
+        ->from(Bse::class, 'b')
+        ->where('b.etat_validation = :etat')
+        ->andWhere('b.lieu_depart_missionnaire IS NOT NULL')
+        ->andWhere('b.code_postale_payement_or IS NULL')
+        ->setParameter('etat', 'accepte')
+        ->getQuery()
+        ->getResult();
+    
 
         return $this->render('payment/payerOr.html.twig', [
-            //'payment' => $payment,
+            'list_or' => $list_or,
         ]);
     }
 
