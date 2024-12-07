@@ -38,7 +38,9 @@ class PaymentController extends AbstractController
     #[Route('/payment/bst', name: 'bst_payement')]
     public function payerBst(): Response
     {
-        $list_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation'=>'accepte','etat'=>'Ordre de route avec BST','code_postale_payment_bst'=> null]);
+        //$list_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation'=>'accepte','etat'=>'Ordre de route avec BST','code_postale_payment_bst'=> null]);
+
+        $list_bst = $this->BseRepository->payementBst();
 
         return $this->render('payment/payerBst.html.twig', [
             'list_bst' => $list_bst,
@@ -52,15 +54,6 @@ class PaymentController extends AbstractController
     {
 
         $list_or = $this->BseRepository->payementOr();
-        /*$list_or = $this->entityManager->createQueryBuilder()
-        ->select('b')
-        ->from(Bse::class, 'b')
-        ->where('b.etat_validation = :etat')
-        ->andWhere('b.lieu_depart_missionnaire IS NOT NULL')
-        ->andWhere('b.code_postale_payement_or IS NULL')
-        ->setParameter('etat', 'accepte')
-        ->getQuery()
-        ->getResult();*/
     
 
         return $this->render('payment/payerOr.html.twig', [
