@@ -48,9 +48,10 @@ class PaymentController extends AbstractController
     #[Route('/payment/bst', name: 'bst_payement')]
     public function payerBst(): Response
     {
+        $list_bst = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation'=>'accepte','etat'=>'Ordre de route avec BST','code_postale_payment_bst'=> null]);
 
         return $this->render('payment/payerBst.html.twig', [
-            //'payment' => $payment,
+            'list_bst' => $list_bst,
         ]);
     }
 
