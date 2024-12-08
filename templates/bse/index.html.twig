@@ -1174,22 +1174,73 @@
                 <div class="w3-main" style="margin-left:250px">
                     <div class=" w3-margin-bottom ">
                         <div class=" w3-opacity w3-padding w3-margin-bottom">
-                            <h1 class="w3-center">Mission</h1>
+                            <h1 class="w3-center">Etat mission</h1>
                         </div> 
+                        {% set total = 0 %}
+                        {% set attente = 0 %}
+                        {% set refuse = 0 %}
+                        {% set accepte = 0 %}
+                        {% for nombre in bse%}
+                            {% set total = total + 1 %}
+                            {% if nombre.etatValidation == 'en_attente' %}
+                                {% set attente = attente + 1 %}
+                            {% endif %}
+                            {% if nombre.etatValidation == 'refuse' %}
+                                {% set refuse = refuse + 1 %}
+                            {% endif %}
+                            {% if nombre.etatValidation == 'accepte' %}
+                                {% set accepte = accepte + 1 %}
+                            {% endif %}
+                        {% endfor %}
 
-                        <div class="w3-row w3-padding-16" >
-                            <div class="w3-container w3-twothird w3-center">
-                                <canvas id="myChartBse" width="400" height="180">BSE</canvas>
+                        <div class="w3-row-padding w3-margin-bottom">
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-light-grey w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-comment w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{attente}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>En attente</h6>
+                                </div>
                             </div>
-
-                            <div class="w3-container w3-third">
-                                <h6 class="w3-center">LEGENDE</h6>
-                                <p class="w3-center">Nombre des missions pendant 6 mois</br> Gouper par 1 mois </p>
-                                <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
-                                <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
-                                <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
-                                <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 100% du total dans 6 mois</span><br>
-                                <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-khaki w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-eye w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{refuse}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Refusé</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-yellow w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{accepte}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Accepté</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-amber w3-text-white w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-users w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{total}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Total</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
