@@ -122,14 +122,19 @@
                         </div> 
 
                         <div class="w3-row w3-padding-16" >
-                            <a href="{{ path('app_register') }}" class="w3-button w3-blue w3-quarter w3-margin" id="nouveau"><i class="fa fa-user-plus w3-margin-right"></i>Add personneles</a>
-                            <input class="w3-input w3-border w3-padding w3-half w3-margin" type="text" placeholder="Rechercher par nom ou par prenom..." id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                            <div class="w3-container  w3-cell">
+                                <a href="{{ path('app_register') }}" class="w3-button w3-text-amber w3-border w3-border-amber w3-hover-amber w3-hover-text-black w3-round-xxlarge" id="nouveau"><i class="fa fa-user-plus w3-margin-right"></i>Add personnel</a>
+                            </div>
+
+                            <div class="w3-container  w3-cell">
+                                <input class="w3-input w3-border w3-padding  w3-round-xxlarge" type="text" placeholder="Rechercher..." id="myInput" onkeyup="myFunction('myTable','myInput',2)">
+                            </div> 
                         </div>
                     </div>
 
                     <!-- Subscribe section -->
                     <div class="w3-container">
-                        <table class="w3-table w3-light-grey" id="myTable">
+                        <table class="w3-table w3-light-grey  w3-round-large" id="myTable">
                             <tr class="">
                                 <th>Matricule</th>
                                 <th>Nom</th>
