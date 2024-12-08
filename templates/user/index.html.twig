@@ -646,10 +646,10 @@
                         <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-gray w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
                         <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
                             <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
+                                <a href="{{ path('bse_index') }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
                                 <a href="{{ path('user_index') }}" class="w3-bar-item w3-text-amber w3-hover-text-amber">Nouveau</a>
-                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Régulariser</a>
-                                <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Non régulariser</a>
+                                <a href="{{ path('bse_regulariser') }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Régulariser</a>
+                                <a href="{{ path('bse_nonRegulariser') }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Non régulariser</a>
                             </div>
                     </div>
                     <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>

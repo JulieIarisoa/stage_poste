@@ -46,83 +46,83 @@ class BseController extends AbstractController
        // $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
        // $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
 
-        $user = $this->entityManager->getRepository(User::class)->findAll();
+                $user = $this->entityManager->getRepository(User::class)->findAll();
 
 
 
 
-        ////////////////////////////////////////////////* statistique*///////////////
-        $date_now = new \DateTime();
-        $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
-        $totals = [];
-        $dates = [];
+                ////////////////////////////////////////////////* statistique*///////////////
+                $date_now = new \DateTime();
+                $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
+                $totals = [];
+                $dates = [];
 
-        $matricule = $request->get('matricule');
-        // Générer les périodes et exécuter les requêtes dans une boucle
-        for ($i = 0; $i < 6; $i++) {
-            $endDate = (clone $startDate)->modify('+1 month');
+                $matricule = $request->get('matricule');
+                // Générer les périodes et exécuter les requêtes dans une boucle
+                for ($i = 0; $i < 6; $i++) {
+                    $endDate = (clone $startDate)->modify('+1 month');
 
-            $queryBuilder = $this->entityManager->createQueryBuilder();
-            $totalResult = $queryBuilder->select('COUNT(d.id) AS total')
-                ->from(Bse::class, 'd')
-                ->where('d.date_bse BETWEEN :startDate AND :endDate')
-                ->andWhere('d.matricule =:matricule')
-                ->setParameter('startDate', $startDate)
-                ->setParameter('endDate', $endDate)
-                ->setParameter('matricule', $matricule)
-                ->getQuery()
-                ->getSingleScalarResult();
+                    $queryBuilder = $this->entityManager->createQueryBuilder();
+                    $totalResult = $queryBuilder->select('COUNT(d.id) AS total')
+                        ->from(Bse::class, 'd')
+                        ->where('d.date_bse BETWEEN :startDate AND :endDate')
+                        ->andWhere('d.matricule =:matricule')
+                        ->setParameter('startDate', $startDate)
+                        ->setParameter('endDate', $endDate)
+                        ->setParameter('matricule', $matricule)
+                        ->getQuery()
+                        ->getSingleScalarResult();
 
-            $totals[] = $totalResult ?: 0; // Ajouter le total ou 0 par défaut
-            $dates[] = $startDate->format('Y-m-d'); // Formater la date pour l'affichage
+                    $totals[] = $totalResult ?: 0; // Ajouter le total ou 0 par défaut
+                    $dates[] = $startDate->format('Y-m-d'); // Formater la date pour l'affichage
 
-            // Préparer la période suivante
-            $startDate = $endDate;
-        }
+                    // Préparer la période suivante
+                    $startDate = $endDate;
+                }
 
-        // Ajouter le mois actuel
-        $totals[] = $this->entityManager->createQueryBuilder()
-            ->select('COUNT(d.id) AS total')
-            ->from(Bse::class, 'd')
-            ->where('d.date_bse BETWEEN :startDate AND :endDate')
-            ->andWhere('d.matricule =:matricule')
-            ->setParameter('startDate', $startDate)
-            ->setParameter('endDate', $date_now)
-            ->setParameter('matricule', $matricule)
-            ->getQuery()
-            ->getSingleScalarResult() ?: 0;
-        $dates[] = $date_now->format('Y-m-d');
+                // Ajouter le mois actuel
+                $totals[] = $this->entityManager->createQueryBuilder()
+                    ->select('COUNT(d.id) AS total')
+                    ->from(Bse::class, 'd')
+                    ->where('d.date_bse BETWEEN :startDate AND :endDate')
+                    ->andWhere('d.matricule =:matricule')
+                    ->setParameter('startDate', $startDate)
+                    ->setParameter('endDate', $date_now)
+                    ->setParameter('matricule', $matricule)
+                    ->getQuery()
+                    ->getSingleScalarResult() ?: 0;
+                $dates[] = $date_now->format('Y-m-d');
 
-        // Création du tableau combiné
-        $dataBse = [];
-        foreach ($dates as $index => $date) {
-            $dataBse[] = [
-                'dateBse' => $date,
-                'total' => $totals[$index],
-            ];
-        }
+                // Création du tableau combiné
+                $dataBse = [];
+                foreach ($dates as $index => $date) {
+                    $dataBse[] = [
+                        'dateBse' => $date,
+                        'total' => $totals[$index],
+                    ];
+                }
 
-        // Préparation des données pour le graphique
-        $dataBse = $this->prepareChartData($dataBse, 'dateBse', 'total');
-/***************************************************************************** *//////////////
+                // Préparation des données pour le graphique
+                $dataBse = $this->prepareChartData($dataBse, 'dateBse', 'total');
+        /***************************************************************************** *//////////////
 
 
 
-        $date_6moi2 = new \DateTime();
-        $date_6moi1 = new \DateTime();
-        $date_6moi1 = $date_6moi1->modify('-6 month');
-        $dataBse6Mois = $this->entityManager->createQueryBuilder();
-        $dataBse6Mois->select(' COUNT(d.id) AS total')
-            ->from(Bse::class, 'd')
-            ->where('d.date_bse BETWEEN :startDate AND :endDate')
-            ->setParameter('startDate', $date_6moi1)
-            ->setParameter('endDate', $date_6moi2);
-        $queryResult = $dataBse6Mois->getQuery()->getResult(); 
+                $date_6moi2 = new \DateTime();
+                $date_6moi1 = new \DateTime();
+                $date_6moi1 = $date_6moi1->modify('-6 month');
+                $dataBse6Mois = $this->entityManager->createQueryBuilder();
+                $dataBse6Mois->select(' COUNT(d.id) AS total')
+                    ->from(Bse::class, 'd')
+                    ->where('d.date_bse BETWEEN :startDate AND :endDate')
+                    ->setParameter('startDate', $date_6moi1)
+                    ->setParameter('endDate', $date_6moi2);
+                $queryResult = $dataBse6Mois->getQuery()->getResult(); 
 
-/******************************************************************************************* */
+        /******************************************************************************************* */
 
-    $Bse_missionnaire = $this->entityManager->getRepository(Bse::class)->findBy(['matricule'=>$matricule]);
-    $Bse_Service = $this->BseRepository->bse_service();
+            $Bse_missionnaire = $this->entityManager->getRepository(Bse::class)->findBy(['matricule'=>$matricule]);
+            $Bse_Service = $this->BseRepository->bse_service();
 
 
 
@@ -172,6 +172,31 @@ class BseController extends AbstractController
     {
         return $this->render('bse/show.html.twig', ['bse' => $bse]);
     }
+
+
+    
+    #[Route('/bse/regulariser', name: 'bse_regulariser')]
+    public function regulariser(): Response
+    {
+        $bse_regulariser = $this->BseRepository->regulariser();
+
+        return $this->render('bse/regulariser.html.twig', [
+            'bse_regulariser' => $bse_regulariser,
+        ]);
+    }
+
+
+    
+    #[Route('/bse/nonRegulariser', name: 'bse_nonRegulariser')]
+    public function nonRegulariser(): Response
+    {
+        $bse_nonRegulariser = $this->BseRepository->nonRegulariser();
+
+        return $this->render('bse/nonRegulariser.html.twig', [
+            'bse_nonRegulariser' => $bse_nonRegulariser,
+        ]);
+    }
+
     #[Route("/bse_missionnaire/{id}", name: "bse_show_missionnaire")]
     public function showMissionnaire(Bse $bse): Response
     {
