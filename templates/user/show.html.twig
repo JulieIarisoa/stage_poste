@@ -14,13 +14,11 @@
                 box-sizing: border-box;
             }
             body{
-                align-items: center;
+                align-bses: center;
                 display: flex;
-                flex-direction:column;
                 background: #f6f5f7;
                 font-family:'monserrat', sans-serif;
                 min-height: 100%;
-                margin: 5%;
             }
             a{
                 text-decoration: none;
@@ -29,10 +27,6 @@
             body, h1, h2, h3, h4, h5, h6 {
                 font-family: "Times New Roman", Times, serif;
             }
-            .w3-display-container {
-                position: relative;  /* Nécessaire pour que le bouton soit correctement positionné */
-            }
-
             .w3-display-topright {
                 position: absolute;
                 top: 0;
@@ -43,49 +37,59 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
-            #voir{
-                float: left;
+
+            .afficher_pas{
+                display: none;
             }
 
 
     </style>
 </head>
-<body>
-    <div class=" w3-center w3-animate-zoom w3-half w3-card-4 w3-white">
-        <div class="w3-display-container w3-yellow">
-            <a href="{{path('user_index')}}" class="fa fa-times w3-display-topright"></a>
-            <h4  class="w3-opacity w3-padding-16">{{ user.titre }} {{ user.nom|upper }} {{ user.prenom }}</h4>
-        </div>
+<body class="w3-light-grey">
 
-        <div class="w3-row-padding w3-margin-bottom w3-opacity w3-half" id="voir">
-            <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
-            <p>
-                {% if user.sexe == 'femme' %}
-                    <i class="fas fa-female"></i>Sexe: {{ user.sexe }}
-                {% elseif user.sexe == 'homme' %}
-                    <i class="fas fa-male"></i>Sexe: {{ user.sexe }}
+    <div class=" w3-display-topmiddle w3-card-4 w3-white w3-animate-top w3-half">
+        <a href="{{ path('user_index', {matricule: app.user.matricule}) }}">
+            <span class="w3-button w3-display-topright">&times;</span>
+        </a>
+        <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">{{ user.titre }} {{ user.nom|upper }} {{ user.prenom }}</h4>
+       
+        <div class="w3-row-padding w3-margin-bottom">
+            <div class="w3-container w3-cell w3-center">
+                {% if user.sexe == 'Femme' %}
+                    <img src="{{asset('images/fprofile.png')}}" style="width: 200px;"/>
+                {% elseif user.sexe == 'Homme' %}
+                    <img src="{{asset('images/hprofile.png')}}" style="width: 200px;"/>
                 {% endif %}
-            </p>
-            <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
-            <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
-            <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
-            <p><i class="fas fa-calendar-alt"></i> Date CIN: {{ user.dateCin|date('Y-m-d') }}</p>
-            <p><i class="fas fa-money-bill-wave"></i> Taux journalier: {{ user.tauxJournalier }}</p>
-            <p><i class="fas fa-money-bill-wave"></i> Adresse: {{ user.address }}</p>
-            <p><i class="fas fa-money-bill-wave"></i> Nombre d'enfant: {{ user.nombreEnfant }}</p>
-            <p><i class="fas fa-money-bill-wave"></i> Adresse: {{ user.address }}</p>
+                    <h5><b>{{app.user.nom | upper}} {{app.user.prenom}} </b></h5>
+                    <h6 class="w3-opacity w3-margin">E-mail: {{app.user.email}}  </h6>
+            </div>
 
+            <div class="w3-container w3-cell">
+                <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
+                <p>
+                    {% if user.sexe == 'femme' %}
+                        <i class="fas fa-female"></i>Sexe: {{ user.sexe }}
+                    {% elseif user.sexe == 'homme' %}
+                        <i class="fas fa-male"></i>Sexe: {{ user.sexe }}
+                    {% endif %}
+                </p>
+                <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
+                <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
+                <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
+                <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }}</p>
+                <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
+                <p><i class="fas fa-"></i> Nombre d'enfant: {{ user.nombreEnfant }}</p>
+
+                <p>
+                    {% if user.sexe == 'femme' %}
+                        <i class="fas fa-user"></i>{{ user.sexe }}
+                    {% elseif user.sexe == 'homme' %}
+                        <i class="fas fa-user"></i>{{ user.sexe }}
+                    {% endif %}
+                </p>
+            </div> 
         </div>
-        <div class="w3-half">
-            <p>
-                {% if user.sexe == 'femme' %}
-                    <i class="fas fa-user"></i>{{ user.sexe }}
-                {% elseif user.sexe == 'homme' %}
-                    <i class="fas fa-user"></i>{{ user.sexe }}
-                {% endif %}
-            </p>
-        </div>
-            <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-btn w3-indigo w3-half">Edit</a>
-            <a href="{{ path('user_index') }}" class="w3-btn w3-indigo w3-half">Back to list</a>
+            <a href="{{ path('user_edit', {id: user.id}) }}" class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin">Edit</a>
+            <a href="{{ path('user_index') }}" class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin">Back to list</a>
     </div>
 <body>
