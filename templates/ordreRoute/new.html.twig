@@ -43,6 +43,9 @@
             .fa-times {
                 pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
             }
+            .afficher_pas{
+                display: none;
+            }
 
     </style>
 </head>
@@ -75,13 +78,14 @@
 
 
     {% elseif restant >depense and restant >= Taux %}
-        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+        
+        <div class=" w3-display-topmiddle w3-card-4 w3-white w3-third">
             <div class="w3-display-container ">
-                <a href="{{path('bse_index')}}">
+                <a href="{{ path('bse_index') }}">
                     <span class="w3-button w3-display-topright">&times;</span>
                 </a>
-                <h4  class="w3-opacity w3-center w3-padding w3-margin-bottom">
-                    <i class="fa fa-plus w3-opacity"></i> Créer un ordre de route sans BST
+                <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-plus w3-opacity"></i> Créer ordre de route sans BST
                 </h4>
             </div>
 
@@ -90,15 +94,26 @@
 
                 <!-- Fifth Row: Email and Password -->
                 <div class="w3-row-padding  w3-opacity">
-                    <div class="w3-third">
+                    <div class="afficher_pas">
                         {{ form_row(nouveau_or.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
                     </div>
                     <div class="w3-third">
-                        {{ form_row(nouveau_or.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round', 
-                            'onkeyup': 'controllerMotif(this)'} }) }}
-                        <p id="validateMotif" style="font-size: 10px;"></p>
+                        {{ form_row(nouveau_or.date_bse, { 'label': 'Date de création', 'attr': {'class': 'w3-margin-bottom w3-input w3-border w3-round'} }) }}
                     </div>
-                    <div class="w3-third">
+                    <div class="w3-twothird">
+                        {{ form_row(nouveau_or.etat, { 'label': 'Etat','attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                    </div>
+                </div>
+
+
+                <!-- Fifth Row: Email and Password -->
+                <div class="w3-row-padding w3-opacity">
+                    <div class="w3-half">
+                        {{ form_row(nouveau_or.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerCreation(this)'} }) }}
+                        <p id="validateCreation" style="font-size: 10px;"></p>
+                    </div>
+                    <div class="w3-half">
                         {{ form_row(nouveau_or.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border w3-round', 
                             'onkeyup': 'controllerDestination(this)'} }) }}
                         <p id="validateDestination" style="font-size: 10px;"></p>
@@ -108,38 +123,27 @@
 
                 <!-- Fifth Row: Email and Password -->
                 <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                    <div class="w3-third">
-                        {{ form_row(nouveau_or.date_bse, { 'label': 'Date de création', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
-                    </div>
-                    <div class="w3-third">
-                        {{ form_row(nouveau_or.lieu_bse, { 'label': 'Lieu de création','attr': {'class': 'w3-input w3-border w3-round', 
-                            'onkeyup': 'controllerCreation(this)'} }) }}
-                        <p id="validateCreation" style="font-size: 10px;"></p>
+                    <div class="w3-twothird">
+                        {{ form_row(nouveau_or.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerMotif(this)'} }) }}
+                        <p id="validateMotif" style="font-size: 10px;"></p>
                     </div>
                     <div class="w3-third">
                         {{ form_row(nouveau_or.duree_mission, { 'label': 'Duree du mission','attr': {'class': 'w3-input w3-border w3-round', 
                     'onkeyup': 'controllerDureeMission(this)'} }) }}
-                <p id="validateDureeMission" style="font-size: 10px;"></p>
+                    <p id="validateDureeMission" style="font-size: 10px;"></p>
                     </div>
-                </div>
-
-
-                <!-- Fifth Row: Email and Password -->
-                <div class="w3-row-padding w3-margin-bottom w3-opacity">
-                    <div class="w3-third">
+                    <div class="afficher_pas">
                         {{ form_row(nouveau_or.etat_validation, { 'label': 'Etat de validation','attr': {'class': 'w3-input w3-border w3-round'} }) }}
                     </div>
-                    <div class="w3-third">
+                    <div class="afficher_pas">
                         {{ form_row(nouveau_or.etat_payment_or, { 'label': 'Etat de payement','attr': {'class': 'w3-input w3-border w3-round'} }) }}
-                    </div>
-                    <div class="w3-third">
-                        {{ form_row(nouveau_or.etat, { 'label': 'Etat','attr': {'class': 'w3-input w3-border w3-round'} }) }}
                     </div>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="w3-btn w3-indigo w3-half"><i class="fas fa-save"></i>  Créer</button>
-                <input type="reset" class="w3-btn w3-pale-red w3-half" value="Annuler">
+                <button type="submit" class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin"><i class="fas fa-save"></i>  Créer</button>
+                <input type="reset" class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin" value="Annuler">
             {{ form_end(nouveau_or) }}
         </div>
     {% endif %}

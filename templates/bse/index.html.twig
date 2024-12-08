@@ -435,347 +435,345 @@
 
         {# Vérifiez si l'utilisateur a le rôle MISSIONNAIRE #}
         {% elseif is_granted('ROLE_MISSIONNAIRE') %}
+            <body class="w3-content" style="max-width:1300px">
 
+                <!-- Sidebar/menu -->
+                <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+                    <div class="w3-container w3-display-container w3-padding-16">
+                        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+                        <h3 class="w3-wide w3-text-amber"><b>PAOSITRA MALAGASY</b></h3>
+                    </div>
+                    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+                    <h6 class="w3-text-grey w3-opacity">POUR TOI SEULEMENT</h6>
+                        <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-gray w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
+                        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
+                            <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
+                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">En cours</a>
+                                <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR</a>
+                                <a href="{{ path('bst_new_or', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR/BST</a>
+                            </div>
+                    </div>
+                    <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
+                    <a href="#footer" class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Contact</a> 
+                    <a href="javascript:void(0)" class="w3-bar-item w3-text-grey  w3-hover-text-amber w3-padding" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-user w3-opacity"></i>  Evaluer</a> 
+                    <a href="#footer"  class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Paramètres</a>
+                </nav>
 
-        <body class="w3-content" style="max-width:1300px">
+                <!-- Top menu on small screens -->
+                <header class="w3-bar w3-top w3-hide-large w3-yellow w3-xlarge">
+                    <div class="w3-bar-item w3-padding-24 w3-wide w3-text-black">PAOMA</div>
+                    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+                </header>
 
-            <!-- Sidebar/menu -->
-            <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
-                <div class="w3-container w3-display-container w3-padding-16">
-                    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-                    <h3 class="w3-wide w3-text-amber"><b>PAOSITRA MALAGASY</b></h3>
+                <!-- Overlay effect when opening sidebar on small screens -->
+                <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay">  
                 </div>
-                <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-                <h6 class="w3-text-grey w3-opacity">POUR TOI SEULEMENT</h6>
-                    <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-gray w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
-                    <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
-                        <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                            <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
-                            <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">En cours</a>
-                            <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR</a>
-                            <a href="{{ path('bst_new_or', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR/BST</a>
-                        </div>
-                </div>
-                <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
-                <a href="#footer" class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Contact</a> 
-                <a href="javascript:void(0)" class="w3-bar-item w3-text-grey  w3-hover-text-amber w3-padding" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-user w3-opacity"></i>  Evaluer</a> 
-                <a href="#footer"  class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Paramètres</a>
-            </nav>
 
-            <!-- Top menu on small screens -->
-            <header class="w3-bar w3-top w3-hide-large w3-yellow w3-xlarge">
-                <div class="w3-bar-item w3-padding-24 w3-wide w3-text-black">PAOMA</div>
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-            </header>
+                <!-- !PAGE CONTENT! -->
+                <div class="w3-main" style="margin-left:250px">
+                    <div class=" w3-margin-bottom ">
+                        <div class=" w3-opacity w3-padding w3-margin-bottom">
+                            <h1 class="w3-center">Mission</h1>
+                        </div> 
 
-            <!-- Overlay effect when opening sidebar on small screens -->
-            <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay">  
-            </div>
+                        <div class="w3-row w3-padding-16" >
+                            <div class="w3-container w3-twothird w3-center">
+                                <canvas id="myChartBse" width="400" height="180">BSE</canvas>
+                            </div>
 
-            <!-- !PAGE CONTENT! -->
-            <div class="w3-main" style="margin-left:250px">
-                <div class=" w3-margin-bottom ">
-                    <div class=" w3-opacity w3-padding w3-margin-bottom">
-                        <h1 class="w3-center">Mission</h1>
-                    </div> 
-
-                    <div class="w3-row w3-padding-16" >
-                        <div class="w3-container w3-twothird w3-center">
-                            <canvas id="myChartBse" width="400" height="180">BSE</canvas>
-                        </div>
-
-                        <div class="w3-container w3-third">
-                            <h6 class="w3-center">LEGENDE</h6>
-                            <p class="w3-center">Nombre des missions pendant 6 mois</br> Gouper par 1 mois </p>
-                            <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
-                            <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
-                            <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
-                            <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 100% du total dans 6 mois</span><br>
-                            <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
+                            <div class="w3-container w3-third">
+                                <h6 class="w3-center">LEGENDE</h6>
+                                <p class="w3-center">Nombre des missions pendant 6 mois</br> Gouper par 1 mois </p>
+                                <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
+                                <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
+                                <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
+                                <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 100% du total dans 6 mois</span><br>
+                                <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
-                <!-- Liste des missions --><hr>
-                <div class="w3-container">
-                    {% for item in Bse_missionnaire %}
-                        <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
-                            <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
-                            <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
-                            {{item.dureeMission}} jours.</p>
-                            <p class="w3-">Demande: {{item.etat }}</p>
+                    <!-- Liste des missions --><hr>
+                    <div class="w3-container">
+                        {% for item in Bse_missionnaire %}
+                            <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
+                                <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
+                                <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
+                                {{item.dureeMission}} jours.</p>
+                                <p class="w3-">Demande: {{item.etat }}</p>
 
-                        {###########################################}
+                            {###########################################}
 
-                            {# sans BST #}
-                            {% if item.etat == 'Ordre de route sans BST' %}
-                                {# sans BST et en attette #}
-                                {% if item.etatValidation == 'en_attente'%}
-                                    <div class="w3-cell-row">
-                                        <div class="w3-container w3-cell w3-mobile">
-                                            <span class="w3-yellow">En attette</span>
-                                            <span class="w3-grey">Départ</span>
-                                            <span class="w3-grey">OR non payé</span>
-                                        </div>
-
-                                        <div class="w3-container  w3-cell w3-mobile">
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
-                                        </div>
-
-                                    </div> 
-
-
-                                {# sans BST et refusé #}
-                                {% elseif item.etatValidation == 'refuse'%}
-                                    <div class="w3-cell-row">
-                                        <div class="w3-container w3-cell w3-mobile">
-                                            <span class="w3-red">Refusé</span>
-                                            <span class="w3-grey">Départ</span>
-                                            <span class="w3-grey">OR non payé</span>
-                                        </div>
-
-                                        <div class="w3-container  w3-cell w3-mobile">
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
-                                        </div>
-
-                                    </div> 
-
-                                
-                                {# sans BST et validé #}
-                                {% elseif item.etatValidation == 'accepte'%}
-                                    {# sans BST et validé et depart non #}
-                                    {% if item.lieuDepartMissionnaire == null %}
+                                {# sans BST #}
+                                {% if item.etat == 'Ordre de route sans BST' %}
+                                    {# sans BST et en attette #}
+                                    {% if item.etatValidation == 'en_attente'%}
                                         <div class="w3-cell-row">
                                             <div class="w3-container w3-cell w3-mobile">
-                                                <span class="w3-green">Accepté</span>
-                                                <span class="w3-red">Départ non</span>
-                                                <span class="w3-grey">OR non payé</span>
-                                            </div>
-
-                                            <div class="w3-container  w3-cell w3-mobile">
-                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('depart_edit', {id: item.id, id: item.id}) }}">Départ </a>
-                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </i></a>
-                                            </div>
-
-                                        </div> 
-
-
-                                    {# sans BST et validé et depart ok #}
-                                    {% else %}
-                                        {# sans BST et validé et depart ok et or non payé #}
-                                        {% if item.etatPaymentOr == null %}
-                                            <div class="w3-cell-row">
-                                                <div class="w3-container w3-cell w3-mobile">
-                                                    <span class="w3-green">Accepté</span>
-                                                    <span class="w3-green">Départ ok</span>
-                                                    <span class="w3-red">OR non payé</span>
-                                                </div>
-
-                                                <div class="w3-container  w3-cell w3-mobile">
-                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                                </div>
-
-                                            </div> 
-
-                                        {# sans BST et validé et depart ok et or payé #}
-                                        {% else %}
-                                            <div class="w3-cell-row">
-                                                <div class="w3-container w3-cell w3-mobile">
-                                                    <span class="w3-green">Accepté</span>
-                                                    <span class="w3-green">Départ ok</span>
-                                                    <span class="w3-green">OR payé</span>
-                                                </div>
-
-                                                <div class="w3-container  w3-cell w3-mobile">
-                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_bordereau', {id: item.id}) }}">Imprimer BSE </a>
-                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture </a>
-                                                </div>
-
-                                            </div> 
-
-                                        {% endif %}
-                                    {% endif %}
-
-                                {% endif %}
-
-                            {# avec BST #}
-                            {% elseif item.etat == 'Ordre de route avec BST' %}
-                                {# avec BST et en attette #}
-                                {% if item.etatValidation == 'en_attente'%}
-                                    <div class="w3-cell-row">
-                                        <div class="w3-container w3-cell w3-mobile">
-                                            <span class="w3-yellow">En attentte</span>
-                                            <span class="w3-grey">Bst non payé</span>
-                                            <span class="w3-grey">Départ non</span>
-                                            <span class="w3-grey">OR non payé</span>
-                                        </div>
-
-                                        <div class="w3-container  w3-cell w3-mobile">
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifier</a>
-                                        </div>
-
-                                    </div> 
-
-                                {# avec BST et refusé #}
-                                {% elseif item.etatValidation == 'refuse'%}
-                                    <div class="w3-cell-row">
-                                        <div class="w3-container w3-cell w3-mobile">
-                                            <span class="w3-red">Refusé</span>
-                                            <span class="w3-grey">Bst non payé</span>
-                                            <span class="w3-grey">Départ non</span>
-                                            <span class="w3-grey">OR non payé</span>
-                                        </div>
-
-                                        <div class="w3-container  w3-cell w3-mobile">
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifer </a>
-                                        </div>
-
-                                    </div> 
-
-                                {# avec BST et validé #}
-                                {% elseif item.etatValidation == 'accepte'%}
-
-                                    {# avec BST et validé et bst non payé #}
-                                    {% if item.codePostalePaymentBst == null %}
-                                        <div class="w3-cell-row">
-                                            <div class="w3-container w3-cell w3-mobile">
-                                                <span class="w3-green">Accepté</span>
-                                                <span class="w3-red">Bst non payé</span>
-                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-yellow">En attette</span>
+                                                <span class="w3-grey">Départ</span>
                                                 <span class="w3-grey">OR non payé</span>
                                             </div>
 
                                             <div class="w3-container  w3-cell w3-mobile">
                                                 <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
                                             </div>
 
                                         </div> 
 
-                                    {# avec BST et validé et bst payé #}
-                                    {% else %}
 
-                                        {# avec BST et validé et bst payé et depart non #}
+                                    {# sans BST et refusé #}
+                                    {% elseif item.etatValidation == 'refuse'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-red">Refusé</span>
+                                                <span class="w3-grey">Départ</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
+                                            </div>
+
+                                        </div> 
+
+                                    
+                                    {# sans BST et validé #}
+                                    {% elseif item.etatValidation == 'accepte'%}
+                                        {# sans BST et validé et depart non #}
                                         {% if item.lieuDepartMissionnaire == null %}
                                             <div class="w3-cell-row">
                                                 <div class="w3-container w3-cell w3-mobile">
                                                     <span class="w3-green">Accepté</span>
-                                                    <span class="w3-green">Bst payé</span>
                                                     <span class="w3-red">Départ non</span>
                                                     <span class="w3-grey">OR non payé</span>
                                                 </div>
 
                                                 <div class="w3-container  w3-cell w3-mobile">
-                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
                                                     <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('depart_edit', {id: item.id, id: item.id}) }}">Départ </a>
+                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </i></a>
                                                 </div>
 
                                             </div> 
-                                        
-                                        {# avec BST et validé et bst payé et depart ok #}
-                                        {% else %}
 
-                                            {# avec BST et validé et bst payé et depart ok et or non payé #}
-                                            {% if item.etatPaymentOr == null  %}
+
+                                        {# sans BST et validé et depart ok #}
+                                        {% else %}
+                                            {# sans BST et validé et depart ok et or non payé #}
+                                            {% if item.etatPaymentOr == null %}
                                                 <div class="w3-cell-row">
                                                     <div class="w3-container w3-cell w3-mobile">
                                                         <span class="w3-green">Accepté</span>
-                                                        <span class="w3-green">Bst payé</span>
                                                         <span class="w3-green">Départ ok</span>
                                                         <span class="w3-red">OR non payé</span>
                                                     </div>
 
                                                     <div class="w3-container  w3-cell w3-mobile">
                                                         <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
-                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture BST </a>
                                                     </div>
 
                                                 </div> 
 
-                                            {# avec BST et validé et bst payé et depart ok et or payé #}
-                                            {% else %} 
+                                            {# sans BST et validé et depart ok et or payé #}
+                                            {% else %}
                                                 <div class="w3-cell-row">
                                                     <div class="w3-container w3-cell w3-mobile">
                                                         <span class="w3-green">Accepté</span>
-                                                        <span class="w3-green">Bst payé</span>
                                                         <span class="w3-green">Départ ok</span>
                                                         <span class="w3-green">OR payé</span>
                                                     </div>
 
                                                     <div class="w3-container  w3-cell w3-mobile">
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
                                                         <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_bordereau', {id: item.id}) }}">Imprimer BSE </a>
                                                         <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture </a>
-                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
                                                     </div>
 
                                                 </div> 
 
                                             {% endif %}
                                         {% endif %}
+
+                                    {% endif %}
+
+                                {# avec BST #}
+                                {% elseif item.etat == 'Ordre de route avec BST' %}
+                                    {# avec BST et en attette #}
+                                    {% if item.etatValidation == 'en_attente'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-yellow">En attentte</span>
+                                                <span class="w3-grey">Bst non payé</span>
+                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifier</a>
+                                            </div>
+
+                                        </div> 
+
+                                    {# avec BST et refusé #}
+                                    {% elseif item.etatValidation == 'refuse'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-red">Refusé</span>
+                                                <span class="w3-grey">Bst non payé</span>
+                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifer </a>
+                                            </div>
+
+                                        </div> 
+
+                                    {# avec BST et validé #}
+                                    {% elseif item.etatValidation == 'accepte'%}
+
+                                        {# avec BST et validé et bst non payé #}
+                                        {% if item.codePostalePaymentBst == null %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-red">Bst non payé</span>
+                                                    <span class="w3-grey">Départ non</span>
+                                                    <span class="w3-grey">OR non payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                </div>
+
+                                            </div> 
+
+                                        {# avec BST et validé et bst payé #}
+                                        {% else %}
+
+                                            {# avec BST et validé et bst payé et depart non #}
+                                            {% if item.lieuDepartMissionnaire == null %}
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Bst payé</span>
+                                                        <span class="w3-red">Départ non</span>
+                                                        <span class="w3-grey">OR non payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('depart_edit', {id: item.id, id: item.id}) }}">Départ </a>
+                                                    </div>
+
+                                                </div> 
+                                            
+                                            {# avec BST et validé et bst payé et depart ok #}
+                                            {% else %}
+
+                                                {# avec BST et validé et bst payé et depart ok et or non payé #}
+                                                {% if item.etatPaymentOr == null  %}
+                                                    <div class="w3-cell-row">
+                                                        <div class="w3-container w3-cell w3-mobile">
+                                                            <span class="w3-green">Accepté</span>
+                                                            <span class="w3-green">Bst payé</span>
+                                                            <span class="w3-green">Départ ok</span>
+                                                            <span class="w3-red">OR non payé</span>
+                                                        </div>
+
+                                                        <div class="w3-container  w3-cell w3-mobile">
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture BST </a>
+                                                        </div>
+
+                                                    </div> 
+
+                                                {# avec BST et validé et bst payé et depart ok et or payé #}
+                                                {% else %} 
+                                                    <div class="w3-cell-row">
+                                                        <div class="w3-container w3-cell w3-mobile">
+                                                            <span class="w3-green">Accepté</span>
+                                                            <span class="w3-green">Bst payé</span>
+                                                            <span class="w3-green">Départ ok</span>
+                                                            <span class="w3-green">OR payé</span>
+                                                        </div>
+
+                                                        <div class="w3-container  w3-cell w3-mobile">
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_bordereau', {id: item.id}) }}">Imprimer BSE </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                        </div>
+
+                                                    </div> 
+
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
-                            {% endif %}
-                            {###################################}
+                                {###################################}
+                            </div>
+                        {% endfor %}
+                    </div>
+    
+                    <!-- Footer -->
+                    <footer class="w3-padding-32 w3-light-grey w3-small w3-margin w3-center" id="footer">
+                        <div class="w3-row-padding">
+                            <div class="w3-third ">
+                                <h4>Contact</h4>
+                                <form action="https://www.w3schools.com/action_page.php" target="_blank">
+                                <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
+                                <button type="submit" class="w3-button w3-block w3-amber">Send</button>
+                                </form>
+                            </div>
+
+                            <div class="w3-third w3-margin-top">
+                                <h4>Coordonné</h4>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-map-marker w3-opacity"></i> Ampasambazaha, Fianarantsoa 301</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-poste w3-opacity"></i> Fianarantsoa 301</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-site w3-opacity"></i> www.paositramalagasy.mg</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-youtube w3-opacity"></i> Paositra Malagasy</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-phone w3-opacity"></i> + 261 34 00 994 42</p>
+                            </div>
+
+                            <div class="w3-third w3-margin-top ">
+                                <h4>Nos Service</h4>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-credit-card"></i>  Epargne postale</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-car"></i>  Transport</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-location"></i>  Location Voiture</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-dollar"></i>  Transfert d'argent</p>
+                            </div>
                         </div>
-                    {% endfor %}
+                        <div class="w3-margin-top w3-padding w3-hover-text-amber">Powered by Julie Iarisoa</div>
+                    </footer>
+
+                <!-- End page content -->
                 </div>
-  
-                <!-- Footer -->
-                <footer class="w3-padding-32 w3-light-grey w3-small w3-margin w3-center" id="footer">
-                    <div class="w3-row-padding">
-                        <div class="w3-third ">
-                            <h4>Contact</h4>
-                            <form action="https://www.w3schools.com/action_page.php" target="_blank">
-                            <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
-                            <button type="submit" class="w3-button w3-block w3-amber">Send</button>
-                            </form>
-                        </div>
 
-                        <div class="w3-third w3-margin-top">
-                            <h4>Coordonné</h4>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-map-marker w3-opacity"></i> Ampasambazaha, Fianarantsoa 301</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-poste w3-opacity"></i> Fianarantsoa 301</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-site w3-opacity"></i> www.paositramalagasy.mg</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-youtube w3-opacity"></i> Paositra Malagasy</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-phone w3-opacity"></i> + 261 34 00 994 42</p>
-                        </div>
-
-                        <div class="w3-third w3-margin-top ">
-                            <h4>Nos Service</h4>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-credit-card"></i>  Epargne postale</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-car"></i>  Transport</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-location"></i>  Location Voiture</p>
-                            <p class="w3-hover-text-amber"><i class="fa fa-fw fa-dollar"></i>  Transfert d'argent</p>
+                <!-- Newsletter Modal -->
+                <div id="newsletter" class="w3-modal">
+                    <div class="w3-modal-content w3-animate-top" style="padding:32px">
+                        <div class="w3-container w3-white w3-center">
+                        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+                        <h2 class="w3-wide">NEWSLETTER</h2>
+                        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+                        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+                        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
                         </div>
                     </div>
-                    <div class="w3-margin-top w3-padding w3-hover-text-amber">Powered by Julie Iarisoa</div>
-                </footer>
-
-            <!-- End page content -->
-            </div>
-
-            <!-- Newsletter Modal -->
-            <div id="newsletter" class="w3-modal">
-                <div class="w3-modal-content w3-animate-top" style="padding:32px">
-                    <div class="w3-container w3-white w3-center">
-                    <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-                    <h2 class="w3-wide">NEWSLETTER</h2>
-                    <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
-                    <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-                    <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
-                    </div>
                 </div>
-            </div>
 
-        </body>
+            </body>
 
         {# Vérifiez si l'utilisateur a le rôle Payeur #}
         {% elseif is_granted('ROLE_PAYEUR') %}
@@ -1137,363 +1135,649 @@
             </div>
         {# Vérifiez si l'utilisateur a le rôle USER #}
         {% elseif is_granted('ROLE_USER') %}
+            <body class="w3-content" style="max-width:1300px">
 
+                <!-- Sidebar/menu -->
+                <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+                    <div class="w3-container w3-display-container w3-padding-16">
+                        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+                        <h3 class="w3-wide w3-text-amber"><b>PAOSITRA MALAGASY</b></h3>
+                    </div>
+                    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+                    <h6 class="w3-text-grey w3-opacity">POUR TOI SEULEMENT</h6>
+                        <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-gray w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
+                        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
+                            <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
+                                <a href="{{ path('user_index', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Nouveau</a>
+                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Régulariser</a>
+                                <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Non régulariser</a>
+                            </div>
+                    </div>
+                    <h6 class="w3-text-grey w3-opacity">POUR TOUS UTILISATEUR</h6>
+                    <a href="#footer" class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Contact</a> 
+                    <a href="javascript:void(0)" class="w3-bar-item w3-text-grey  w3-hover-text-amber w3-padding" onclick="document.getElementById('newsletter').style.display='block'"><i class="fa fa-user w3-opacity"></i>  Evaluer</a> 
+                    <a href="#footer"  class="w3-bar-item w3-text-grey w3-padding w3-hover-text-amber"><i class="fa fa-user w3-opacity"></i> Paramètres</a>
+                </nav>
+
+                <!-- Top menu on small screens -->
+                <header class="w3-bar w3-top w3-hide-large w3-yellow w3-xlarge">
+                    <div class="w3-bar-item w3-padding-24 w3-wide w3-text-black">PAOMA</div>
+                    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+                </header>
+
+                <!-- Overlay effect when opening sidebar on small screens -->
+                <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay">  
+                </div>
+
+                <!-- !PAGE CONTENT! -->
+                <div class="w3-main" style="margin-left:250px">
+                    <div class=" w3-margin-bottom ">
+                        <div class=" w3-opacity w3-padding w3-margin-bottom">
+                            <h1 class="w3-center">Mission</h1>
+                        </div> 
+
+                        <div class="w3-row w3-padding-16" >
+                            <div class="w3-container w3-twothird w3-center">
+                                <canvas id="myChartBse" width="400" height="180">BSE</canvas>
+                            </div>
+
+                            <div class="w3-container w3-third">
+                                <h6 class="w3-center">LEGENDE</h6>
+                                <p class="w3-center">Nombre des missions pendant 6 mois</br> Gouper par 1 mois </p>
+                                <button class="w3-red w3-border w3-border-red w3-margin-bottom" style='width:80px'>red</button>   <span> 0% à 25% du total dans 6 mois</span><br>
+                                <button class="w3-orange w3-border w3-border-orange w3-margin-bottom" style='width:80px'>Orange</button>  <span> 25% à 50% du total dans 6 mois</span><br>
+                                <button class="w3-green w3-border w3-border-green w3-margin-bottom" style='width:80px'>Green</button>  <span> 50% à 75% du total dans 6 mois</span><br>
+                                <button class="w3-blue w3-border w3-border-blue w3-margin-bottom" style='width:80px'>Blue</button>   <span> 75% à 100% du total dans 6 mois</span><br>
+                                <button class="w3-yellow w3-border w3-border-yellow" style='width:80px'>Yellow</button> <span> Couleur par defaut</span><br>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Liste des missions --><hr>
+                    <div class="w3-container">
+                        {% for item in Bse_missionnaire %}
+                            <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
+                                <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
+                                <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
+                                {{item.dureeMission}} jours.</p>
+                                <p class="w3-">Demande: {{item.etat }}</p>
+
+                            {###########################################}
+
+                                {# sans BST #}
+                                {% if item.etat == 'Ordre de route sans BST' %}
+                                    {# sans BST et en attette #}
+                                    {% if item.etatValidation == 'en_attente'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-yellow">En attette</span>
+                                                <span class="w3-grey">Départ</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
+                                            </div>
+
+                                        </div> 
+
+
+                                    {# sans BST et refusé #}
+                                    {% elseif item.etatValidation == 'refuse'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-red">Refusé</span>
+                                                <span class="w3-grey">Départ</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire', {id: item.id}) }}">Modifier </a>
+                                            </div>
+
+                                        </div> 
+
+                                    
+                                    {# sans BST et validé #}
+                                    {% elseif item.etatValidation == 'accepte'%}
+                                        {# sans BST et validé et depart non #}
+                                        {% if item.lieuDepartMissionnaire == null %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-red">Départ non</span>
+                                                    <span class="w3-grey">OR non payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('depart_edit', {id: item.id, id: item.id}) }}">Départ </a>
+                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </i></a>
+                                                </div>
+
+                                            </div> 
+
+
+                                        {# sans BST et validé et depart ok #}
+                                        {% else %}
+                                            {# sans BST et validé et depart ok et or non payé #}
+                                            {% if item.etatPaymentOr == null %}
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Départ ok</span>
+                                                        <span class="w3-red">OR non payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                    </div>
+
+                                                </div> 
+
+                                            {# sans BST et validé et depart ok et or payé #}
+                                            {% else %}
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Départ ok</span>
+                                                        <span class="w3-green">OR payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_bordereau', {id: item.id}) }}">Imprimer BSE </a>
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture </a>
+                                                    </div>
+
+                                                </div> 
+
+                                            {% endif %}
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {# avec BST #}
+                                {% elseif item.etat == 'Ordre de route avec BST' %}
+                                    {# avec BST et en attette #}
+                                    {% if item.etatValidation == 'en_attente'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-yellow">En attentte</span>
+                                                <span class="w3-grey">Bst non payé</span>
+                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifier</a>
+                                            </div>
+
+                                        </div> 
+
+                                    {# avec BST et refusé #}
+                                    {% elseif item.etatValidation == 'refuse'%}
+                                        <div class="w3-cell-row">
+                                            <div class="w3-container w3-cell w3-mobile">
+                                                <span class="w3-red">Refusé</span>
+                                                <span class="w3-grey">Bst non payé</span>
+                                                <span class="w3-grey">Départ non</span>
+                                                <span class="w3-grey">OR non payé</span>
+                                            </div>
+
+                                            <div class="w3-container  w3-cell w3-mobile">
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_edit_missionnaire_Avec_Bst', {id: item.id}) }}">Modifer </a>
+                                            </div>
+
+                                        </div> 
+
+                                    {# avec BST et validé #}
+                                    {% elseif item.etatValidation == 'accepte'%}
+
+                                        {# avec BST et validé et bst non payé #}
+                                        {% if item.codePostalePaymentBst == null %}
+                                            <div class="w3-cell-row">
+                                                <div class="w3-container w3-cell w3-mobile">
+                                                    <span class="w3-green">Accepté</span>
+                                                    <span class="w3-red">Bst non payé</span>
+                                                    <span class="w3-grey">Départ non</span>
+                                                    <span class="w3-grey">OR non payé</span>
+                                                </div>
+
+                                                <div class="w3-container  w3-cell w3-mobile">
+                                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                </div>
+
+                                            </div> 
+
+                                        {# avec BST et validé et bst payé #}
+                                        {% else %}
+
+                                            {# avec BST et validé et bst payé et depart non #}
+                                            {% if item.lieuDepartMissionnaire == null %}
+                                                <div class="w3-cell-row">
+                                                    <div class="w3-container w3-cell w3-mobile">
+                                                        <span class="w3-green">Accepté</span>
+                                                        <span class="w3-green">Bst payé</span>
+                                                        <span class="w3-red">Départ non</span>
+                                                        <span class="w3-grey">OR non payé</span>
+                                                    </div>
+
+                                                    <div class="w3-container  w3-cell w3-mobile">
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                        <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('depart_edit', {id: item.id, id: item.id}) }}">Départ </a>
+                                                    </div>
+
+                                                </div> 
+                                            
+                                            {# avec BST et validé et bst payé et depart ok #}
+                                            {% else %}
+
+                                                {# avec BST et validé et bst payé et depart ok et or non payé #}
+                                                {% if item.etatPaymentOr == null  %}
+                                                    <div class="w3-cell-row">
+                                                        <div class="w3-container w3-cell w3-mobile">
+                                                            <span class="w3-green">Accepté</span>
+                                                            <span class="w3-green">Bst payé</span>
+                                                            <span class="w3-green">Départ ok</span>
+                                                            <span class="w3-red">OR non payé</span>
+                                                        </div>
+
+                                                        <div class="w3-container  w3-cell w3-mobile">
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture BST </a>
+                                                        </div>
+
+                                                    </div> 
+
+                                                {# avec BST et validé et bst payé et depart ok et or payé #}
+                                                {% else %} 
+                                                    <div class="w3-cell-row">
+                                                        <div class="w3-container w3-cell w3-mobile">
+                                                            <span class="w3-green">Accepté</span>
+                                                            <span class="w3-green">Bst payé</span>
+                                                            <span class="w3-green">Départ ok</span>
+                                                            <span class="w3-green">OR payé</span>
+                                                        </div>
+
+                                                        <div class="w3-container  w3-cell w3-mobile">
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_bordereau', {id: item.id}) }}">Imprimer BSE </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('pdf_facture', {id: item.id}) }}">Facture </a>
+                                                            <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right w3-margin-top" href="{{ path('bse_show_missionnaire', {id: item.id}) }}">Voir </a>
+                                                        </div>
+
+                                                    </div> 
+
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                                {###################################}
+                            </div>
+                        {% endfor %}
+                    </div>
+    
+                    <!-- Footer -->
+                    <footer class="w3-padding-32 w3-light-grey w3-small w3-margin w3-center" id="footer">
+                        <div class="w3-row-padding">
+                            <div class="w3-third ">
+                                <h4>Contact</h4>
+                                <form action="https://www.w3schools.com/action_page.php" target="_blank">
+                                <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
+                                <button type="submit" class="w3-button w3-block w3-amber">Send</button>
+                                </form>
+                            </div>
+
+                            <div class="w3-third w3-margin-top">
+                                <h4>Coordonné</h4>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-map-marker w3-opacity"></i> Ampasambazaha, Fianarantsoa 301</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-poste w3-opacity"></i> Fianarantsoa 301</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-site w3-opacity"></i> www.paositramalagasy.mg</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-youtube w3-opacity"></i> Paositra Malagasy</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-phone w3-opacity"></i> + 261 34 00 994 42</p>
+                            </div>
+
+                            <div class="w3-third w3-margin-top ">
+                                <h4>Nos Service</h4>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-credit-card"></i>  Epargne postale</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-car"></i>  Transport</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-location"></i>  Location Voiture</p>
+                                <p class="w3-hover-text-amber"><i class="fa fa-fw fa-dollar"></i>  Transfert d'argent</p>
+                            </div>
+                        </div>
+                        <div class="w3-margin-top w3-padding w3-hover-text-amber">Powered by Julie Iarisoa</div>
+                    </footer>
+
+                <!-- End page content -->
+                </div>
+
+                <!-- Newsletter Modal -->
+                <div id="newsletter" class="w3-modal">
+                    <div class="w3-modal-content w3-animate-top" style="padding:32px">
+                        <div class="w3-container w3-white w3-center">
+                        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+                        <h2 class="w3-wide">NEWSLETTER</h2>
+                        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+                        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+                        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+
+            </body>
             {# contenue pour l'utilisateur simple #}
-            {# Contenue pour l'administrateur #}
-            <div class="w3-row">
+                {# Contenue pour l'administrateur #}
+               
+                {#                        <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
+                                        <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
+                                        <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                                    </div>
+                </div>
 
-                {# bare de navigation pour l'administrateur #}
-                <div class="w3-col w3-yellow" id="nav">
-                    <a href="{{path('app_home_page')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-home w3-opacity"></i> 
-                            Acceuil
-                        </button>
-                    </a>
-                    <a href="{{path('user_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fa fa-users w3-opacity"></i> 
-                            Missionnaire
-                        </button>
-                    </a>
-                    <a href="{{path('bse_index')}}">
-                        <button class="w3-button w3-block w3-left-align" id="active">
-                            <i class="fas fa-briefcase"></i>
-                            Mission
-                        </button>
-                    </a>
-                    <a href="{{path('payment_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-dollar-sign"></i> 
-                            Payement
-                        </button>
-                    </a>
-                    <a href="{{path('bureau_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-building"></i>
-                            Agence
-                        </button>
-                    </a>
-                    <a href="{{path('credit_index')}}">
-                        <button class="w3-button w3-block w3-left-align">
-                            <i class="fas fa-sync"></i>
-                            Renouveller credit
-                        </button>
-                    </a>
+                <div id="Creation" class="w3-container w3-display-container Modal">
+                                    {# liste Ordre de route deja paye #}
+                                    {#<div>
+                                        {# Corp du Liste Ordre de route deja paye   contenue #}
+                                    {# <div>
+                                            <table class="w3-table w3-bordered"  id="myTable">
+                                                    <tr class="w3-light-grey">
+                                                        <th>Matricule</th>
+                                                        <th>Nom</th>
+                                                        <th>Prenom</th>
+                                                        <th>Fonction</th>
+                                                        <th>Taux Journalier</th>
+                                                        <th>Titre</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                {% for user in user %}
+                                                    <tr class="">
+                                                        <td>{{ user.matricule }}</td>
+                                                        <td>{{ user.nom }}</td>
+                                                        <td>{{ user.prenom }}</td>
+                                                        <td>{{ user.fonction }}</td>
+                                                        <td>{{ user.tauxJournalier }}</td>
+                                                        <td>{{ user.titre }}</td>
+                                                        <td>
+                                                            <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR</boutton></a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR/BST</boutton></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                </div>
+
+                <div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
+                                        {# Corp du Liste BST non payer  contenue #}
+                                    {# <div>
+                                            <table  class="w3-table w3-bordered" id="myTableAttente">
+                                                <tr class="w3-light-grey">
+                                                    <th>Destination</th>
+                                                    <th>Motif</th>
+                                                    <th>Création mission</th>
+                                                    <th>Matricule</th>
+                                                    <th>Durée mission</th>
+                                                    <th>Création mission</th>
+                                                    <th>Payment OR</th>
+                                                    <th>Validation OR</th>
+                                                    <th>Etat</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                                {% for bse_validation_attente in bse_validation_attente %}
+                                                    <tr>
+                                                        <td>{{ bse_validation_attente.destination }}</td>
+                                                        <td>{{ bse_validation_attente.motif }}</td>
+                                                        <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
+                                                        <td>{{ bse_validation_attente.matricule }}</td>
+                                                        <td>{{ bse_validation_attente.dureeMission }}</td>
+                                                        <td>{{ bse_validation_attente.lieuBse}}</td>
+                                                        <td>{{ bse_validation_attente.etatPaymentOr }}</td>
+                                                        <td>{{ bse_validation_attente.etatValidationOr }}</td>
+                                                        <td>{{ bse_validation_attente.depenseBst }}</td>
+                                                        <td>{{ bse_validation_attente.etat }}</td>
+
+                                                        {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
+                                                            <td>
+                                                                <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                                                            </td>
+                                                        {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
+                                                            <td>
+                                                                <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
+                                                            </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                </div>
+
+                <div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
+                                        <div>
+                                            <table  class="w3-table w3-bordered" id="myTableRefuse">
+                                                <tr class="w3-light-grey">
+                                                    <th>Destination</th>
+                                                    <th>Motif</th>
+                                                    <th>Création mission</th>
+                                                    <th>Matricule</th>
+                                                    <th>Durée mission</th>
+                                                    <th>Nom detenteur</th>
+                                                    <th>Prenom detenteur</th>
+                                                    <th>Fonction Detenteur</th>
+                                                    <th>Création mission</th>
+                                                    <th>Validation OR</th>
+                                                    <th>Etat</th>
+                                                    <th></th>
+                                                </tr>
+                                                {% for validation_refuse in validation_refuse %}
+                                                    <tr>
+                                                        <td>{{ validation_refuse.destination }}</td>
+                                                        <td>{{ validation_refuse.motif }}</td>
+                                                        <td>{{ validation_refuse.dateBse|date('Y-m-d') }}</td>
+                                                        <td>{{ validation_refuse.matricule }}</td>
+                                                        <td>{{ validation_refuse.dureeMission }}</td>
+                                                        <td>{{ validation_refuse.nomDetenteur }}</td>
+                                                        <td>{{ validation_refuse.prenomDetenteur }}</td>
+                                                        <td>{{ validation_refuse.fonctionDetenteur }}</td>
+                                                        <td>{{ validation_refuse.lieuBse}}</td>
+                                                        <td>{{ validation_refuse.etatValidationOr }}</td>
+                                                        <td>{{ validation_refuse.etat }}</td>
+                                                        
+                                                    {% if (validation_refuse.etat == 'Ordre de route sans BST') %}
+                                                        <td>
+                                                            <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                        </td>
+                                                    {% elseif (validation_refuse.etat == 'Ordre de route avec BST')%}
+                                                        <td>
+                                                            <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
+                                                        </td>
+                                                    {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
                 </div>
 
 
 
-
-                <div class="w3-container content-wrapper">
-
-            <div class="w3-bar  w3-padding">
-            <button class="w3-bar-item w3-button w3-blue" onclick="openModal('Creation')" id="tous">Creation</button>
-            <button class="w3-bar-item w3-button" onclick="openModal('Validation')" id="bst">Validation</button>
-            <button class="w3-bar-item w3-button" onclick="openModal('Refuse')" id="ordreRoute">Refuse</button>
-            <div  class="w3-center w3-bar-item w3-display-topright w3-margin">
-            <input class="w3-input w3-border w3-bar-item  w3-margin-right" type="text" placeholder="Rechercher un missionnaire..."id="myInput" onkeyup="myFunction('myTable','myInput',2)">
-                                    <i class="fa fa-bell w3-opaModal w3-margin-left"  onclick="document.getElementById('notify').style.display='block'"></i>
-                                    <i class="fa fa-user-circle w3-opaModal w3-margin-left"   onclick="document.getElementById('profile').style.display='block'"></i>
-                                    <i class="fa fa-bars w3-opaModal w3-margin-left"  onclick="document.getElementById('treebars').style.display='block'"></i>
+                {#
+                    <div>
+                        {# premier contenue }
+                        <div class="contenue1 w3-container content-wrapper" id="creation">
+                            {# Entete du premier contenue }
+                            <div>
+                                <div class="w3-row-padding w3-margin-bottom">
+                                    <center>
+                                        <h4 class="w3-text-indigo" ><b>Création d'un ordre de route avec ou sans BST</b></h4>
+                                    </center>
                                 </div>
-            </div>
-
-            <div id="Creation" class="w3-container w3-display-container Modal">
-                                {# liste Ordre de route deja paye #}
-                                <div>
-                                    {# Corp du Liste Ordre de route deja paye   contenue #}
-                                    <div>
-                                        <table class="w3-table w3-bordered"  id="myTable">
-                                                <tr class="w3-light-grey">
-                                                    <th>Matricule</th>
-                                                    <th>Nom</th>
-                                                    <th>Prenom</th>
-                                                    <th>Fonction</th>
-                                                    <th>Taux Journalier</th>
-                                                    <th>Titre</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            {% for user in user %}
-                                                <tr class="">
-                                                    <td>{{ user.matricule }}</td>
-                                                    <td>{{ user.nom }}</td>
-                                                    <td>{{ user.prenom }}</td>
-                                                    <td>{{ user.fonction }}</td>
-                                                    <td>{{ user.tauxJournalier }}</td>
-                                                    <td>{{ user.titre }}</td>
-                                                    <td>
-                                                        <a href="{{ path('user_show', {id: user.id}) }}" class="w3-button w3-light-grey w3-small"><i class="fas fa-eye"></i> Voir</a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR</boutton></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ path('bst_new', {id: user.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Créer OR/BST</boutton></a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </table>
+                                <div class="w3-row-padding w3-margin-bottom">
+                                    <div  class="w3-twothird">
+                                        <a href="#creation"><button class="w3-button w3-yellow">Création</button></a>
+                                        <a href="#validation"><button class="w3-button">Validation</button></a>
+                                        <a href="#refuse"><button class="w3-button ">Refusé</button></a>
+                                    </div>
+                                    <div  class="w3-third">
+                                        <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
                                     </div>
                                 </div>
-            </div>
-
-            <div id="Validation" class="w3-container w3-display-container Modal" style="display:none">
-                                    {# Corp du Liste BST non payer  contenue #}
-                                    <div>
-                                        <table  class="w3-table w3-bordered" id="myTableAttente">
-                                            <tr class="w3-light-grey">
-                                                <th>Destination</th>
-                                                <th>Motif</th>
-                                                <th>Création mission</th>
-                                                <th>Matricule</th>
-                                                <th>Durée mission</th>
-                                                <th>Création mission</th>
-                                                <th>Payment OR</th>
-                                                <th>Validation OR</th>
-                                                <th>Etat</th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                            {% for bse_validation_attente in bse_validation_attente %}
-                                                <tr>
-                                                    <td>{{ bse_validation_attente.destination }}</td>
-                                                    <td>{{ bse_validation_attente.motif }}</td>
-                                                    <td>{{ bse_validation_attente.dateBse|date('Y-m-d') }}</td>
-                                                    <td>{{ bse_validation_attente.matricule }}</td>
-                                                    <td>{{ bse_validation_attente.dureeMission }}</td>
-                                                    <td>{{ bse_validation_attente.lieuBse}}</td>
-                                                    <td>{{ bse_validation_attente.etatPaymentOr }}</td>
-                                                    <td>{{ bse_validation_attente.etatValidationOr }}</td>
-                                                    <td>{{ bse_validation_attente.depenseBst }}</td>
-                                                    <td>{{ bse_validation_attente.etat }}</td>
-
-                                                    {% if (bse_validation_attente.etat == 'Ordre de route sans BST') %}
-                                                        <td>
-                                                            <a href="{{ path('bse_valide_or', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
-                                                        </td>
-                                                    {% elseif (bse_validation_attente.etat == 'Ordre de route avec BST')%}
-                                                        <td>
-                                                            <a href="{{ path('bse_valide_or_bst', {id: bse_validation_attente.id, matricule: bse_validation_attente.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Valider</button></a>
-                                                        </td>
-                                                    {% endif %}
-                                                </tr>
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-            </div>
-
-            <div id="Refuse" class="w3-container w3-display-container Modal" style="display:none">
-                                    <div>
-                                        <table  class="w3-table w3-bordered" id="myTableRefuse">
-                                            <tr class="w3-light-grey">
-                                                <th>Destination</th>
-                                                <th>Motif</th>
-                                                <th>Création mission</th>
-                                                <th>Matricule</th>
-                                                <th>Durée mission</th>
-                                                <th>Nom detenteur</th>
-                                                <th>Prenom detenteur</th>
-                                                <th>Fonction Detenteur</th>
-                                                <th>Création mission</th>
-                                                <th>Validation OR</th>
-                                                <th>Etat</th>
-                                                <th></th>
-                                            </tr>
-                                            {% for validation_refuse in validation_refuse %}
-                                                <tr>
-                                                    <td>{{ validation_refuse.destination }}</td>
-                                                    <td>{{ validation_refuse.motif }}</td>
-                                                    <td>{{ validation_refuse.dateBse|date('Y-m-d') }}</td>
-                                                    <td>{{ validation_refuse.matricule }}</td>
-                                                    <td>{{ validation_refuse.dureeMission }}</td>
-                                                    <td>{{ validation_refuse.nomDetenteur }}</td>
-                                                    <td>{{ validation_refuse.prenomDetenteur }}</td>
-                                                    <td>{{ validation_refuse.fonctionDetenteur }}</td>
-                                                    <td>{{ validation_refuse.lieuBse}}</td>
-                                                    <td>{{ validation_refuse.etatValidationOr }}</td>
-                                                    <td>{{ validation_refuse.etat }}</td>
-                                                    
-                                                {% if (validation_refuse.etat == 'Ordre de route sans BST') %}
-                                                    <td>
-                                                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                                    </td>
-                                                {% elseif (validation_refuse.etat == 'Ordre de route avec BST')%}
-                                                    <td>
-                                                        <a href="{{ path('bse_edit', {id: validation_refuse.id, matricule: validation_refuse.matricule}) }}"><boutton class="w3-button w3-blue w3-hover-yellow">Modifier</button></a>
-                                                    </td>
-                                                {% endif %}
-                                                </tr>
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-            </div>
-
-
-
-            {#
-                <div>
-                    {# premier contenue }
-                    <div class="contenue1 w3-container content-wrapper" id="creation">
-                        {# Entete du premier contenue }
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Création d'un ordre de route avec ou sans BST</b></h4>
-                                </center>
                             </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button w3-yellow">Création</button></a>
-                                    <a href="#validation"><button class="w3-button">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button ">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher un missionnaire..." id="myInput" onkeyup="myRecherche('myTable','myInput',1)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du premier contenue }
-                        <div id="creation" class="w3-container Mission">
-                        </div>
-                    </div>
-
-                    {# deuxieme contenue }
-                    <div class="contenue2 w3-container content-wrapper" id="validation">
-                        {# Entete du deuxième contenue }
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Validation d'un ordre de route avec ou sans BST</b></h4>
-                                </center>
-                            </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">Création</button></a>
-                                    <a href="#validation"><button class="w3-button w3-yellow">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myRecherche('myTableAttente','myInputAttente',0)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du deuxieme contenue }
-                        <div id="validation" class="w3-container Mission">
-                        </div>
-                    </div>
-
-                    {# troisième contenue }
-                    <div class="contenue3 w3-container content-wrapper" id="refuse">
-                        {# Entete du troisieme contenue }
-                        <div>
-                            <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
-                                <center>
-                                    <h4 class="w3-text-indigo" ><b>Ordre de route avec ou sans BST refusé</b></h4>
-                                </center>
-                            </div>
-                            <div class="w3-row-padding w3-margin-bottom">
-                                <div  class="w3-twothird">
-                                    <a href="#creation"><button class="w3-button">Création</button></a>
-                                    <a href="#validation"><button class="w3-button">Validation</button></a>
-                                    <a href="#refuse"><button class="w3-button w3-yellow">Refusé</button></a>
-                                </div>
-                                <div  class="w3-third">
-                                    <input class="w3-input w3-border " type="text" placeholder="Rechercher par motif..." id="myInputRefuse" onkeyup="myRecherche('myTableRefuse','myInputRefuse',0)">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {# Corp du troisieme contenue }
-                        <div id="refuse" class="w3-container Mission">
                             
+                            {# Corp du premier contenue }
+                            <div id="creation" class="w3-container Mission">
+                            </div>
                         </div>
-                    </div>
-                </div>#}
 
-
-                    {# modal profile pour l'administrateur #}
-                    <div class="Modal">
-                        <div id="profile" class="w3-modal">
-                            <div  class="w3-modal-content w3-animate-top">
-                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
-                                    <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                        {# deuxieme contenue }
+                        <div class="contenue2 w3-container content-wrapper" id="validation">
+                            {# Entete du deuxième contenue }
+                            <div>
+                                <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
                                     <center>
-                                        {% if app.user.sexe == 'Femme' %}
+                                        <h4 class="w3-text-indigo" ><b>Validation d'un ordre de route avec ou sans BST</b></h4>
+                                    </center>
+                                </div>
+                                <div class="w3-row-padding w3-margin-bottom">
+                                    <div  class="w3-twothird">
+                                        <a href="#creation"><button class="w3-button">Création</button></a>
+                                        <a href="#validation"><button class="w3-button w3-yellow">Validation</button></a>
+                                        <a href="#refuse"><button class="w3-button">Refusé</button></a>
+                                    </div>
+                                    <div  class="w3-third">
+                                        <input class="w3-input w3-border " type="text" placeholder="Rechercher par destination..." id="myInputAttente" onkeyup="myRecherche('myTableAttente','myInputAttente',0)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {# Corp du deuxieme contenue }
+                            <div id="validation" class="w3-container Mission">
+                            </div>
+                        </div>
+
+                        {# troisième contenue }
+                        <div class="contenue3 w3-container content-wrapper" id="refuse">
+                            {# Entete du troisieme contenue }
+                            <div>
+                                <div class="w3-row-padding w3-margin-bottom w3-border w3-border-indigo">
+                                    <center>
+                                        <h4 class="w3-text-indigo" ><b>Ordre de route avec ou sans BST refusé</b></h4>
+                                    </center>
+                                </div>
+                                <div class="w3-row-padding w3-margin-bottom">
+                                    <div  class="w3-twothird">
+                                        <a href="#creation"><button class="w3-button">Création</button></a>
+                                        <a href="#validation"><button class="w3-button">Validation</button></a>
+                                        <a href="#refuse"><button class="w3-button w3-yellow">Refusé</button></a>
+                                    </div>
+                                    <div  class="w3-third">
+                                        <input class="w3-input w3-border " type="text" placeholder="Rechercher par motif..." id="myInputRefuse" onkeyup="myRecherche('myTableRefuse','myInputRefuse',0)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {# Corp du troisieme contenue }
+                            <div id="refuse" class="w3-container Mission">
+                                
+                            </div>
+                        </div>
+                    </div>#}
+
+
+                        {# modal profile pour l'administrateur #}
+                        {#<div class="Modal">
+                            <div id="profile" class="w3-modal">
+                                <div  class="w3-modal-content w3-animate-top">
+                                    <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                        <span onclick="document.getElementById('profile').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                        <center>
+                                            {% if app.user.sexe == 'Femme' %}
+                                                <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                    <!-- Image -->
+                                                    <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                    <!-- Icône positionnée -->
+                                                    <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                        <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                    </a>
+                                                </div>
+                                            {% elseif app.user.sexe == 'Homme' %}
                                             <div class="w3-container-display" style="position: relative; display: inline-block;">
-                                                <!-- Image -->
-                                                <img src="{{asset('images/fprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
-                                                <!-- Icône positionnée -->
-                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
-                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
-                                                </a>
+                                                    <!-- Image -->
+                                                    <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
+                                                    <!-- Icône positionnée -->
+                                                    <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
+                                                        <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
+                                                    </a>
+                                                </div>
+
+                                            {% endif %}
+                                                
+                                            <h6>Bonjour !</h6>
+                                            <p>{{ app.user.prenom | upper() }}</br>
+                                            <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
+                                            <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
+                                            <a href="{{ path('app_logout') }}">
+                                                <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
+                                            </a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# modal notification pour l'administrateur #}
+                    {# <div class="Modal">
+                            <div id="notify" class="w3-modal">
+                                <div  class="w3-modal-content w3-animate-top">
+                                    <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                        <span onclick="document.getElementById('notify').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                        <center>
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                    <!-- Image -->
+                                                    <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
                                             </div>
-                                        {% elseif app.user.sexe == 'Homme' %}
-                                           <div class="w3-container-display" style="position: relative; display: inline-block;">
-                                                <!-- Image -->
-                                                <img src="{{asset('images/hprofile.png')}}" style="width: 60px;" class="w3-margin w3-circle"/>
-                                                <!-- Icône positionnée -->
-                                                <a href="{{ path('user_edit', {id: app.user.id}) }}" style="position: absolute; top: 58px; right: 18px;">
-                                                    <i class="fas fa-edit w3-white" style="font-size: 10px; color: #007bff;"></i>
-                                                </a>
+                                            <p>Aucun notification!</p>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# modal bars pour l'administrateur #}
+                        {#<div class="Modal">
+                            <div id="treebars" class="w3-modal">
+                                <div  class="w3-modal-content w3-animate-top">
+                                    <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
+                                        <span onclick="document.getElementById('treebars').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
+                                        <center>
+                                            <div class="w3-container-display" style="position: relative; display: inline-block;">
+                                                    <!-- Image -->
+                                                    <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
                                             </div>
-
-                                        {% endif %}
-                                            
-                                        <h6>Bonjour !</h6>
-                                        <p>{{ app.user.prenom | upper() }}</br>
-                                        <span class="w3-opacity">{{ app.user.userIdentifier }}</span></p>
-                                        <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Account</button>
-                                        <a href="{{ path('app_logout') }}">
-                                            <button class='w3-btn w3-round-xxlarge w3-margin-bottom w3-text-red'>Se deconnecter</button>
-                                        </a>
-                                    </center>
+                                            <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
+                                            <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    {# modal notification pour l'administrateur #}
-                    <div class="Modal">
-                        <div id="notify" class="w3-modal">
-                            <div  class="w3-modal-content w3-animate-top">
-                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
-                                    <span onclick="document.getElementById('notify').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
-                                    <center>
-                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
-                                                <!-- Image -->
-                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
-                                        </div>
-                                        <p>Aucun notification!</p>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {# modal bars pour l'administrateur #}
-                    <div class="Modal">
-                        <div id="treebars" class="w3-modal">
-                            <div  class="w3-modal-content w3-animate-top">
-                                <div class=" w3-display-topmiddle w3-white w3-padding w3-round-xlarge">
-                                    <span onclick="document.getElementById('treebars').style.display='none'" class="w3-button w3-display-topright w3-circle">&times;</span>
-                                    <center>
-                                        <div class="w3-container-display" style="position: relative; display: inline-block;">
-                                                <!-- Image -->
-                                                <img src="{{asset('images/logo.png')}}" style="width: 60px;" class="w3-margin"/>
-                                        </div>
-                                        <p>Application web </br>Gerant les avancés autorisées </br>Au sein du service comptable de la </br> Direction Inter Régional de la Paositra Malagasy </br> FIANARANTSOA  301!</p>
-                                        <p class='w3-margin-bottom w3-text-blue w3-opacity'>Régle | Condition d'utilisation</p>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
+                </div>#}
 
         {% endif %}
 
