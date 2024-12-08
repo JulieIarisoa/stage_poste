@@ -60,8 +60,9 @@
                 {% elseif user.sexe == 'Homme' %}
                     <img src="{{asset('images/hprofile.png')}}" style="width: 200px;"/>
                 {% endif %}
-                    <h5><b>{{app.user.nom | upper}} {{app.user.prenom}} </b></h5>
-                    <h6 class="w3-opacity w3-margin">E-mail: {{app.user.email}}  </h6>
+                    <h5><b>{{user.nom | upper}} {{user.prenom}} </b></h5>
+                    <h6 class="w3-opacity w3-margin">E-mail: {{user.email}}  </h6>
+                    <p><i class="fas fa-briefcase"></i> {{ user.fonction }}</p>
             </div>
 
             <div class="w3-container w3-cell">
@@ -73,12 +74,22 @@
                         <i class="fas fa-male"></i>Sexe: {{ user.sexe }}
                     {% endif %}
                 </p>
-                <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
-                <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
-                <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
-                <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }}</p>
-                <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
-                <p><i class="fas fa-"></i> Nombre d'enfant: {{ user.nombreEnfant }}</p>
+
+
+                {% if user.situationFamiliale == 'Célibataire'%}
+                    <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
+                    <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
+                    <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
+                    <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
+                    <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
+                {% else %}
+                    <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
+                    <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
+                    <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
+                    <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
+                    <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
+                    <p><i class="fas fa-"></i> Nombre d'enfant: {{ user.nombreEnfant }}</p>
+                {% endif %}
 
                 <p>
                     {% if user.sexe == 'femme' %}
