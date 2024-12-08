@@ -197,6 +197,19 @@ class BseController extends AbstractController
         ]);
     }
 
+
+    
+    #[Route('/bse/nouveau', name: 'bse_nouveau')]
+    public function nouveau(): Response
+    {
+        $user = $this->entityManager->getRepository(User::class)->findAll();
+
+        return $this->render('bse/nouveau.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+
     #[Route("/bse_missionnaire/{id}", name: "bse_show_missionnaire")]
     public function showMissionnaire(Bse $bse): Response
     {
