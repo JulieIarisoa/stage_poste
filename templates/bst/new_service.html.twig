@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceuil</title>
+    <link rel="stylesheet" href="{{ asset('assets/w3.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script><!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+            *{
+                box-sizing: border-box;
+            }
+            body{
+                align-items: center;
+                display: flex;
+                flex-direction:column;
+                background: #f6f5f7;
+                font-family:'monserrat', sans-serif;
+                min-height: 100%;
+                margin: 5%;
+            }
+            a{
+                text-decoration: none;
+                color: grey;
+            }
+            body, h1, h2, h3, h4, h5, h6 {
+                font-family: "Times New Roman", Times, serif;
+            }
+            .w3-display-container {
+                position: relative;  /* Nécessaire pour que le bouton soit correctement positionné */
+            }
+
+            .w3-display-topright {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1000;  /* S'assurer que le bouton est au-dessus des autres éléments */
+            }
+
+            .fa-times {
+                pointer-events: auto;  /* Assurez-vous que le bouton est cliquable */
+            }
+            .afficher_pas{
+                display: none;
+            }
+
+
+    </style>
+</head>
+<body>
+            {% set depense = depense_or + depense_bst %}
+            {% set restant = sommeCredit - depense %}
+
+
+
+    {% if restant <= depense or restant < Taux %}
+        <div class="w3-panel w3-half  w3-card-4 w3-border-red">
+            <div class="w3-display-topmiddle w3-border-left w3-card-4 w3-border-red w3-pale-red w3-padding">
+                <a href="{{path('user_index')}}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-opacity w3-padding-16">
+                    <i class="fa fa-plus w3-opacity"></i> Création d'un ordre de route avec bon spécial de transport
+                </h4>
+                <p> Le credit ouvert pour les avances autorisées est insuffisant veillez informer le détenteur de compte pour la renouvellement du credit. </p>
+                <input type="submit" class="w3-btn w3-red w3-quarter w3-margin-bottom" value="Informer">
+            </div>
+        </div>
+
+
+    {% elseif restant >depense and restant >= Taux %}
+        <div class=" w3-display-topmiddle w3-card-4 w3-white">
+            <div class="w3-display-container ">
+        <a href="{{ path('user_index') }}">
+                    <span class="w3-button w3-display-topright">&times;</span>
+                </a>
+                <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
+                    <i class="fa fa-pen w3-opacity"></i> Modification d'un bordereau sans BST
+                </h4>
+            </div>
+        {{ form_errors(or_bst) }}
+        {{ form_start(or_bst) }}
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding  w3-opacity">
+                <div class="afficher_pas">
+                    {{ form_row(or_bst.matricule, { 'label': 'Numéro matricule', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat, { 'label': 'Etat', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.duree_mission, { 'label': 'Duree mission','attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'controllerDureeMission(this)'} }) }}
+                <p id="validateDureeMission" style="font-size: 10px;"></p>
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.destination, { 'label': 'Destination','attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerDestination(this)'} }) }}
+                        <p id="validateDestination" style="font-size: 10px;"></p>
+                </div>
+            </div>
+
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-opacity">
+                <div class="afficher_pas">
+                    {{ form_row(or_bst.date_bse, { 'label': 'date_bse', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-half">
+                    {{ form_row(or_bst.lieu_bse, { 'label': 'Lieu de création bse', 'attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerCreation(this)'} }) }}
+                        <p id="validateCreation" style="font-size: 10px;"></p>
+                </div>
+                <div class="w3-half">
+                    {{ form_row(or_bst.motif, { 'label': 'Motif', 'attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerMotif(this)'} }) }}
+                        <p id="validateMotif" style="font-size: 10px;"></p>
+                </div>
+            </div>
+
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-opacity">
+                <div class="w3-third">
+                    {{ form_row(or_bst.Coperative, { 'label': 'Coperative', 'attr': {'class': 'w3-input w3-border w3-round', 
+                        'onkeyup': 'controllerCoperative(this)'} }) }}
+                    <p id="validateCoperative" style="font-size: 10px; color: blue;"></p>
+                </div>
+
+                <div class="w3-third">
+                    {{ form_row(or_bst.id_transport, { 'label': 'IM du trasnsport', 'attr': {'class': 'w3-input w3-border w3-round', 
+                            'onkeyup': 'controllerIm(this)'} }) }}
+                        <p id="validateIm" style="font-size: 10px;"></p>
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.tel_transporteur, { 'label': 'Téléphone du transporteur','attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'valideTel(this)'} }) }}
+                <p id="validationTel" style="font-size: 10px;"></p>
+                </div>
+            </div>
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="w3-row-padding w3-opacity">
+                <div class="w3-half">
+                    {{ form_row(or_bst.nom_chaufeur, { 'label': 'Nom chauffeur', 'attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'controllerNomChauffeur(this)'} }) }}
+                <p id="validateNomChauffeur" style="font-size: 10px; color: blue;"></p>
+                </div>
+                <div class="w3-half">
+                    {{ form_row(or_bst.prenom_chafeur, { 'label': 'Prenom chaffeur', 'attr': {'class': 'w3-input w3-border w3-round', 
+                    'onkeyup': 'controllerPrenomChauffeur(this)'} }) }}
+                <p id="validatePrenomChauffeur" style="font-size: 10px; color: blue;"></p>
+                </div>
+            </div>
+
+
+
+
+            <!-- Fifth Row: Email and Password -->
+            <div class="afficher_pas">
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat_validation, { 'label': 'Etat validation or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat_payment_or, { 'label': 'Etat payment or', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+                <div class="w3-third">
+                    {{ form_row(or_bst.etat_payment_bst, { 'label': 'Etat payment bst', 'attr': {'class': 'w3-input w3-border w3-round'} }) }}
+                </div>
+            </div>
+
+
+            <!-- Submit Button -->
+            <button type="submit"class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large w3-third w3-margin" ><i class="fas fa-save"></i>  Enregistrer</button>
+            <input type="reset" class="w3-button w3-white w3-hover-red w3-hover-text-white w3-text-red w3-border w3-border-red w3-round-large w3-third w3-margin" value="Annuler">
+        {{ form_end(or_bst) }}
+    {% endif %}
+
+
+    <script>
+        // Fonction controle le champ motif
+        function controllerMotif(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateMotif');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir votre motif !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ Destination
+        function controllerDestination(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateDestination');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir votre Destination !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ Creation
+        function controllerCreation(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateCreation');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le lieu de création de cette BSE!';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+          // Fonction controle le champ DureeMission
+        function controllerDureeMission(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateDureeMission');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+            if (value=='') {
+                display.textContent = 'Veuillez saisir la duree de votre mission !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (isNaN(value) || /\s/.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des chiffres.';
+                display.style.color = 'red';
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ NomChauffeur
+        function controllerNomChauffeur(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateNomChauffeur');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le nom du chauffeur !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction controle le champ PrenomChauffeur
+        function controllerPrenomChauffeur(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validatePrenomChauffeur');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le prenom du chauffeur !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+        // Fonction appelée à chaque onkeyup
+        function valideTel(input) {
+            const display = document.getElementById('validationTel');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+            // Vérifie si la valeur contient des caractères non numériques ou des espaces
+            if (isNaN(value) || /\s/.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des chiffres.';
+                display.style.color = 'red';
+            }
+            // Vérifie si la longueur du CIN dépasse 12 caractères
+            else if (value.length > 10) {
+                // Limiter à 12 caractères
+                value = value.slice(0, 10);
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Le numéro téléphone ne depasse pas de 10 chiffres.';
+                display.style.color = 'red';
+            }
+            // Vérifie si la longueur du tél dépasse 12 caractères
+            else if (value == '') {
+                    display.textContent = 'Veillez saisir le numéro téléphone.';
+                    display.style.color = 'red';
+            } else {
+                // Affiche la valeur saisie
+                display.textContent = ` Incompete`;
+                display.style.color = 'red';
+            }
+        }
+
+
+        // Fonction controle le champ Coperative
+        function controllerCoperative(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateCoperative');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le nom du coperative !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (!regex.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ\s'-]/g, '')
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des lettres.';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+
+        // Fonction controle le champ Coperative
+        function controllerIm(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateIm');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+            const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/;
+            if (value=='') {
+                display.textContent = 'Veuillez saisir l\'imatricule du transport !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+    </script>
+</body>

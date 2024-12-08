@@ -132,12 +132,6 @@ class OrdreRouteController extends AbstractController
     }
 
 
-    #[Route("/ordreRoute/{id}", name: "ordreRoute_show")]
-    public function show(OrdreRoute $ordreRoute): Response
-    {
-        return $this->render('ordreRoute/show.html.twig', ['ordreRoute' => $ordreRoute]);
-    }
-
     #[Route("/ordreRoute/{id}/edit", name: "ordreRoute_edit")]
     public function edit(Request $request, OrdreRoute $ordreRoute): Response
     {

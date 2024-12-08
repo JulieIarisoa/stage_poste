@@ -647,7 +647,7 @@
                         <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
                             <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
                                 <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
-                                <a href="{{ path('user_index', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-amber w3-hover-text-amber">Nouveau</a>
+                                <a href="{{ path('user_index') }}" class="w3-bar-item w3-text-amber w3-hover-text-amber">Nouveau</a>
                                 <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Régulariser</a>
                                 <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Non régulariser</a>
                             </div>
@@ -704,7 +704,7 @@
                                                 <a href="{{ path('ordreRoute_new', {id: user.matricule}) }}" class="w3-button w3-text-green w3-small">OR</a>
                                             </td>
                                             <td class="w3-display-flex">
-                                                <a href="{{ path('bst_new', {id: user.matricule}) }}" class="w3-button w3-text-blue w3-small">OR/BST</a>
+                                                <a href="{{ path('bst_service', {id: user.matricule}) }}" class="w3-button w3-text-blue w3-small">OR/BST</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

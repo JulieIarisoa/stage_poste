@@ -9,7 +9,6 @@ use App\Form\BstPayeType;
 use App\Form\BstOrValideType;
 use \Twig\Environment;
 use App\Service\PdfGeneratorService;
-use App\Entity\Bst;
 use App\Entity\Employe;
 use App\Repository\BseRepository;
 use App\Form\BstType;
@@ -100,13 +99,54 @@ class BstController extends AbstractController
             'sommeCredit' => $sommeCredit,
         ]);
     }
+
+
+    /************************Service comptable creéér avec BSt ******************** */
+    #[Route("/bst/newService", name: "bst_service")]
+    public function newService(Request $request): Response
+    {
+        $depense_or = $this->BseRepository->totalDepense();
+        $depense_bst = $this->BseRepository->totalDepenseBst();
+        $credit = $this->entityManager->createQueryBuilder();
+        $credit->select('SUM(d.credit_initial)')
+                     ->from(Credit::class, 'd');
+        $sommeCredit = $credit->getQuery()->getSingleScalarResult();
+
+
+        $id = $request->get('id');
+        $utilisateur = $this->entityManager->createQueryBuilder();
+        $utilisateur->select('c.taux_journalier AS tauxJournalier')
+                     ->from(User::class, 'c')
+                     ->where('c.matricule =:matricule')
+                     ->setParameter('matricule', $id);
+        $Taux = $utilisateur->getQuery()->getSingleScalarResult();
+
     
 
-    #[Route("/bst/{id}", name: "bst_show")]
-    public function show(Bst $bst): Response
-    {
-        return $this->render('bst/show.html.twig', ['bst' => $bst]);
+        $bse = new Bse();
+        $form = $this->createForm(BstOrType::class, $bse, ['id' => $id]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($bse);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bse created successfully.');
+
+            return $this->redirectToRoute('bse_index');
+        }
+
+        return $this->render('bst/new_service.html.twig', [
+            'or_bst' => $form->createView(),
+            'nouveau_or' => $form->createView(),
+            'depense_or' => $depense_or,
+            'depense_bst' => $depense_bst,
+            'Taux' => $Taux,
+            'sommeCredit' => $sommeCredit,
+        ]);
     }
+    
+
 
     #[Route("/bst/{id}/edit", name: "bst_edit")]
     public function edit(Request $request, Bst $bst): Response

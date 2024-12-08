@@ -60,9 +60,6 @@ succes_index:
 bst_new:
     path: /bst/new
     controller: App\Controller\BstController::new
-bst_show:
-    path: /bst/{id}
-    controller: App\Controller\BstController::show
 bst_edit:
     path: /bst/{id}/edit
     controller: App\Controller\BstController::edit
@@ -72,6 +69,9 @@ bst_paye:
 bst_new_or:
     path: /bst/new
     controller: App\Controller\BstController::new
+bst_service:
+    path: /bst/newService
+    controller: App\Controller\BstController::newService
 
 
 #route vers OR:Ordre de route
@@ -81,9 +81,6 @@ ordreRoute_new:
 ordreRoute_new_missionnaire:
     path: /ordreRoute/new_missionnaire
     controller: App\Controller\OrdreRouteController::new_missionnaire
-ordreRoute_show:
-    path: /ordreRoute/{id}
-    controller: App\Controller\OrdreRouteController::show
 ordreRoute_edit:
     path: /ordreRoute/{id}/edit
     controller: App\Controller\OrdreRouteController::edit
