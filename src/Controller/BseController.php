@@ -30,32 +30,30 @@ class BseController extends AbstractController
     #[Route('/bse', name: 'bse_index')]
     public function index(Request $request): Response
     {
-          $bse = $this->entityManager->getRepository(Bse::class)->findAll();
+        $bse = $this->entityManager->getRepository(Bse::class)->findAll();
           
-          $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
+        $bse_validation_attente = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
             ->where('b.etat_validation = :etat_validation')
             ->setParameter('etat_validation', 'en_attente')
             ->getQuery()
             ->getResult();
 
-          $validation_refuse = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
+        $validation_refuse = $this->entityManager->getRepository(Bse::class)->createQueryBuilder('b')
             ->where('b.etat_validation = :etat_validation')
             ->setParameter('etat_validation', 'refuse')
             ->getQuery()
             ->getResult();
-       // $bse_payment_attente = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'non_paye']);
-       // $bse_payment_paye = $this->entityManager->getRepository(Bse::class)->findBy(['etat_validation' => 'accepte','etat_payment' => 'paye']);
-
-                $user = $this->entityManager->getRepository(User::class)->findAll();
+        
+        $user = $this->entityManager->getRepository(User::class)->findAll();
 
 
 
 
-                ////////////////////////////////////////////////* statistique*///////////////
-                $date_now = new \DateTime();
-                $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
-                $totals = [];
-                $dates = [];
+        ////////////////////////////////////////////////* statistique*///////////////
+            $date_now = new \DateTime();
+            $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
+            $totals = [];
+            $dates = [];
 
                 $matricule = $request->get('matricule');
                 // Générer les périodes et exécuter les requêtes dans une boucle
@@ -66,10 +64,8 @@ class BseController extends AbstractController
                     $totalResult = $queryBuilder->select('COUNT(d.id) AS total')
                         ->from(Bse::class, 'd')
                         ->where('d.date_bse BETWEEN :startDate AND :endDate')
-                        ->andWhere('d.matricule =:matricule')
                         ->setParameter('startDate', $startDate)
                         ->setParameter('endDate', $endDate)
-                        ->setParameter('matricule', $matricule)
                         ->getQuery()
                         ->getSingleScalarResult();
 
@@ -85,10 +81,8 @@ class BseController extends AbstractController
                     ->select('COUNT(d.id) AS total')
                     ->from(Bse::class, 'd')
                     ->where('d.date_bse BETWEEN :startDate AND :endDate')
-                    ->andWhere('d.matricule =:matricule')
                     ->setParameter('startDate', $startDate)
                     ->setParameter('endDate', $date_now)
-                    ->setParameter('matricule', $matricule)
                     ->getQuery()
                     ->getSingleScalarResult() ?: 0;
                 $dates[] = $date_now->format('Y-m-d');
