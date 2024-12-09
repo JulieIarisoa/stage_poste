@@ -81,8 +81,6 @@
     <body>
         {# Vérifiez si l'utilisateur a le rôle ADMIN #}
         {% if is_granted('ROLE_ADMIN') %}
-
-
             <body class="w3-content" style="max-width:1300px">
 
                 <!-- Sidebar/menu -->
@@ -682,7 +680,7 @@
                                         {# sans BST et validé et depart ok #}
                                         {% else %}
                                             {# sans BST et validé et depart ok et or non payé #}
-                                            {% if item.etatPaymentOr == null %}
+                                            {% if item.etatPaymentOr == 'en_attente' %}
                                                 <div class="w3-cell-row">
                                                     <div class="w3-container w3-cell w3-mobile">
                                                         <span class="w3-green">Accepté</span>
@@ -797,7 +795,7 @@
                                             {% else %}
 
                                                 {# avec BST et validé et bst payé et depart ok et or non payé #}
-                                                {% if item.etatPaymentOr == null  %}
+                                                {% if item.etatPaymentOr == 'en_attente'  %}
                                                     <div class="w3-cell-row">
                                                         <div class="w3-container w3-cell w3-mobile">
                                                             <span class="w3-green">Accepté</span>
