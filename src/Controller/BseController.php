@@ -198,6 +198,18 @@ class BseController extends AbstractController
     }
 
 
+
+    #[Route('/bse/attente', name: 'bse_attente')]
+    public function attente(): Response
+    {
+        $bse_attente = $this->BseRepository->en_attente();
+
+        return $this->render('bse/attente.html.twig', [
+            'bse_attente' => $bse_attente,
+        ]);
+    }
+
+
     
     #[Route('/bse/nouveau', name: 'bse_nouveau')]
     public function nouveau(): Response
