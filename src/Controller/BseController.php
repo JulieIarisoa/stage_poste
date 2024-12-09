@@ -49,13 +49,13 @@ class BseController extends AbstractController
 
 
 
+        $matricule = $request->get('matricule');
         ////////////////////////////////////////////////* statistique*///////////////
             $date_now = new \DateTime();
             $startDate = (clone $date_now)->modify('-6 months'); // Point de départ
             $totals = [];
             $dates = [];
 
-                $matricule = $request->get('matricule');
                 // Générer les périodes et exécuter les requêtes dans une boucle
                 for ($i = 0; $i < 6; $i++) {
                     $endDate = (clone $startDate)->modify('+1 month');
@@ -98,7 +98,7 @@ class BseController extends AbstractController
 
                 // Préparation des données pour le graphique
                 $dataBse = $this->prepareChartData($dataBse, 'dateBse', 'total');
-        /***************************************************************************** *//////////////
+        
 
 
 
@@ -115,11 +115,8 @@ class BseController extends AbstractController
 
         /******************************************************************************************* */
 
-            $Bse_missionnaire = $this->entityManager->getRepository(Bse::class)->findBy(['matricule'=>$matricule]);
-            $Bse_Service = $this->BseRepository->bse_service();
-
-
-
+        $Bse_missionnaire = $this->entityManager->getRepository(Bse::class)->findBy(['matricule'=>$matricule]);
+        $Bse_Service = $this->BseRepository->bse_service();
 
 
         return $this->render('bse/index.html.twig', [
@@ -127,12 +124,10 @@ class BseController extends AbstractController
             'user' => $user,
             'bse_validation_attente'=>$bse_validation_attente,
             'validation_refuse'=>$validation_refuse,
-           // 'bse_payment_attente'=>$bse_payment_attente,
-           // 'bse_payment_paye'=>$bse_payment_paye,
-                        'dataBse' => json_encode($dataBse),
-                        'dataBse6Mois' => json_encode($dataBse6Mois),
-                        'Bse_missionnaire' => $Bse_missionnaire,
-                        'Bse_Service' => $Bse_Service,
+            'dataBse' => json_encode($dataBse),
+            'dataBse6Mois' => json_encode($dataBse6Mois),
+            'Bse_missionnaire' => $Bse_missionnaire,
+            'Bse_Service' => $Bse_Service,
         ]);
     }
 
