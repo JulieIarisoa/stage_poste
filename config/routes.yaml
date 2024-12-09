@@ -72,6 +72,9 @@ bst_new_or:
 bst_service:
     path: /bst/newService
     controller: App\Controller\BstController::newService
+bst_Administrateur:
+    path: /bst/newAdministrateur
+    controller: App\Controller\BstController::newAdministrateur
 
 
 #route vers OR:Ordre de route

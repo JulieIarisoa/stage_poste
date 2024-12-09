@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Credit;
+use App\Entity\User;
 use App\Form\CreditType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,9 +54,14 @@ class CreditController extends AbstractController
     }
 
     #[Route("/credit/{id}", name: "credit_show")]
-    public function show(Credit $Credit): Response
+    public function show(Credit $Credit, Request $request): Response
     {
-        return $this->render('credit/show.html.twig', ['credit' => $Credit]);
+        $matricule = $request->get('matricule');
+        $user = $this->entityManager->getRepository(User::class)->findBy(['matricule'=>$matricule]);
+        return $this->render('credit/show.html.twig', [
+            'credit' => $Credit,
+            'user' => $user,
+        ]);
     }
 
     #[Route("/credit/{id}/edit", name: "credit_edit")]

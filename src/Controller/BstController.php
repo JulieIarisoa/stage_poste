@@ -145,6 +145,53 @@ class BstController extends AbstractController
             'sommeCredit' => $sommeCredit,
         ]);
     }
+
+
+    /************************Administrateur creéér avec BSt ******************** */
+    #[Route("/bst/newAdministrateur", name: "bst_Administrateur")]
+    public function newAdministrateur(Request $request): Response
+    {
+        $depense_or = $this->BseRepository->totalDepense();
+        $depense_bst = $this->BseRepository->totalDepenseBst();
+        $credit = $this->entityManager->createQueryBuilder();
+        $credit->select('SUM(d.credit_initial)')
+                     ->from(Credit::class, 'd');
+        $sommeCredit = $credit->getQuery()->getSingleScalarResult();
+
+
+        $id = $request->get('id');
+        $utilisateur = $this->entityManager->createQueryBuilder();
+        $utilisateur->select('c.taux_journalier AS tauxJournalier')
+                     ->from(User::class, 'c')
+                     ->where('c.matricule =:matricule')
+                     ->setParameter('matricule', $id);
+        $Taux = $utilisateur->getQuery()->getSingleScalarResult();
+
+    
+
+        $bse = new Bse();
+        $form = $this->createForm(BstOrType::class, $bse, ['id' => $id]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($bse);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Bse created successfully.');
+
+            return $this->redirectToRoute('bse_index');
+        }
+
+        return $this->render('bst/new_Administrateur.html.twig', [
+            'or_bst' => $form->createView(),
+            'nouveau_or' => $form->createView(),
+            'depense_or' => $depense_or,
+            'depense_bst' => $depense_bst,
+            'Taux' => $Taux,
+            'sommeCredit' => $sommeCredit,
+        ]);
+    }
+    
     
 
 

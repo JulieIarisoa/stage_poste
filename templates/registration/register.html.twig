@@ -168,6 +168,7 @@
         // Vérifie si la longueur du CIN dépasse 12 caractères
         else if (value.length > 12) {
             // Limiter à 12 caractères
+            display.textContent = 'Le numéro CIN ne depasse pas de 12 chiffres.';
             value = value.slice(0, 12);
             input.value = value; // Met à jour la valeur dans le champ de saisie
             
@@ -178,8 +179,8 @@
                 display.textContent = 'Le sixième chiffre doit être 1 ou 2.';
                 display.style.color = 'red';
             } else{
-                display.textContent = 'Le numéro CIN ne depasse pas de 12 chiffres.';
-                display.style.color = 'red';
+                display.textContent = 'Validé.';
+                display.style.color = 'green';
             }
         }
         // Vérifie si la longueur du CIN dépasse 12 caractères

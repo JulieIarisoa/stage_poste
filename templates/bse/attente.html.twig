@@ -95,7 +95,7 @@
                         <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
                         <a href="{{path('user_index')}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-users w3-opacity"></i> Personnel</a>
                         <a href="{{path('credit_index')}}" class="w3-bar-item w3-text-grey w3-hover-text-amber"><i class="fa fa-fw fa-dollar-sign w3-opacity"></i> Credit</a>
-                        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
+                        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn"><i class="fa fa-fw fa-briefcase w3-opacity"></i>Mission<i class="fa fa-caret-down"></i></a>
                             <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
                                 <a href="{{ path('bse_index') }}"  class="w3-bar-item w3-text-grey w3-hover-text-amber">Etat</a>
                                 <a href="{{ path('bse_nouveau') }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Nouveau</a>
@@ -128,77 +128,10 @@
                             <h1 class="w3-center">Mission en attente de validation</h1>
                         </div> 
 
-                        {% set total = 0 %}
-                        {% set attente = 0 %}
-                        {% set refuse = 0 %}
-                        {% set accepte = 0 %}
-                        {% for nombre in bse_attente%}
-                            {% set total = total + 1 %}
-                            {% if nombre.etat_validation == 'en_attente' %}
-                                {% set attente = attente + 1 %}
-                            {% endif %}
-                            {% if nombre.etat_validation == 'refuse' %}
-                                {% set refuse = refuse + 1 %}
-                            {% endif %}
-                            {% if nombre.etat_validation == 'accepte' %}
-                                {% set accepte = accepte + 1 %}
-                            {% endif %}
-                        {% endfor %}
-
-                        <div class="w3-row-padding w3-margin-bottom">
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-light-grey w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{attente}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>En attente</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-khaki w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{refuse}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>Refusé</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-yellow w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{accepte}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>Accepté</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-amber w3-text-white w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{total}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>Total</h6>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
 
-                    <!-- Liste des missions --><hr>
+                    <!-- Liste des missions -->
                     <div class="w3-container">
                         {% for item in bse_attente %}
                             <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">

@@ -65,7 +65,7 @@
                     <p><i class="fas fa-briefcase"></i> {{ user.fonction }}</p>
             </div>
 
-            <div class="w3-container w3-cell">
+            <div class="w3-container w3-cell ">
                 <p><i class="fas fa-id-badge"></i> Matricule: {{ user.matricule }}</p>
                 <p>
                     {% if user.sexe == 'femme' %}
@@ -80,14 +80,14 @@
                     <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
                     <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
                     <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
-                    <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
-                    <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
+                    <p><i class="fas fa fa-fw fa-dollar-sign"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
+                    <p><i class="fas fa-fw fa-map-marker "></i> Adresse: {{ user.address }}</p>
                 {% else %}
                     <p><i class="fas fa-briefcase"></i> Fonction: {{ user.fonction }}</p>
                     <p><i class="fas fa-heart"></i> Situation Familiale: {{ user.situationFamiliale }}</p>
                     <p><i class="fas fa-id-card"></i> CIN: {{ user.cin }}</p>
-                    <p><i class="fas fa-"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
-                    <p><i class="fas fa-"></i> Adresse: {{ user.address }}</p>
+                    <p><i class="fas fa fa-fw fa-dollar-sign"></i> Taux journalier: {{ user.tauxJournalier }} Ariary</p>
+                    <p><i class="fas fa-fw fa-map-marker "></i> Adresse: {{ user.address }}</p>
                     <p><i class="fas fa-"></i> Nombre d'enfant: {{ user.nombreEnfant }}</p>
                 {% endif %}
 
