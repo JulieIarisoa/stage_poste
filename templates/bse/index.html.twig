@@ -281,7 +281,7 @@
                                         {# sans BST et validé et depart ok #}
                                         {% else %}
                                             {# sans BST et validé et depart ok et or non payé #}
-                                            {% if item.etat_payment_or == null %}
+                                            {% if item.etat_payment_or == 'en_attente' %}
                                                 <div class="w3-cell-row">
                                                     <div class="w3-container w3-cell w3-mobile">
                                                         <span class="w3-green">Accepté</span>
@@ -396,7 +396,7 @@
                                             {% else %}
 
                                                 {# avec BST et validé et bst payé et depart ok et or non payé #}
-                                                {% if item.etat_payment_or == null  %}
+                                                {% if item.etat_payment_or == 'en_attente'  %}
                                                     <div class="w3-cell-row">
                                                         <div class="w3-container w3-cell w3-mobile">
                                                             <span class="w3-green">Accepté</span>
@@ -756,7 +756,7 @@
                                     {% elseif item.etatValidation == 'accepte'%}
 
                                         {# avec BST et validé et bst non payé #}
-                                        {% if item.codePostalePaymentBst == null %}
+                                        {% if item.codePostalePaymentBst == 'en_attente' %}
                                             <div class="w3-cell-row">
                                                 <div class="w3-container w3-cell w3-mobile">
                                                     <span class="w3-green">Accepté</span>
