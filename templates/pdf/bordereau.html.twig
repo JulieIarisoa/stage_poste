@@ -1,4 +1,12 @@
 
+                <style>
+                .contenue1{
+                    float: left;
+                }
+                .contenue2{
+                    float: right;
+                }
+                </style>
     <body>
         <center>
             <h2>
@@ -7,15 +15,17 @@
         </center>
 {% set depenseOr = 0 %}
             {% for item in bordereau %}
-                <p>Pour : un {{ item.etat }}</p>
-                <p> De {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
-                <p>Fonction/indice :{{ item.fonction }}</p>
-                <p>Numéro CIN : {{ item.cin}}</p>
-                <p>Contact: {{ item.email }}</p>
-                <p>Adresse: {{ item.address }}</p>
-                <p>Taux Journalier: {{ item.tauxJournalier }} Ariary</p>
-                <p>N° matricule: {{ item.matricule }}</p>
-                
+                <div class="contenue1">
+                    <p>Pour : un {{ item.etat }}</p>
+                    <p> De {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
+                    <p>Fonction/indice :{{ item.fonction }}</p>
+                    <p>Numéro CIN : {{ item.cin}}</p>
+                    <p>Contact: {{ item.email }}</p>
+                    <p>Adresse: {{ item.address }}</p>
+                    <p>Taux Journalier: {{ item.tauxJournalier }} Ariary</p>
+                    <p>N° matricule: {{ item.matricule }}</p>
+                </div>
+                <div class="contenue2">
                 <p>Ordre de route créé le {{ item.dateBse|date('d/m/Y') }}</p>
                 <p>Payé le {{ item.datePayement_or|date('d/m/Y') }}</p>
                 <p>Par :{{ item.payeur_or | upper }}</p>
@@ -40,13 +50,21 @@
                 {% set taux = item.tauxJournalier %}
                 {% set duree = item.dureeMission %}
                 {% set depenseOr = taux*duree %}
-
+</div>
                 <p><center><u>DECOMPTE</u></center></p>
 {% if item.etat == 'Ordre de route avec BST'%}
-                <p>BST : {{ item.depense_bst }} Ariary</p>
-                <p>OR : {{ depenseOr }} Ariary</p>
-{% else %}
-                <p>OR : {{ depenseOr }} Ariary</p>
+{% set total = item.depense_bst + depenseOr %}
+                <p>Durée du mission .......................................................................................................................{{ duree }} jours</p>
+                <p>Taux journalier du missionnaire.................................................................................................{{ taux }} Ariary</p>
+                <p>....................................................................................................................................................{{ duree }}*{{ taux }}</p>
+                <p>Ordre de Route : ........................................................................................................................{{ depenseOr }} Ariary</p>
+                <p>Frais de transport :......................................................................................................................{{ item.depense_bst }} Ariary</p>
+                <p>Total : .......................................................................................................................................{{ total }} Ariary</p>
+{% else %}  
+                <p>Durée du mission ........................................................................................................................{{ duree }} jours</p>
+                <p>Taux journalier du missionnaire..................................................................................................{{ taux }} Ariary</p>
+                <p>Ordre de Route ............................................................................................................................{{ taux }}*{{ duree }}</p>
+                <p>Total............................................................................................................................................. {{ depenseOr }} Ariary</p>
 {% endif %}
             {% endfor %}
     </body>

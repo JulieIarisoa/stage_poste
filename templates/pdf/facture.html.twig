@@ -2,35 +2,30 @@
     <style>
     .missionnaire{
         float: right;
-        padding: 20px;
-    }
-    </style>
+
+    }    </style>
 
     <body>
 {% set depenseOr = 0 %}
             {% for item in facture %}
         <center>
             <h2>
-                <u>{{ item.etat }}</u>
+                <u>FACTURE</u>
             </h2>
         </center>
-                <p class="num">Bordereau  00{{ item.id }}</p>
-                <div class='missionnaire'>
-                    <p> Ordre de route de {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
+                <p class="num">Facture  00{{ item.id }}</p>
+                    <p> Facture de {{ item.titre}}  {{ item.nom | upper }} {{ item.prenom }} </p>
                     <p>Fonction/indice :{{ item.fonction }}</p>
-                    <p>Numéro CIN : {{ item.cin}}</p>
                     <p>Contact: {{ item.email }}</p>
                     <p>Adresse: {{ item.address }}</p>
-                    <p>Taux Journalier: {{ item.tauxJournalier }} Ariary</p>
-                    <p>N° matricule: {{ item.matricule }}</p>
-                </div >
                 
+                <div class='missionnaire'>
                 <p>Ordre de route créé le {{ item.dateBse|date('d/m/Y') }}</p>
                 <p>Payé le {{ item.datePayement_or|date('d/m/Y') }}</p>
 
                 <p>Détenteur de compte numéro {{ item.detenteur }}</p>
-                <p>De se rendre à : {{ item.destination | upper }} - {{ item.lieuDepartMissionnaire| upper }}</p>
 
+                </div >
 
 {% if item.etat == 'Ordre de route avec BST'%}
                 <p>BST payé le {{ item.date_payement_bst|date('d/m/Y') }}</p>
@@ -42,6 +37,7 @@
 {% else %}
                 <p>Motif de voyage : {{ item.motif }}</p>
 {% endif %}
+                <p>De se rendre à : {{ item.destination | upper }} - {{ item.lieuDepartMissionnaire| upper }}</p>
                 <p>Départ: {{ item.dateDepartMissionnaire |date('d/m/Y') }}</p>
                 <p>Durée :{{ item.dureeMission }} jours</p>
                 {% set taux = item.tauxJournalier %}
