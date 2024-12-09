@@ -508,8 +508,7 @@
                         <a href="{{path('app_home_page')}}" class="w3-bar-item w3-text-gray w3-hover-text-amber"><i class="fa fa-fw fa-user w3-opacity"></i> Profile</a>
                         <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-text-amber w3-hover-text-amber" id="myBtn">Mission<i class="fa fa-caret-down"></i></a>
                             <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">Etat</a>
-                                <a href="#" class="w3-bar-item w3-text-gray w3-hover-text-amber">En cours</a>
+                                <a href="#" class="w3-bar-item w3-text-amber w3-hover-text-amber">Etat</a>
                                 <a href="{{ path('ordreRoute_new_missionnaire', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR</a>
                                 <a href="{{ path('bst_new_or', {id: app.user.matricule}) }}" class="w3-bar-item w3-text-gray w3-hover-text-amber">Demander OR/BST</a>
                             </div>
@@ -537,14 +536,86 @@
                             <h1 class="w3-center">Mission</h1>
                         </div> 
 
+
+                        {% set total = 0 %}
+                        {% set attente = 0 %}
+                        {% set refuse = 0 %}
+                        {% set accepte = 0 %}
+                        {% for nombre in Bse_missionnaire%}
+                            {% set total = total + 1 %}
+                            {% if nombre.etatValidation == 'en_attente' %}
+                                {% set attente = attente + 1 %}
+                            {% endif %}
+                            {% if nombre.etatValidation == 'refuse' %}
+                                {% set refuse = refuse + 1 %}
+                            {% endif %}
+                            {% if nombre.etatValidation == 'accepte' %}
+                                {% set accepte = accepte + 1 %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="w3-row-padding w3-margin-bottom">
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-light-grey w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-comment w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{attente}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>En attente</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-khaki w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-eye w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{refuse}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Refusé</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-yellow w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{accepte}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Accepté</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-amber w3-text-white w3-padding-16">
+                                    <div class="w3-left">
+                                        <i class="fa fa-users w3-xlarge"></i>
+                                    </div>
+                                    <div class="w3-right">
+                                        <h5>{{total}}</h5>
+                                    </div>
+                                    <div class="w3-clear"></div>
+                                    <h6>Total</h6>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="w3-row w3-padding-16" >
                         </div>
-                    </div>
+                    </div><hr>
 
 
                     <!-- Liste des missions -->
                     <div class="w3-container">
+                        {% set total_mission = 0 %}
                         {% for item in Bse_missionnaire %}
+                            {% set total_mission = total_mission + 1 %}
                             <div class=" w3-display-container w3-margin w3-padding w3-panel w3-light-grey ">
                                 <p class="w3-opacity w3-display-topright w3-margin-right">{{item.dateBse | date('d-m-Y')}}</p>
                                 <p class="w3-margin-top">Borderau de saisi des engagements de {{app.user.titre}} {{app.user.nom | upper}} {{app.user.prenom}}, créé le {{item.dateBse | date('d-m-Y')}} à  {{item.lieuBse}}. En raison de {{item.motif}} à {{item.destination }} d'une duree de 
@@ -768,7 +839,10 @@
                                 {###################################}
                             </div>
                         {% endfor %}
-                    </div><hr>
+                        {% if total_mission == 0 %}
+                            <h5>Bonjour {{app.user.prenom | upper }}! Vous pouvez voir l'historique de votre mission ici!</h5>
+                        {% endif %}
+                    </div>
     
                     <!-- Footer -->
                     <footer class="w3-padding-32 w3-light-grey w3-small w3-margin w3-center" id="footer">

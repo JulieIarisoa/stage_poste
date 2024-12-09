@@ -78,7 +78,7 @@
                     <span class="w3-button w3-display-topright">&times;</span>
                 </a>
                 <h4  class="w3-text-amber w3-center w3-padding w3-margin-bottom">
-                    <i class="fa fa-pen w3-opacity"></i> Modification d'un bordereau sans BST
+                    <i class="fa fa-pen w3-opacity"></i>Création d'un ordre de route avec bon spécial de transport
                 </h4>
             </div>
         {{ form_errors(or_bst) }}
@@ -345,10 +345,18 @@
             // Vérifie si la longueur du CIN dépasse 12 caractères
             else if (value.length > 10) {
                 // Limiter à 12 caractères
-                value = value.slice(0, 10);
-                input.value = value; // Met à jour la valeur dans le champ de saisie
                 display.textContent = 'Le numéro téléphone ne depasse pas de 10 chiffres.';
+                value = value.slice(0, 10);
+                display.textContent = 'Valide';
+                input.value = value; // Met à jour la valeur dans le champ de saisie
                 display.style.color = 'red';
+            }
+            // Vérifie si la longueur du CIN dépasse 12 caractères
+            else if (value.length == 10) {
+                // Limiter à 12 caractères
+                display.textContent = 'Valide';
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.style.color = 'green';
             }
             // Vérifie si la longueur du tél dépasse 12 caractères
             else if (value == '') {
