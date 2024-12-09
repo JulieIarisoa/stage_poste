@@ -15,7 +15,7 @@ class CreditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('credit_initial', NumberType::class)
+            ->add('credit_initial', TextType::class)
             ->add('date_renouvellement', DateType::class,[
                 'data'=>new \DateTime(),
                 'attr' => ['readonly' => true],

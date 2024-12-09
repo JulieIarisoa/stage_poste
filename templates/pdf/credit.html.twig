@@ -42,7 +42,7 @@
         {% set soldetot =  0 %}
         {% set restant =  0 %}
         {% for solde in credit %}
-            {% set restant =  restant + soldetot.creditInitial %}
+            {% set soldetot =  soldetot + solde.creditInitial %}
         {% endfor %}
         {% set restant =  soldetot - depenseTotal %}
 
@@ -50,7 +50,7 @@
             <p><b>  Orde de route:</b> .......................................{{depenseOr}} Ariary</p>
             <p><b>  Bon spécial de transport</b> ......................{{depenseOr}} Ariary</p>
             <p><b>  Total: </b> ....................................................{{depenseTotal}} Ariary</p>
-            <p><b>  Solde restant: </b> ....................................................{{restant}} Ariary</p>
+            <p><b>  Solde restant: </b> .......................................{{restant}} Ariary</p>
                         <table>
                             <tr class="w3-light-grey">
                                 <th>Date</th>
@@ -65,6 +65,7 @@
                                 </tr>
                             {% endfor %}
                         </table>
+            <p><b>  Total solde: </b> ....................................................{{soldetot}} Ariary</p>
         
                             </div>
 
