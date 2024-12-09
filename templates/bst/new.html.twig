@@ -48,13 +48,6 @@
     </style>
 </head>
 <body>
-            <!--h1> SOMME depense </h1>
-            <h1> SOMME depense or {#{ depense_or }}</h1>
-            <h1> SOMME depense bst {{ depense_bst }}</h1>
-            <h1> Taux journalier de l'utilisateur {{ Taux }}</h1>
-            <h1> Somme credit {{ sommeCredit }}</h1>
-            <h1> Somme depense {{ depense }}</h1>
-            <h1> restant {{ restant }#}</h1-->
             {% set depense = depense_or + depense_bst %}
             {% set restant = sommeCredit - depense %}
 
@@ -227,6 +220,30 @@
                 display.textContent = 'Veuillez entrer uniquement des lettres.';
                 display.style.color = 'red';
                 btn.setAttribute('disabled', true);
+            }else {// remplace tous les chiffre
+                display.textContent = `Validate ok!`;
+                display.style.color = 'green';
+                btn.removeAttribute('disabled');
+            }
+        }
+
+
+          // Fonction controle le champ Depense
+        function controllerDepense(input) {
+            const btn = document.getElementById('envoyer'); 
+            const display = document.getElementById('validateDepense');
+            let value = input.value.trim(); // Supprime les espaces au début et à la fin
+
+            if (value=='') {
+                display.textContent = 'Veuillez saisir le frais de transport aller/retour !';
+                display.style.color = 'red';
+                btn.setAttribute('disabled', true);
+            }else if (isNaN(value) || /\s/.test(value)) {
+                // Supprime tous les caractères non numériques
+                value = value.replace(/\D|\s/g, ''); // Garde uniquement les chiffres
+                input.value = value; // Met à jour la valeur dans le champ de saisie
+                display.textContent = 'Veuillez entrer uniquement des chiffres.';
+                display.style.color = 'red';
             }else {// remplace tous les chiffre
                 display.textContent = `Validate ok!`;
                 display.style.color = 'green';

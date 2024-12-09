@@ -46,6 +46,7 @@ class BstOrType extends AbstractType
             ->add('prenom_chafeur', TextType::class)
             ->add('tel_transporteur', TextType::class)
             ->add('Coperative', TextType::class)
+            ->add('depense_bst', TextType::class)
             ->add('id_transport', TextType::class);
     }
 
