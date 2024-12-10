@@ -149,7 +149,7 @@
                             {% for user in user %}
                                 <tr>
                                     <td>{{ user.matricule }}</td>
-                                    <td>{{ user.nom }}</td>
+                                    <td>{{ user.nom | upper }}</td>
                                     <td>{{ user.prenom }}</td>
                                     <td>{{ user.fonction }}</td>
                                     <td>{{ user.tauxJournalier }}</td>
@@ -705,7 +705,7 @@
                                     {% for user in user %}
                                         <tr>
                                             <td>{{ user.matricule }}</td>
-                                            <td>{{ user.nom }}</td>
+                                            <td>{{ user.nom | upper }}</td>
                                             <td>{{ user.prenom }}</td>
                                             <td>{{ user.fonction }}</td>
                                             <td>{{ user.tauxJournalier }}</td>
