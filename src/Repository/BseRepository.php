@@ -290,8 +290,9 @@ class BseRepository extends ServiceEntityRepository
             )
             ->where('o.etat_validation = :etat')
             ->andWhere('o.lieu_depart_missionnaire IS NOT NULL')
-            ->andWhere('o.code_postale_payement_or IS NULL')
+            ->andWhere('o.etat_payment_or = :paye')
             ->setParameter('etat', 'accepte')
+            ->setParameter('paye', 'en_attente')
             ->orderBy('o.date_bse', 'ASC');
         try {
             // Récupération des résultats sous forme de tableau

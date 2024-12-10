@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
+<html>
+<head>
         <title>Acceuil</title>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ asset('assets/w3.css')}}">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
@@ -15,21 +15,14 @@
                 align-items: center;
                 display: flex;
                 flex-direction:column;
-                background: #f6f5f7;
                 font-family:'monserrat', sans-serif;
-                min-height: 100%;
                 margin: 5%;
             }
             body, h1, h2, h3, h4, h5, h6 {
                 font-family: "Times New Roman", Times, serif;
             }
             .container{
-                min-height: 350px;
                 background:#fff;
-                border-radius: 10px;
-                padding-left: 4%;
-                padding-right: 4%;
-                padding-top: 2%;
                 overflow: hidden;
                 box-shadow: 0 14px 28px rgba(0,0,0,0.25);
                 display: flex;
@@ -43,9 +36,11 @@
                 margin: 0;
             }
             .logo-paositra{
-                width: 40%;
-                margin-top: 5%;
-                margin-bottom: 8%;
+                width: 150px;
+                margin-bottom: 100px;
+                margin-right: 80px;
+                margin-left: 80px;
+                margin-top: 20px;
             }
             button{
                 padding: 8px 15px;
@@ -58,7 +53,11 @@
             button:active{
                 transform: scale(0.90);
             }
-            
+            .logo{
+                width: 8%;
+                margin-right: 4%;
+                margin-top: 2%;
+            }
             @media(max-width:1050px){
                 .logo-paositra, .info{
                     display: none;
@@ -66,40 +65,59 @@
             }
         </style>
     </head>
+</head>
+<body>
 
-    <body>
-        <div class="w3-container w3-center w3-animate-zoom w3-mobile">
-            <div class="container">
-                <form method="post">
-                    <h2 class="h4 mb-3 font-weight-normal">Connexion</h2>
-                    {% if error %}
-                        <div class="w3-text-red">Mot de passe ou email incorrecte{#{ error.messageKey|trans(error.messageData, 'security') }#}</div>
-                    {% endif %}
+<!-- Side Navigation -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button" onclick="w3_close()">Close <i class="fa fa-remove"></i></button>
+</nav>
 
-                    <label id="label1">Email:</label>
-                    <input type="email" id="input1" placeholder="Entrer votre email" value="{{ last_username }}" name="email" class="w3-input" autocomplete="email" required autofocus  onfocus="handleFocus('input1', 'label1')" onblur="handleBlur('input1', 'label1')">
+<!-- Header -->
+            <img src="{{ asset('images/logo.png') }}" alt="logo-paositra-malagasy" class="w3-display-topright logo">
+<header class="w3-container w3-theme w3-padding" id="myHeader">
+  <i onclick="w3_open()" class="fa fa-bars w3-large w3-button w3-theme"></i> 
+  <div class="w3-center">
+  <h4 class=" w3-text-amber">GESTION AVANCES AUTORISEES</h4>
+  <h1 class="w3-xxxlarge w3-animate-bottom w3-text-dark-gray">DIRPM FIANARANTSOA</h1>
+  <p class=" w3-text-black">Direction Inter-Régional de la Paositra Malagasy Fianarantsoa</p>
+    <div class="w3-padding-32">
+      <button class="w3-button w3-white w3-hover-amber w3-hover-text-white w3-text-amber w3-border w3-border-amber w3-round-large" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">SE CONNECTER</button>
+    </div>
+  </div>
+</header>
 
-                    <label id="label2">Password:</label>
-                    <input type="password"id="input2" name="password" placeholder= "Entrer votre mot de pass" class="w3-input" autocomplete="current-password" required onfocus="handleFocus('input2', 'label2')" onblur="handleBlur('input2', 'label2')">
-
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
-
-                    <div class="w3-margin">
-                            <a href="{{path('app_forgot_password_request')}}">Mot de pass oublié?</a>
-                    </div>
-                    <button type="submit" class="w3-yellow w3-round-large w3-medium ">Se connecter</button>
-                </form>
-
-                <div class="info">
-                    <img src="{{ asset('images/logo.png') }}" alt="logo-paositra-malagasy" class="logo-paositra">
-                    {% if app.user %}
-                        <p>
-                            Vous êtes connecter en <br>{{ app.user.userIdentifier }}<br>
-                            <a href="{{ path('app_logout') }}"><button type="submit" class="w3-yellow w3-round-large w3-medium "> Deconnecter </button></a>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
+<!-- Modal -->
+<div id="id01" class="w3-modal">
+    <div class="w3-display-topmiddle w3-card-4 w3-white w3-animate-top w3-half  w3-border w3-round-large">
+      <header class="w3-container w3-theme-l1"> 
+        <span onclick="document.getElementById('id01').style.display='none'"
+        class="w3-button w3-display-topright">×</span>
+        <div class="w3-container w3-cell w3-mobile w3-margin">
+            <img src="{{ asset('images/logo.png') }}" alt="logo-paositra-malagasy" class="logo-paositra">
         </div>
-    </body>
-</html>
+        <div class="w3-cell w3-mobile">
+            <form method="post">
+                <h2 class="h4 mb-3 font-weight-normal w3-center w3-text-indigo w3-margin">Connexion</h2>
+                {% if error %}
+                    <div class="w3-text-red">Mot de passe ou email incorrecte{#{ error.messageKey|trans(error.messageData, 'security') }#}</div>
+                {% endif %}
+
+                <label id="label1">Email:</label>
+                <input type="email" id="input1" placeholder="Entrer votre email" value="{{ last_username }}" name="email" class="w3-input" autocomplete="email" required autofocus  onfocus="handleFocus('input1', 'label1')" onblur="handleBlur('input1', 'label1')">
+
+                <label id="label2">Password:</label>
+                <input type="password"id="input2" name="password" placeholder= "Entrer votre mot de passe" class="w3-input" autocomplete="current-password" required onfocus="handleFocus('input2', 'label2')" onblur="handleBlur('input2', 'label2')">
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+
+                <div class="w3-margin">
+                    <a href="{{path('app_forgot_password_request')}}">Mot de pass oublié?</a>
+                </div>
+                <button type="submit" class="w3-button w3-white w3-hover-indigo w3-hover-text-white w3-text-indigo w3-border w3-border-indigo w3-round-large w3-right" >Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

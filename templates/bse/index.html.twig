@@ -148,7 +148,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-light-grey w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
+                                        <i class="fas fa-hourglass-half"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{attente}}</h5>
@@ -160,7 +160,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-khaki w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
+                                        <i class="fa  fa-ban"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{refuse}}</h5>
@@ -172,7 +172,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-yellow w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                        <i class="fas fa-check"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{accepte}}</h5>
@@ -184,7 +184,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-amber w3-text-white w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
+                                        <i class="fa fa-asterisk"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{total}}</h5>
@@ -556,7 +556,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-light-grey w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
+                                        <i class="fas fa-hourglass-half"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{attente}}</h5>
@@ -568,7 +568,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-khaki w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
+                                        <i class="fa  fa-ban"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{refuse}}</h5>
@@ -580,7 +580,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-yellow w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                        <i class="fa-check"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{accepte}}</h5>
@@ -592,7 +592,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-amber w3-text-white w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
+                                        <i class="fa fa-asterisk"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{total}}</h5>
@@ -756,7 +756,7 @@
                                     {% elseif item.etatValidation == 'accepte'%}
 
                                         {# avec BST et validé et bst non payé #}
-                                        {% if item.codePostalePaymentBst == 'en_attente' %}
+                                        {% if item.etatPaymentBst == 'en_attente' %}
                                             <div class="w3-cell-row">
                                                 <div class="w3-container w3-cell w3-mobile">
                                                     <span class="w3-green">Accepté</span>
@@ -962,7 +962,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-light-grey w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
+                                        <i class="fas fa-hourglass-half"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{attente}}</h5>
@@ -974,7 +974,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-khaki w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
+                                        <i class="fa  fa-ban"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{refuse}}</h5>
@@ -985,8 +985,8 @@
                             </div>
                             <div class="w3-quarter">
                                 <div class="w3-container w3-yellow w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                    <div class="w3-left">                                        
+                                        <i class="fas fa-check"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{accepte}}</h5>
@@ -998,7 +998,7 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-amber w3-text-white w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
+                                        <i class="fa fa-asterisk"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{total}}</h5>
@@ -1156,7 +1156,7 @@
                                     {% elseif item.etat_validation == 'accepte'%}
 
                                         {# avec BST et validé et bst non payé #}
-                                        {% if item.code_postale_payment_bst == null %}
+                                        {% if item.etat_payment_bst == "en_attente" %}
                                             <div class="w3-cell-row">
                                                 <div class="w3-container w3-cell w3-mobile">
                                                     <span class="w3-green">Accepté</span>

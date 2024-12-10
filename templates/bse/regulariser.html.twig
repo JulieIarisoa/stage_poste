@@ -146,33 +146,9 @@
 
                         <div class="w3-row-padding w3-margin-bottom">
                             <div class="w3-quarter">
-                                <div class="w3-container w3-light-grey w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{attente}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>En attente</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-khaki w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{refuse}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>Refusé</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
                                 <div class="w3-container w3-yellow w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                        <i class="fas fa-check"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{accepte}}</h5>
@@ -184,13 +160,25 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-amber w3-text-white w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
+                                        <i class="fa fa-asterisk"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{total}}</h5>
                                     </div>
                                     <div class="w3-clear"></div>
                                     <h6>Total</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-light-grey w3-padding-16">
+                                    BSE 6 mois</br>
+                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right " href="{{ path('pdf_allRapportmois') }}">Imprimer </a>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-khaki w3-padding-16">
+                                    BSE 1 mois</br>
+                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right " href="{{ path('pdf_etatBse6mois') }}">Imprimer </a>
                                 </div>
                             </div>
                         </div>
@@ -545,33 +533,9 @@
 
                         <div class="w3-row-padding w3-margin-bottom">
                             <div class="w3-quarter">
-                                <div class="w3-container w3-light-grey w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-comment w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{attente}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>En attente</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
-                                <div class="w3-container w3-khaki w3-padding-16">
-                                    <div class="w3-left">
-                                        <i class="fa fa-eye w3-xlarge"></i>
-                                    </div>
-                                    <div class="w3-right">
-                                        <h5>{{refuse}}</h5>
-                                    </div>
-                                    <div class="w3-clear"></div>
-                                    <h6>Refusé</h6>
-                                </div>
-                            </div>
-                            <div class="w3-quarter">
                                 <div class="w3-container w3-yellow w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-share-alt w3-xlarge"></i>
+                                        <i class="fas fa-check"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{accepte}}</h5>
@@ -583,13 +547,25 @@
                             <div class="w3-quarter">
                                 <div class="w3-container w3-amber w3-text-white w3-padding-16">
                                     <div class="w3-left">
-                                        <i class="fa fa-users w3-xlarge"></i>
+                                        <i class="fa fa-asterisk"></i>
                                     </div>
                                     <div class="w3-right">
                                         <h5>{{total}}</h5>
                                     </div>
                                     <div class="w3-clear"></div>
                                     <h6>Total</h6>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-light-grey w3-padding-16">
+                                    BSE 6 mois</br>
+                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right " href="{{ path('pdf_allRapportmois') }}">Imprimer </a>
+                                </div>
+                            </div>
+                            <div class="w3-quarter">
+                                <div class="w3-container w3-khaki w3-padding-16">
+                                    BSE 1 mois</br>
+                                    <a class="w3-button w3-white w3-hover-amber w3-hover-text-black w3-text-amber w3-border w3-border-amber w3-round-large w3-right " href="{{ path('pdf_etatBse6mois') }}">Imprimer </a>
                                 </div>
                             </div>
                         </div>
